@@ -6,12 +6,6 @@ body {
   font-family: "Sofia Sans", sans-serif;
 }
 
-ul,
-li {
-  margin: 0;
-  padding: 0;
-}
-
 .wrapper {
   display: grid;
   gap: calc(0.5rem + 1vi);
@@ -34,7 +28,6 @@ li {
 }
 
 .type {
-  position: relative;
   font-size: calc(1.8rem + 1vi);
   text-transform: uppercase;
 }
