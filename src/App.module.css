@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Lemon&family=Sofia+Sans:wght@300;400&display=swap");
+
+body {
+  display: grid;
+  place-content: center;
+  font-family: "Sofia Sans", sans-serif;
+}
+
+ul,
+li {
+  margin: 0;
+  padding: 0;
+}
+
+.wrapper {
+  display: grid;
+  gap: calc(0.5rem + 1vi);
+  margin: 2rem;
+}
+
+.sessions {
+  font-size: calc(1rem + 1vi);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1em;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0.4em;
+}
+
+.type {
+  position: relative;
+  font-size: calc(1.8rem + 1vi);
+  text-transform: uppercase;
+}
+
+.cycles {
+  font-weight: lighter;
+  font-size: calc(0.8rem + 1vi);
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+}
+
+.button {
+  font-size: calc(1rem + 1vi);
+  background: none;
+  border: 0.18rem solid black;
+  padding: 0.3em 1.1em;
+  border-radius: 5rem;
+  cursor: pointer;
+}
+
+.button:active {
+  transform: translateY(0.063rem);
+}
