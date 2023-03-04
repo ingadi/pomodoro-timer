@@ -1,24 +1,22 @@
+import { useState } from "react";
 import Session from "@components/Session";
 import styles from "./App.module.css";
 
-const upcomingSessions = [
-  { duration: "15:00", type: "short-break" },
-  { duration: "30:00", type: "long-break" },
-];
-
 export default function App() {
+  const [currentSessionId, setCurrentSessionId] = useState(0);
+  const [cycleCount, setCycleCount] = useState(0);
+  const { duration, type } = sessions[currentSessionId];
+  const upcomingSessions = sessions.filter((_, id) => id !== currentSessionId);
+
   return (
     <section className={styles.wrapper}>
-      <h1 className={styles.title}>
-        <span
-          className={`${styles.type} ${styles["super-icon"]} ${styles["work"]} `}
-        >
-          Work
-        </span>
-        <span className={styles.cycles}>4 cycles</span>
-      </h1>
+      <header className={styles.header}>
+        <h1 className={styles.title}>{type}</h1>
+        <p className={styles.cycles}>{cycleCount} cycles</p>
+      </header>
+
       <section className={styles.sessions}>
-        <Session duration="45:00" type="work" isActive={true} />
+        <Session duration={duration} type={type} isActive={true} />
         <div>
           {upcomingSessions.map(({ duration, type }, idx) => (
             <Session
@@ -31,9 +29,31 @@ export default function App() {
         </div>
       </section>
       <div className={styles.controls}>
-        <button className={styles.button}>Start</button>
-        <button className={styles.button}>Stop</button>
+        <div className={styles.buttons}>
+          <button className={styles.button}>Start</button>
+          <button className={styles.button}>Stop</button>
+        </div>
+        <div className={styles["toggle-wrapper"]}>
+          <span className={styles["toggle-label"]}>Auto start</span>
+          <input
+            className={`${styles.tgl} ${styles["tgl-skewed"]}`}
+            id="cb3-8"
+            type="checkbox"
+          />
+          <label
+            className={styles["tgl-btn"]}
+            data-tg-off="OFF"
+            data-tg-on="ON"
+            htmlFor="cb3-8"
+          ></label>
+        </div>
       </div>
     </section>
   );
 }
+
+const sessions = [
+  { duration: "45:00", type: "work" },
+  { duration: "15:00", type: "short-break" },
+  { duration: "30:00", type: "long-break" },
+];
