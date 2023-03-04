@@ -30,21 +30,21 @@ export default function App() {
       </section>
       <div className={styles.controls}>
         <div className={styles.buttons}>
-          <button className={styles.button}>Start</button>
-          <button className={styles.button}>Stop</button>
+          <button className={styles.button}>Begin</button>
+          <button className={styles.button}>End</button>
         </div>
         <div className={styles["toggle-wrapper"]}>
           <span className={styles["toggle-label"]}>Auto start</span>
           <input
             className={`${styles.tgl} ${styles["tgl-skewed"]}`}
-            id="cb3-8"
+            id="cb"
             type="checkbox"
           />
           <label
             className={styles["tgl-btn"]}
             data-tg-off="OFF"
             data-tg-on="ON"
-            htmlFor="cb3-8"
+            htmlFor="cb"
           ></label>
         </div>
       </div>
