@@ -16,7 +16,7 @@ export default function Session({ duration, type, isActive }: Props) {
             className={styles.input}
             value={timerValue}
             type="text"
-            onChange={(e) => setTimerValue(e.target.value)}
+            onChange={(e) => setTimerValue(e.target.valueAsNumber)}
             autoFocus={true}
           />
           <div className={styles.controls}>
@@ -40,7 +40,7 @@ export default function Session({ duration, type, isActive }: Props) {
 }
 
 type Props = {
-  duration: string;
+  duration: number;
   type: string;
   isActive: boolean;
 };

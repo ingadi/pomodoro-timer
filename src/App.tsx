@@ -1,12 +1,37 @@
 import { useState } from "react";
 import Session from "@components/Session";
+import { useTimer } from "@hooks/useTimer";
 import styles from "./App.module.css";
 
 export default function App() {
   const [currentSessionId, setCurrentSessionId] = useState(0);
   const [cycleCount, setCycleCount] = useState(0);
   const { duration, type } = sessions[currentSessionId];
+  const [isSessionActive, setIsSessionActive] = useState(false);
   const upcomingSessions = sessions.filter((_, id) => id !== currentSessionId);
+  const [currentTimer, setCurrentTimer] = useState(duration);
+  useTimer(isSessionActive, onTick);
+
+  function onTick() {
+    setCurrentTimer((ct) => ct - 1);
+  }
+
+  function handleStartTimer() {
+    if (isSessionActive) return;
+    setIsSessionActive(true);
+  }
+
+  function handlePauseTimer() {
+    if (!isSessionActive) return;
+    setIsSessionActive(false);
+  }
+
+  function handleEndSession() {
+    // TODO: Can only reset work if not work and next is checked we need to proceed to work
+    if (!isSessionActive) return;
+    setCurrentTimer(duration);
+    setIsSessionActive(false);
+  }
 
   return (
     <section className={styles.wrapper}>
@@ -16,7 +41,7 @@ export default function App() {
       </header>
 
       <section className={styles.sessions}>
-        <Session duration={duration} type={type} isActive={true} />
+        <Session duration={currentTimer} type={type} isActive={true} />
         <div>
           {upcomingSessions.map(({ duration, type }, idx) => (
             <Session
@@ -30,8 +55,19 @@ export default function App() {
       </section>
       <div className={styles.controls}>
         <div className={styles.buttons}>
-          <button className={styles.button}>Begin</button>
-          <button className={styles.button}>End</button>
+          {!isSessionActive ? (
+            <button onClick={handleStartTimer} className={styles.button}>
+              {currentTimer < duration ? "Continue" : "Start"}
+            </button>
+          ) : (
+            <button onClick={handlePauseTimer} className={styles.button}>
+              Pause
+            </button>
+          )}
+
+          <button onClick={handleEndSession} className={styles.button}>
+            End
+          </button>
         </div>
         <div className={styles["toggle-wrapper"]}>
           <span className={styles["toggle-label"]}>Auto start</span>
@@ -53,7 +89,7 @@ export default function App() {
 }
 
 const sessions = [
-  { duration: "45:00", type: "work" },
-  { duration: "15:00", type: "short-break" },
-  { duration: "30:00", type: "long-break" },
+  { duration: 2700, type: "work" },
+  { duration: 900, type: "short-break" },
+  { duration: 1800, type: "long-break" },
 ];
