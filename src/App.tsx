@@ -28,6 +28,8 @@ export default function App() {
       return;
     }
 
+    type === "work" && setCycleCount(cycleCount + 1);
+
     handleNextSession();
 
     // add chimes
