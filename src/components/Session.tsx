@@ -8,7 +8,11 @@ export default function Session({ duration, type, isActive }: Props) {
 
   return (
     <article className={`${styles.session} ${isActive ? styles.active : ""}`}>
-      {!isEditing && <span onClick={() => setIsEditing(true)}>{duration}</span>}
+      {!isEditing && (
+        <span onClick={() => setIsEditing(true)}>
+          {toformattedMinsSecs(duration)}
+        </span>
+      )}
       {isEditing && (
         <>
           <input
@@ -37,6 +41,12 @@ export default function Session({ duration, type, isActive }: Props) {
       )}
     </article>
   );
+}
+
+function toformattedMinsSecs(totalSeconds: number) {
+  const minutes = `${Math.floor(totalSeconds / 60)}`;
+  const seconds = `${totalSeconds % 60}`;
+  return `${minutes.padStart(2, "0")}:${seconds.padStart(2, "0")}`;
 }
 
 type Props = {
