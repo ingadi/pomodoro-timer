@@ -4,19 +4,40 @@ import { useTimer } from "@hooks/useTimer";
 import styles from "./App.module.css";
 
 export default function App() {
-  const [currentSessionId, setCurrentSessionId] = useState(0);
+  const [currentSessionType, setCurrentSessionType] = useState("work");
   const [cycleCount, setCycleCount] = useState(0);
-  const { duration, type } = sessions[currentSessionId];
+
+  const { duration, type } = sessions.get(currentSessionType)!;
+
   const [isSessionActive, setIsSessionActive] = useState(false);
-  const upcomingSessions = sessions.filter((_, id) => id !== currentSessionId);
+
+  const upcomingSessions = [...sessions.values()].filter(
+    ({ type: t }) => t !== type
+  );
+
+  // const [upcomingSessions, setUpcomingSessions] = useState(
+  //   [...sessions.values()].filter(({ type: t }) => t !== type)
+  // );
+
   const [currentTimer, setCurrentTimer] = useState(duration);
-  // const [isEditing, setIsEditing] = useState(false);
   const [isAutoNextEnabled, setIsAutoNextEnabled] = useState(false);
+  // const [isEditing, setIsEditing] = useState(false);
 
   useTimer(isSessionActive, onTick);
 
   function onTick() {
-    setCurrentTimer((ct) => ct - 1);
+    if (currentTimer > 0) {
+      setCurrentTimer((ct) => ct - 1);
+      return;
+    }
+
+    const nextSession = getNextSession(type, cycleCount, sessions);
+
+    setCurrentSessionType(nextSession.type);
+    setCurrentTimer(nextSession.duration);
+    !isAutoNextEnabled && setIsSessionActive(false);
+
+    // add chimes
   }
 
   function handleStartTimer() {
@@ -31,7 +52,6 @@ export default function App() {
 
   function handleEndSession() {
     // TODO: Can only reset work if not work and next is checked we need to proceed to work
-    if (!isSessionActive) return;
     setCurrentTimer(duration);
     setIsSessionActive(false);
   }
@@ -40,7 +60,10 @@ export default function App() {
     <section className={styles.wrapper}>
       <header className={styles.header}>
         <h1 className={styles.title}>{type}</h1>
-        <p className={styles.cycles}>{cycleCount} / &infin; cycles</p>
+        <label className={styles.cycles}>
+          {cycleCount} / <span> &infin; cycles</span>
+          {/* <input type="text" /> */}
+        </label>
       </header>
 
       <section className={styles.sessions}>
@@ -80,29 +103,61 @@ export default function App() {
             End
           </button>
         </div>
-        <div className={styles["toggle-wrapper"]}>
-          <span className={styles["toggle-label"]}>Auto next</span>
-          <input
-            className={`${styles.tgl} ${styles["tgl-skewed"]}`}
-            id="cb"
-            type="checkbox"
-            checked={isAutoNextEnabled}
-            onChange={() => setIsAutoNextEnabled(!isAutoNextEnabled)}
-          />
-          <label
-            className={styles["tgl-btn"]}
-            data-tg-off="OFF"
-            data-tg-on="ON"
-            htmlFor="cb"
-          ></label>
+        <div>
+          <label className={styles["text-controls"]} htmlFor="">
+            Long break every
+            <span> 4 cycles</span>
+            {/* <input type="text" /> */}
+          </label>
+          <div className={styles["toggle-wrapper"]}>
+            <span className={styles["toggle-label"]}>Auto next</span>
+            <input
+              className={`${styles.tgl} ${styles["tgl-skewed"]}`}
+              id="cb"
+              type="checkbox"
+              checked={isAutoNextEnabled}
+              onChange={() => setIsAutoNextEnabled(!isAutoNextEnabled)}
+            />
+            <label
+              className={styles["tgl-btn"]}
+              data-tg-off="OFF"
+              data-tg-on="ON"
+              htmlFor="cb"
+            ></label>
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-const sessions = [
-  { duration: 2700, type: "work" },
-  { duration: 900, type: "short-break" },
-  { duration: 1800, type: "long-break" },
-];
+function getNextSession(
+  sessionType: string,
+  cycleCount: number,
+  sessions: Map<
+    string,
+    {
+      duration: number;
+      type: string;
+    }
+  >
+) {
+  let nextSession;
+
+  if (sessionType === "work") {
+    nextSession =
+      cycleCount < 4
+        ? sessions.get("short break")!
+        : sessions.get("long break")!;
+  } else {
+    nextSession = sessions.get("work")!;
+  }
+
+  return nextSession;
+}
+
+const sessions = new Map<string, { duration: number; type: string }>([
+  ["work", { duration: 10, type: "work" }],
+  ["short break", { duration: 900, type: "short break" }],
+  ["long break", { duration: 1800, type: "long break" }],
+]);

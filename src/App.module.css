@@ -43,7 +43,7 @@ body {
 .controls {
   display: flex;
   flex-direction: column;
-  gap: 2em;
+  gap: 1em;
   text-align: center;
 }
 
@@ -66,6 +66,12 @@ body {
   transform: translateY(0.063rem);
 }
 
+.text-controls {
+  display: block;
+  margin-block: 1rem;
+  font-size: calc(0.8rem + 1vi);
+}
+
 /* toggle styles */
 
 .toggle-wrapper {
@@ -76,7 +82,7 @@ body {
 }
 
 .toggle-label {
-  font-size: calc(0.6rem + 1vi);
+  font-size: calc(0.8rem + 1vi);
 }
 
 .toggle-wrapper .tgl {
