@@ -11,13 +11,10 @@ export default function App() {
 
   const [isSessionActive, setIsSessionActive] = useState(false);
 
+  // TODO: order sessions appropriately
   const upcomingSessions = [...sessions.values()].filter(
     ({ type: t }) => t !== type
   );
-
-  // const [upcomingSessions, setUpcomingSessions] = useState(
-  //   [...sessions.values()].filter(({ type: t }) => t !== type)
-  // );
 
   const [currentTimer, setCurrentTimer] = useState(duration);
   const [isAutoNextEnabled, setIsAutoNextEnabled] = useState(false);
@@ -31,11 +28,7 @@ export default function App() {
       return;
     }
 
-    const nextSession = getNextSession(type, cycleCount, sessions);
-
-    setCurrentSessionType(nextSession.type);
-    setCurrentTimer(nextSession.duration);
-    !isAutoNextEnabled && setIsSessionActive(false);
+    handleNextSession();
 
     // add chimes
   }
@@ -50,10 +43,23 @@ export default function App() {
     setIsSessionActive(false);
   }
 
+  function handleNextSession(nextSessionType?: string) {
+    const nextSession = nextSessionType
+      ? sessions.get(nextSessionType)!
+      : getNextSession(type, cycleCount, sessions);
+
+    setCurrentSessionType(nextSession.type);
+    setCurrentTimer(nextSession.duration);
+    !isAutoNextEnabled && setIsSessionActive(false);
+  }
+
   function handleEndSession() {
-    // TODO: Can only reset work if not work and next is checked we need to proceed to work
-    setCurrentTimer(duration);
-    setIsSessionActive(false);
+    if (type === "work") {
+      setCurrentTimer(duration);
+      setIsSessionActive(false);
+    } else {
+      handleNextSession("work");
+    }
   }
 
   return (
