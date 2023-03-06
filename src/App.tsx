@@ -2,6 +2,8 @@ import { useState } from "react";
 import Session from "@components/Session";
 import { useTimer } from "@hooks/useTimer";
 import styles from "./App.module.css";
+import { useWindowSize } from "@hooks/useWindowSize";
+import Confetti from "react-confetti";
 
 export default function App() {
   const [currentSessionType, setCurrentSessionType] = useState("work");
@@ -16,7 +18,11 @@ export default function App() {
 
   const [cyclesToLongBreak, setCyclesToLongBreak] = useState(4);
 
-  const [cycleCountGoal, setCycleCountGoal] = useState(Infinity);
+  const [cycleCountGoal, setCycleCountGoal] = useState(2);
+
+  const [showConfetti, setShowConfetti] = useState(false);
+
+  const { width, height } = useWindowSize();
 
   // TODO: order sessions appropriately
   const upcomingSessions = [...sessions.values()].filter(
@@ -43,6 +49,7 @@ export default function App() {
   function handleStartTimer() {
     if (isSessionActive) return;
     setIsSessionActive(true);
+    setShowConfetti(false);
   }
 
   function handlePauseTimer() {
@@ -55,15 +62,18 @@ export default function App() {
       ? sessions.get(nextSessionType)!
       : getNextSession(type, cycleCount, sessions);
 
+    const cycleGoalAchieved = cycleCount >= cycleCountGoal;
+
     setCurrentSessionType(nextSession.type);
     setCurrentTimer(nextSession.duration);
     // !isAutoNextEnabled && setIsSessionActive(false);
 
     (!isAutoNextEnabled ||
-      (nextSession.type === "work" && cycleCount >= cycleCountGoal)) &&
+      (nextSession.type === "work" && cycleGoalAchieved)) &&
       setIsSessionActive(false);
 
-    // confetti on achieving goal
+    //TODO: fix confetti
+    cycleGoalAchieved && setShowConfetti(true);
 
     // const chime = nextSession.type === "work" ? breakEndChime : breakEndChime;
     // chime.load();
@@ -80,83 +90,86 @@ export default function App() {
   }
 
   return (
-    <section className={styles.wrapper}>
-      <header className={styles.header}>
-        <h1 className={styles.title}>{type}</h1>
-        <label className={styles.cycles}>
-          {cycleCount} /{" "}
-          <span>
-            <b className={styles["cycle-goal"]}>
-              {cycleCountGoal === Infinity ? "Ꝏ" : cycleCountGoal}
-            </b>{" "}
-            cycles
-          </span>
-          {/* <input type="text" /> */}
-        </label>
-      </header>
-
-      <section className={styles.sessions}>
-        <Session
-          duration={currentTimer}
-          type={type}
-          isActive={true}
-          // isEditing={isEditing}
-          // onEdit={(isEditing) => setIsEditing(isEditing)}
-        />
-        <div>
-          {upcomingSessions.map(({ duration, type }, idx) => (
-            <Session
-              key={idx}
-              duration={duration}
-              type={type}
-              isActive={false}
-              // isEditing={isEditing}
-              // onEdit={(isEditing) => setIsEditing(isEditing)}
-            />
-          ))}
-        </div>
-      </section>
-      <div className={styles.controls}>
-        <div className={styles.buttons}>
-          {!isSessionActive ? (
-            <button onClick={handleStartTimer} className={styles.button}>
-              {currentTimer < duration ? "Continue" : "Start"}
-            </button>
-          ) : (
-            <button onClick={handlePauseTimer} className={styles.button}>
-              Pause
-            </button>
-          )}
-
-          <button onClick={handleEndSession} className={styles.button}>
-            End
-          </button>
-        </div>
-        <div>
-          <label className={styles["text-controls"]} htmlFor="">
-            Long break every
-            <span> {cyclesToLongBreak} cycles</span>
+    <>
+      {showConfetti && <Confetti width={width} height={height} />}
+      <section className={styles.wrapper}>
+        <header className={styles.header}>
+          <h1 className={styles.title}>{type}</h1>
+          <label className={styles.cycles}>
+            {cycleCount} /{" "}
+            <span>
+              <b className={styles["cycle-goal"]}>
+                {cycleCountGoal === Infinity ? "Ꝏ" : cycleCountGoal}
+              </b>{" "}
+              cycles
+            </span>
             {/* <input type="text" /> */}
           </label>
-          <div className={styles["toggle-wrapper"]}>
-            <span className={styles["toggle-label"]}>Auto next</span>
-            <input
-              className={`${styles.tgl} ${styles["tgl-skewed"]}`}
-              id="cb"
-              type="checkbox"
-              checked={isAutoNextEnabled}
-              onChange={() => setIsAutoNextEnabled(!isAutoNextEnabled)}
-            />
-            <label
-              className={styles["tgl-btn"]}
-              data-tg-off="OFF"
-              data-tg-on="ON"
-              htmlFor="cb"
-            ></label>
+        </header>
+
+        <section className={styles.sessions}>
+          <Session
+            duration={currentTimer}
+            type={type}
+            isActive={true}
+            // isEditing={isEditing}
+            // onEdit={(isEditing) => setIsEditing(isEditing)}
+          />
+          <div>
+            {upcomingSessions.map(({ duration, type }, idx) => (
+              <Session
+                key={idx}
+                duration={duration}
+                type={type}
+                isActive={false}
+                // isEditing={isEditing}
+                // onEdit={(isEditing) => setIsEditing(isEditing)}
+              />
+            ))}
+          </div>
+        </section>
+        <div className={styles.controls}>
+          <div className={styles.buttons}>
+            {!isSessionActive ? (
+              <button onClick={handleStartTimer} className={styles.button}>
+                {currentTimer < duration ? "Continue" : "Start"}
+              </button>
+            ) : (
+              <button onClick={handlePauseTimer} className={styles.button}>
+                Pause
+              </button>
+            )}
+
+            <button onClick={handleEndSession} className={styles.button}>
+              End
+            </button>
+          </div>
+          <div>
+            <label className={styles["text-controls"]} htmlFor="">
+              Long break every
+              <span> {cyclesToLongBreak} cycles</span>
+              {/* <input type="text" /> */}
+            </label>
+            <div className={styles["toggle-wrapper"]}>
+              <span className={styles["toggle-label"]}>Auto next</span>
+              <input
+                className={`${styles.tgl} ${styles["tgl-skewed"]}`}
+                id="cb"
+                type="checkbox"
+                checked={isAutoNextEnabled}
+                onChange={() => setIsAutoNextEnabled(!isAutoNextEnabled)}
+              />
+              <label
+                className={styles["tgl-btn"]}
+                data-tg-off="OFF"
+                data-tg-on="ON"
+                htmlFor="cb"
+              ></label>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
 
