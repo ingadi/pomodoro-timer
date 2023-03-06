@@ -14,7 +14,9 @@ export default function App() {
   const [currentTimer, setCurrentTimer] = useState(duration);
   const [isAutoNextEnabled, setIsAutoNextEnabled] = useState(false);
 
-  const [cycleCountGoal, setCycleCountGoal] = useState(2);
+  const [cyclesToLongBreak, setCyclesToLongBreak] = useState(4);
+
+  const [cycleCountGoal, setCycleCountGoal] = useState(Infinity);
 
   // TODO: order sessions appropriately
   const upcomingSessions = [...sessions.values()].filter(
@@ -60,6 +62,8 @@ export default function App() {
     (!isAutoNextEnabled ||
       (nextSession.type === "work" && cycleCount >= cycleCountGoal)) &&
       setIsSessionActive(false);
+
+    // confetti on achieving goal
 
     // const chime = nextSession.type === "work" ? breakEndChime : breakEndChime;
     // chime.load();
@@ -131,7 +135,7 @@ export default function App() {
         <div>
           <label className={styles["text-controls"]} htmlFor="">
             Long break every
-            <span> 4 cycles</span>
+            <span> {cyclesToLongBreak} cycles</span>
             {/* <input type="text" /> */}
           </label>
           <div className={styles["toggle-wrapper"]}>
