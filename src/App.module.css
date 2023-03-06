@@ -72,6 +72,10 @@ body {
   font-size: calc(0.8rem + 1vi);
 }
 
+.cycle-goal {
+  font-size: smaller;
+}
+
 /* toggle styles */
 
 .toggle-wrapper {

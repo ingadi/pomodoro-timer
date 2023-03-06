@@ -11,13 +11,16 @@ export default function App() {
 
   const [isSessionActive, setIsSessionActive] = useState(false);
 
+  const [currentTimer, setCurrentTimer] = useState(duration);
+  const [isAutoNextEnabled, setIsAutoNextEnabled] = useState(false);
+
+  const [cycleCountGoal, setCycleCountGoal] = useState(2);
+
   // TODO: order sessions appropriately
   const upcomingSessions = [...sessions.values()].filter(
     ({ type: t }) => t !== type
   );
 
-  const [currentTimer, setCurrentTimer] = useState(duration);
-  const [isAutoNextEnabled, setIsAutoNextEnabled] = useState(false);
   // const [isEditing, setIsEditing] = useState(false);
 
   useTimer(isSessionActive, onTick);
@@ -52,7 +55,11 @@ export default function App() {
 
     setCurrentSessionType(nextSession.type);
     setCurrentTimer(nextSession.duration);
-    !isAutoNextEnabled && setIsSessionActive(false);
+    // !isAutoNextEnabled && setIsSessionActive(false);
+
+    (!isAutoNextEnabled ||
+      (nextSession.type === "work" && cycleCount >= cycleCountGoal)) &&
+      setIsSessionActive(false);
 
     // const chime = nextSession.type === "work" ? breakEndChime : breakEndChime;
     // chime.load();
@@ -73,7 +80,13 @@ export default function App() {
       <header className={styles.header}>
         <h1 className={styles.title}>{type}</h1>
         <label className={styles.cycles}>
-          {cycleCount} / <span> &infin; cycles</span>
+          {cycleCount} /{" "}
+          <span>
+            <b className={styles["cycle-goal"]}>
+              {cycleCountGoal === Infinity ? "Ꝏ" : cycleCountGoal}
+            </b>{" "}
+            cycles
+          </span>
           {/* <input type="text" /> */}
         </label>
       </header>
@@ -169,10 +182,10 @@ function getNextSession(
 }
 
 const sessions = new Map<string, { duration: number; type: string }>([
-  ["work", { duration: 10, type: "work" }],
-  ["short break", { duration: 900, type: "short break" }],
+  ["work", { duration: 5, type: "work" }],
+  ["short break", { duration: 5, type: "short break" }],
   ["long break", { duration: 1800, type: "long break" }],
 ]);
 
-const breakStartChime = new Audio();
-const breakEndChime = new Audio();
+// const breakStartChime = new Audio();
+// const breakEndChime = new Audio();
