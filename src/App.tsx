@@ -16,7 +16,7 @@ export default function App() {
   const [currentTimer, setCurrentTimer] = useState(duration);
   const [isAutoNextEnabled, setIsAutoNextEnabled] = useState(false);
 
-  const [cyclesToLongBreak, setCyclesToLongBreak] = useState(4);
+  const [cyclesToLongBreak, setCyclesToLongBreak] = useState(1);
 
   const [cycleCountGoal, setCycleCountGoal] = useState(2);
 
@@ -60,7 +60,7 @@ export default function App() {
   function handleNextSession(nextSessionType?: string) {
     const nextSession = nextSessionType
       ? sessions.get(nextSessionType)!
-      : getNextSession(type, cycleCount, sessions);
+      : getNextSession(type, cycleCount, cyclesToLongBreak, sessions);
 
     const cycleGoalAchieved = cycleCount >= cycleCountGoal;
 
@@ -176,6 +176,7 @@ export default function App() {
 function getNextSession(
   sessionType: string,
   cycleCount: number,
+  cycleCountToLongBreak: number,
   sessions: Map<
     string,
     {
@@ -188,7 +189,7 @@ function getNextSession(
 
   if (sessionType === "work") {
     nextSession =
-      cycleCount < 4
+      cycleCount < cycleCountToLongBreak
         ? sessions.get("short break")!
         : sessions.get("long break")!;
   } else {
