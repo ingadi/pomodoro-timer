@@ -53,6 +53,10 @@ export default function App() {
     setCurrentSessionType(nextSession.type);
     setCurrentTimer(nextSession.duration);
     !isAutoNextEnabled && setIsSessionActive(false);
+
+    // const chime = nextSession.type === "work" ? breakEndChime : breakEndChime;
+    // chime.load();
+    // chime.play();
   }
 
   function handleEndSession() {
@@ -169,3 +173,6 @@ const sessions = new Map<string, { duration: number; type: string }>([
   ["short break", { duration: 900, type: "short break" }],
   ["long break", { duration: 1800, type: "long break" }],
 ]);
+
+const breakStartChime = new Audio();
+const breakEndChime = new Audio();
