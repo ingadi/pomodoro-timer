@@ -2,8 +2,14 @@ import { useState } from "react";
 import styles from "./Session.module.css";
 import { MdCheckCircleOutline, MdCancel } from "react-icons/md";
 
-export default function Session({ duration, type, isActive }: Props) {
-  const [timerValue, setTimerValue] = useState(duration);
+export default function Session({
+  duration,
+  type,
+  isActive,
+}: // isEditing,
+// onEdit,
+Props) {
+  const [timerValue, setTimerValue] = useState(Math.floor(duration / 60));
   const [isEditing, setIsEditing] = useState(false);
 
   return (
@@ -19,7 +25,8 @@ export default function Session({ duration, type, isActive }: Props) {
             name="timer"
             className={styles.input}
             value={timerValue}
-            type="text"
+            min={1}
+            type="number"
             onChange={(e) => setTimerValue(e.target.valueAsNumber)}
             autoFocus={true}
           />
@@ -31,7 +38,7 @@ export default function Session({ duration, type, isActive }: Props) {
               className={styles.button}
               onClick={() => {
                 setIsEditing(false);
-                setTimerValue(duration);
+                setTimerValue(timerValue);
               }}
             >
               <MdCancel />
@@ -53,4 +60,6 @@ type Props = {
   duration: number;
   type: string;
   isActive: boolean;
+  // isEditing: boolean;
+  // onEdit: (isEditing: boolean) => void;
 };

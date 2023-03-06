@@ -10,6 +10,9 @@ export default function App() {
   const [isSessionActive, setIsSessionActive] = useState(false);
   const upcomingSessions = sessions.filter((_, id) => id !== currentSessionId);
   const [currentTimer, setCurrentTimer] = useState(duration);
+  // const [isEditing, setIsEditing] = useState(false);
+  const [isAutoNextEnabled, setIsAutoNextEnabled] = useState(false);
+
   useTimer(isSessionActive, onTick);
 
   function onTick() {
@@ -37,11 +40,17 @@ export default function App() {
     <section className={styles.wrapper}>
       <header className={styles.header}>
         <h1 className={styles.title}>{type}</h1>
-        <p className={styles.cycles}>{cycleCount} cycles</p>
+        <p className={styles.cycles}>{cycleCount} / &infin; cycles</p>
       </header>
 
       <section className={styles.sessions}>
-        <Session duration={currentTimer} type={type} isActive={true} />
+        <Session
+          duration={currentTimer}
+          type={type}
+          isActive={true}
+          // isEditing={isEditing}
+          // onEdit={(isEditing) => setIsEditing(isEditing)}
+        />
         <div>
           {upcomingSessions.map(({ duration, type }, idx) => (
             <Session
@@ -49,6 +58,8 @@ export default function App() {
               duration={duration}
               type={type}
               isActive={false}
+              // isEditing={isEditing}
+              // onEdit={(isEditing) => setIsEditing(isEditing)}
             />
           ))}
         </div>
@@ -70,11 +81,13 @@ export default function App() {
           </button>
         </div>
         <div className={styles["toggle-wrapper"]}>
-          <span className={styles["toggle-label"]}>Auto start</span>
+          <span className={styles["toggle-label"]}>Auto next</span>
           <input
             className={`${styles.tgl} ${styles["tgl-skewed"]}`}
             id="cb"
             type="checkbox"
+            checked={isAutoNextEnabled}
+            onChange={() => setIsAutoNextEnabled(!isAutoNextEnabled)}
           />
           <label
             className={styles["tgl-btn"]}
