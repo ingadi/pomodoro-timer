@@ -75,9 +75,9 @@ export default function App() {
     //TODO: fix confetti
     cycleGoalAchieved && setShowConfetti(true);
 
-    // const chime = nextSession.type === "work" ? breakEndChime : breakEndChime;
-    // chime.load();
-    // chime.play();
+    const chime = nextSession.type === "work" ? breakEndChime : breakStartChime;
+    chime.load();
+    chime.play();
   }
 
   function handleEndSession() {
@@ -205,5 +205,5 @@ const sessions = new Map<string, { duration: number; type: string }>([
   ["long break", { duration: 1800, type: "long break" }],
 ]);
 
-// const breakStartChime = new Audio();
-// const breakEndChime = new Audio();
+const breakStartChime = new Audio("./break-end.ogg");
+const breakEndChime = new Audio("./break-start.ogg");
