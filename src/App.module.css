@@ -25,21 +25,6 @@ body {
   opacity: 0.2;
 }
 
-.header {
-  text-align: center;
-}
-
-.title {
-  font-size: calc(1.8rem + 1vi);
-  text-transform: uppercase;
-}
-
-.cycles {
-  font-size: calc(0.8rem + 1vi);
-  padding: 0;
-  margin: 0;
-}
-
 .controls {
   display: flex;
   flex-direction: column;
@@ -70,10 +55,6 @@ body {
   display: block;
   margin-block: 1rem;
   font-size: calc(0.8rem + 1vi);
-}
-
-.cycle-goal {
-  font-size: smaller;
 }
 
 /* toggle styles */

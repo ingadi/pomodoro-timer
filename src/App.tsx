@@ -3,7 +3,7 @@ import Session from "@components/Session";
 import { useTimer } from "@hooks/useTimer";
 import styles from "./App.module.css";
 import { useWindowSize } from "@hooks/useWindowSize";
-import { GrAchievement } from "react-icons/gr";
+import { Header } from "@components/Header";
 import Confetti from "react-confetti";
 
 export default function App() {
@@ -96,19 +96,11 @@ export default function App() {
         <Confetti width={width} height={height} />
       )}
       <section className={styles.wrapper}>
-        <header className={styles.header}>
-          <h1 className={styles.title}>{type}</h1>
-          <label className={styles.cycles}>
-            {cycleCount >= cycleCountGoal && <GrAchievement />} {cycleCount} /{" "}
-            <span>
-              <b className={styles["cycle-goal"]}>
-                {cycleCountGoal === Infinity ? "Ꝏ" : cycleCountGoal}
-              </b>{" "}
-              cycles
-            </span>
-            {/* <input type="text" /> */}
-          </label>
-        </header>
+        <Header
+          cycleCount={cycleCount}
+          cycleCountGoal={cycleCountGoal}
+          type={type}
+        />
 
         <section className={styles.sessions}>
           <Session

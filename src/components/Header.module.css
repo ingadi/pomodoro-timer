@@ -1,0 +1,18 @@
+.header {
+  text-align: center;
+}
+
+.title {
+  font-size: calc(1.8rem + 1vi);
+  text-transform: uppercase;
+}
+
+.cycles {
+  font-size: calc(0.8rem + 1vi);
+  padding: 0;
+  margin: 0;
+}
+
+.cycle-goal {
+  font-size: smaller;
+}
