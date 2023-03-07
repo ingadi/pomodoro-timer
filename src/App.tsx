@@ -3,6 +3,7 @@ import Session from "@components/Session";
 import { useTimer } from "@hooks/useTimer";
 import styles from "./App.module.css";
 import { useWindowSize } from "@hooks/useWindowSize";
+import { GrAchievement } from "react-icons/gr";
 import Confetti from "react-confetti";
 
 export default function App() {
@@ -19,8 +20,6 @@ export default function App() {
   const [cyclesToLongBreak, setCyclesToLongBreak] = useState(1);
 
   const [cycleCountGoal, setCycleCountGoal] = useState(2);
-
-  const [showConfetti, setShowConfetti] = useState(false);
 
   const { width, height } = useWindowSize();
 
@@ -49,7 +48,6 @@ export default function App() {
   function handleStartTimer() {
     if (isSessionActive) return;
     setIsSessionActive(true);
-    setShowConfetti(false);
   }
 
   function handlePauseTimer() {
@@ -62,18 +60,11 @@ export default function App() {
       ? sessions.get(nextSessionType)!
       : getNextSession(type, cycleCount, cyclesToLongBreak, sessions);
 
-    const cycleGoalAchieved = cycleCount >= cycleCountGoal;
-
     setCurrentSessionType(nextSession.type);
     setCurrentTimer(nextSession.duration);
     // !isAutoNextEnabled && setIsSessionActive(false);
 
-    (!isAutoNextEnabled ||
-      (nextSession.type === "work" && cycleGoalAchieved)) &&
-      setIsSessionActive(false);
-
-    //TODO: fix confetti
-    cycleGoalAchieved && setShowConfetti(true);
+    !isAutoNextEnabled && setIsSessionActive(false);
 
     const chime = nextSession.type === "work" ? breakEndChime : breakStartChime;
     chime.load();
@@ -91,12 +82,14 @@ export default function App() {
 
   return (
     <>
-      {showConfetti && <Confetti width={width} height={height} />}
+      {cycleCount === cycleCountGoal && (
+        <Confetti width={width} height={height} />
+      )}
       <section className={styles.wrapper}>
         <header className={styles.header}>
           <h1 className={styles.title}>{type}</h1>
           <label className={styles.cycles}>
-            {cycleCount} /{" "}
+            {cycleCount >= cycleCountGoal && <GrAchievement />} {cycleCount} /{" "}
             <span>
               <b className={styles["cycle-goal"]}>
                 {cycleCountGoal === Infinity ? "Ꝏ" : cycleCountGoal}
