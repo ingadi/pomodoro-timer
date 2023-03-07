@@ -209,7 +209,7 @@ const sessions = new Map<string, { duration: number; type: string }>([
 ]);
 
 const chimes = {
-  break: new Audio("./break-start-alt.ogg"),
-  work: new Audio("./break-end-alt.ogg"),
+  break: new Audio("./break-start.ogg"),
+  work: new Audio("./break-end.ogg"),
   goalAchieved: new Audio("./goal-achieved.ogg"),
 };
