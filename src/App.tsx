@@ -17,7 +17,7 @@ export default function App() {
   const [currentTimer, setCurrentTimer] = useState(duration);
   const [isAutoNextEnabled, setIsAutoNextEnabled] = useState(false);
 
-  const [cyclesToLongBreak, setCyclesToLongBreak] = useState(1);
+  const [cyclesToLongBreak, setCyclesToLongBreak] = useState(4);
 
   const [cycleCountGoal, setCycleCountGoal] = useState(2);
 
@@ -38,11 +38,14 @@ export default function App() {
       return;
     }
 
-    type === "work" && setCycleCount(cycleCount + 1);
+    let nextSessionType;
 
-    handleNextSession();
+    if (type === "work") {
+      setCycleCount(cycleCount + 1);
+      nextSessionType = cycleCount + 1 === cycleCountGoal ? "work" : undefined;
+    }
 
-    // add chimes
+    handleNextSession(nextSessionType);
   }
 
   function handleStartTimer() {
@@ -62,12 +65,19 @@ export default function App() {
 
     setCurrentSessionType(nextSession.type);
     setCurrentTimer(nextSession.duration);
-    // !isAutoNextEnabled && setIsSessionActive(false);
 
-    !isAutoNextEnabled && setIsSessionActive(false);
+    const goalAchieved = type === "work" && cycleCount + 1 === cycleCountGoal;
 
-    const chime = nextSession.type === "work" ? breakEndChime : breakStartChime;
-    chime.load();
+    (!isAutoNextEnabled || goalAchieved) && setIsSessionActive(false);
+
+    handlePlayChime(nextSession.type);
+  }
+
+  function handlePlayChime(nextSessionType: string) {
+    let chime = nextSessionType === "work" ? chimes["work"] : chimes["break"];
+    if (type === "work" && cycleCount + 1 === cycleCountGoal) {
+      chime = chimes["goalAchieved"];
+    }
     chime.play();
   }
 
@@ -138,11 +148,11 @@ export default function App() {
             </button>
           </div>
           <div>
-            <label className={styles["text-controls"]} htmlFor="">
+            {/* <label className={styles["text-controls"]} htmlFor="">
               Long break every
               <span> {cyclesToLongBreak} cycles</span>
-              {/* <input type="text" /> */}
-            </label>
+              <input type="text" />
+            </label> */}
             <div className={styles["toggle-wrapper"]}>
               <span className={styles["toggle-label"]}>Auto next</span>
               <input
@@ -198,5 +208,8 @@ const sessions = new Map<string, { duration: number; type: string }>([
   ["long break", { duration: 1800, type: "long break" }],
 ]);
 
-const breakStartChime = new Audio("./break-end.ogg");
-const breakEndChime = new Audio("./break-start.ogg");
+const chimes = {
+  break: new Audio("./break-start-alt.ogg"),
+  work: new Audio("./break-end-alt.ogg"),
+  goalAchieved: new Audio("./goal-achieved.ogg"),
+};
