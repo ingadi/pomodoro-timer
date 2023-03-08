@@ -196,8 +196,8 @@ function getNextSession(
 }
 
 const sessions = new Map<string, { duration: number; type: string }>([
-  ["work", { duration: 5, type: "work" }],
-  ["short break", { duration: 5, type: "short break" }],
+  ["work", { duration: 2700, type: "work" }],
+  ["short break", { duration: 900, type: "short break" }],
   ["long break", { duration: 1800, type: "long break" }],
 ]);
 
