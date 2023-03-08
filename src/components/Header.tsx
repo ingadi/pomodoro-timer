@@ -14,6 +14,7 @@ export function Header({
       <label className={styles.cycles}>
         {cycleCount >= cycleCountGoal && <GrAchievement />} {cycleCount} /{" "}
         <ContentEditable
+          label="cycles"
           value={cycleCountGoal}
           onUpdateValue={(cycleCountGoal) => onUpdateCycleGoal(cycleCountGoal)}
         >
