@@ -2,12 +2,14 @@ import styles from "./Header.module.css";
 import { GrAchievement } from "react-icons/gr";
 import { useState } from "react";
 
-export function Header({ cycleCount, cycleCountGoal, type }: Props) {
+export function Header({
+  cycleCount,
+  cycleCountGoal,
+  type,
+  onUpdateCycleGoal,
+}: Props) {
   const [isEditing, setIsEditing] = useState(false);
-
-  function handleUpdateCycleGoal() {
-    console.log("hi");
-  }
+  const [inputValue, setInputValue] = useState(cycleCount);
 
   return (
     <header className={styles.header}>
@@ -24,10 +26,29 @@ export function Header({ cycleCount, cycleCountGoal, type }: Props) {
         )}
         {isEditing && (
           <span>
-            <input type="text" />
+            <input
+              type="number"
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.valueAsNumber)}
+              autoFocus={true}
+            />
             {/* extract as controls */}
-            <button onClick={() => handleUpdateCycleGoal()}>Save</button>
-            <button onClick={() => setIsEditing(false)}>Cancel</button>
+            <button
+              onClick={(e) => {
+                onUpdateCycleGoal(inputValue);
+                setIsEditing(false);
+              }}
+            >
+              Save
+            </button>
+            <button
+              onClick={() => {
+                setInputValue(cycleCountGoal);
+                setIsEditing(false);
+              }}
+            >
+              Cancel
+            </button>
           </span>
         )}
       </label>
@@ -39,4 +60,5 @@ type Props = {
   cycleCount: number;
   cycleCountGoal: number;
   type: string;
+  onUpdateCycleGoal: (value: number) => void;
 };

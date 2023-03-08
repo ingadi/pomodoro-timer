@@ -100,6 +100,7 @@ export default function App() {
           cycleCount={cycleCount}
           cycleCountGoal={cycleCountGoal}
           type={type}
+          onUpdateCycleGoal={(value) => setCycleCountGoal(value)}
         />
 
         <section className={styles.sessions}>
