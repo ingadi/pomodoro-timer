@@ -24,7 +24,14 @@ export default function App() {
 
   const { width, height } = useWindowSize();
 
-  const [config, setConfig] = useLocalStorage("config", "hi");
+  const [config, setConfig] = useLocalStorage("pomodoro-config", initialConfig);
+
+  console.log({
+    intervals,
+    cycleCountGoal,
+    cyclesToLongBreak,
+    isAutoNextEnabled,
+  });
 
   // TODO: order sessions appropriately
   const upcomingSessions = [...sessions.values()].filter(
@@ -193,6 +200,19 @@ const sessions = new Map<string, { duration: number; type: string }>([
   ["short break", { duration: 900, type: "short break" }],
   ["long break", { duration: 1800, type: "long break" }],
 ]);
+
+const intervals = {
+  work: 2700,
+  "short break": 900,
+  "long break": 1800,
+};
+
+const initialConfig = {
+  intervals,
+  cycleCountGoal: null,
+  isAutoNextEnable: false,
+  cycleCountToLongBreak: 4,
+};
 
 const chimes = {
   break: new Audio("./break-start.ogg"),
