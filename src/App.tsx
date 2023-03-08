@@ -5,6 +5,7 @@ import styles from "./App.module.css";
 import { useWindowSize } from "@hooks/useWindowSize";
 import { Header } from "@components/Header";
 import Confetti from "react-confetti";
+import { useLocalStorage } from "@hooks/useLocalStorage";
 
 export default function App() {
   const [currentSessionType, setCurrentSessionType] = useState("work");
@@ -23,12 +24,12 @@ export default function App() {
 
   const { width, height } = useWindowSize();
 
+  const [config, setConfig] = useLocalStorage("config", "hi");
+
   // TODO: order sessions appropriately
   const upcomingSessions = [...sessions.values()].filter(
     ({ type: t }) => t !== type
   );
-
-  // const [isEditing, setIsEditing] = useState(false);
 
   useTimer(isSessionActive, onTick);
 
@@ -104,13 +105,7 @@ export default function App() {
         />
 
         <section className={styles.sessions}>
-          <Session
-            duration={currentTimer}
-            type={type}
-            isActive={true}
-            // isEditing={isEditing}
-            // onEdit={(isEditing) => setIsEditing(isEditing)}
-          />
+          <Session duration={currentTimer} type={type} isActive={true} />
           <div>
             {upcomingSessions.map(({ duration, type }, idx) => (
               <Session
@@ -118,8 +113,6 @@ export default function App() {
                 duration={duration}
                 type={type}
                 isActive={false}
-                // isEditing={isEditing}
-                // onEdit={(isEditing) => setIsEditing(isEditing)}
               />
             ))}
           </div>

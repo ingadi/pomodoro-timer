@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styles from "./Session.module.css";
 import { ContentEditable } from "@components/ContentEditable";
 
@@ -26,6 +25,4 @@ type Props = {
   duration: number;
   type: string;
   isActive: boolean;
-  // isEditing: boolean;
-  // onEdit: (isEditing: boolean) => void;
 };
