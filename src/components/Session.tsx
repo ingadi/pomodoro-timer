@@ -1,51 +1,17 @@
 import { useState } from "react";
 import styles from "./Session.module.css";
-import { MdCheckCircleOutline, MdCancel } from "react-icons/md";
+import { ContentEditable } from "@components/ContentEditable";
 
-export default function Session({
-  duration,
-  type,
-  isActive,
-}: // isEditing,
-// onEdit,
-Props) {
-  const [timerValue, setTimerValue] = useState(Math.floor(duration / 60));
-  const [isEditing, setIsEditing] = useState(false);
-
+export default function Session({ duration, type, isActive }: Props) {
   return (
     <article className={`${styles.session} ${isActive ? styles.active : ""}`}>
-      {!isEditing && (
-        <span onClick={() => setIsEditing(true)}>
-          {toformattedMinsSecs(duration)}
-        </span>
-      )}
-      {isEditing && (
-        <>
-          <input
-            name="timer"
-            className={styles.input}
-            value={timerValue}
-            min={1}
-            type="number"
-            onChange={(e) => setTimerValue(e.target.valueAsNumber)}
-            autoFocus={true}
-          />
-          <div className={styles.controls}>
-            <button className={styles.button}>
-              <MdCheckCircleOutline />
-            </button>
-            <button
-              className={styles.button}
-              onClick={() => {
-                setIsEditing(false);
-                setTimerValue(timerValue);
-              }}
-            >
-              <MdCancel />
-            </button>
-          </div>
-        </>
-      )}
+      <ContentEditable
+        label="mins"
+        value={Math.floor(duration / 60)}
+        onUpdateValue={() => {}}
+      >
+        <>{toformattedMinsSecs(duration)}</>
+      </ContentEditable>
     </article>
   );
 }

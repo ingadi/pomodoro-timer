@@ -8,6 +8,10 @@
   margin-block-end: 0.5rem;
 }
 
+.label {
+  display: inline;
+}
+
 .buttons {
   display: flex;
   justify-content: center;
