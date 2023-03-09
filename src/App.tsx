@@ -20,8 +20,8 @@ export default function App() {
     setConfig,
   ] = useLocalStorage<Config>("pomodoro-config", initialConfig);
 
-  const [currentIntervalName, setCurrentIntervaleName] =
-    useState<IntervalName>("work");
+  const [currentIntervalName, setCurrentIntervalName] =
+    useState<IntervalName>("short break");
 
   const currentIntervalDuration = intervals[currentIntervalName];
   const [currentTimer, setCurrentTimer] = useState(currentIntervalDuration);
@@ -52,11 +52,14 @@ export default function App() {
 
   function handlePauseTimer() {
     if (!isTimerActive) return;
-    setIsTimerActive(false);
+    !isAutoNextEnabled && setIsTimerActive(false);
   }
 
   function handleEndTimer() {
-    // TODO
+    if (!isTimerActive) return;
+    currentIntervalName !== "work" && setCurrentIntervalName("work");
+    setCurrentTimer(intervals["work"]);
+    setIsTimerActive(false);
   }
 
   return (
