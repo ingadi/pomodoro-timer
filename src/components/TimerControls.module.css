@@ -1,0 +1,9 @@
+.button {
+  font-size: calc(0.8rem + 1vi);
+  background: none;
+  border: 0.18rem solid black;
+  padding: 0.5em;
+  border-radius: 5rem;
+  cursor: pointer;
+  min-inline-size: 10ch;
+}

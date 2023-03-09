@@ -6,6 +6,7 @@ import { useTimer } from "@hooks/useTimer";
 import Intervals from "@components/Intervals";
 import Header from "@components/Header";
 import Controls from "@components/Controls";
+import TimerControls from "@components/TimerConrols";
 import styles from "./App.module.css";
 
 export default function App() {
@@ -35,14 +36,28 @@ export default function App() {
 
   const nextIntervalDuration = intervals[nextIntervalName];
 
-  const [isSessionActive, setIsSessionActive] = useState(false);
+  const [isTimerActive, setIsTimerActive] = useState(false);
 
-  useTimer(isSessionActive, () => {
+  useTimer(isTimerActive, () => {
     if (currentTimer > 0) {
       setCurrentTimer((ct) => ct - 1);
       return;
     }
   });
+
+  function handleStartTimer() {
+    if (isTimerActive) return;
+    setIsTimerActive(true);
+  }
+
+  function handlePauseTimer() {
+    if (!isTimerActive) return;
+    setIsTimerActive(false);
+  }
+
+  function handleEndTimer() {
+    // TODO
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -61,7 +76,14 @@ export default function App() {
         isAutoNextEnabled={isAutoNextEnabled}
       />
       <Controls>
-        <></>
+        <>
+          <TimerControls
+            isActive={isTimerActive}
+            onStart={handleStartTimer}
+            onPause={handlePauseTimer}
+            onEnd={handleEndTimer}
+          />
+        </>
       </Controls>
     </div>
   );

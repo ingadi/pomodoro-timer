@@ -1,10 +1,6 @@
 .controls {
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
   justify-content: center;
-  margin-block: 1rem;
-}
-
-.controls > * {
-  flex: auto;
+  margin-block: 2.5rem;
 }
