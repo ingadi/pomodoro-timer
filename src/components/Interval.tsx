@@ -1,9 +1,8 @@
-import styles from "./Session.module.css";
 import { ContentEditable } from "@components/ContentEditable";
 
-export default function Session({ duration, type, isActive }: Props) {
+export default function Interval({ duration, name }: Props) {
   return (
-    <article className={`${styles.session} ${isActive ? styles.active : ""}`}>
+    <article>
       <ContentEditable
         label="mins"
         value={Math.floor(duration / 60)}
@@ -23,6 +22,7 @@ function toformattedMinsSecs(totalSeconds: number) {
 
 type Props = {
   duration: number;
-  type: string;
-  isActive: boolean;
+  name: intervalName;
 };
+
+type intervalName = "work" | "short break" | "long break";

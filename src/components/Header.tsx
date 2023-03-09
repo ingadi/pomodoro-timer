@@ -1,27 +1,35 @@
-import styles from "./Header.module.css";
 import { GrAchievement } from "react-icons/gr";
+import { BsInfinity } from "react-icons/bs";
 import { ContentEditable } from "@components/ContentEditable";
+import styles from "./Header.module.css";
 
-export function Header({
-  cycleCount,
-  cycleCountGoal,
-  type,
-  onUpdateCycleGoal,
+export default function Header({
+  workIntervalCount,
+  workIntervalCountGoal,
+  currentIntervalName,
+  onUpdateWorkIntervalCount,
 }: Props) {
   return (
     <header className={styles.header}>
-      <h1 className={styles.title}>{type}</h1>
-      <label className={styles.cycles}>
-        {cycleCount >= cycleCountGoal && <GrAchievement />} {cycleCount} /{" "}
+      <h1 className={styles.title}>{currentIntervalName}</h1>
+      <label className={styles.count}>
+        {workIntervalCount >= workIntervalCountGoal && (
+          <GrAchievement className={styles.icon} />
+        )}
+        {workIntervalCount} /{" "}
         <ContentEditable
           label="cycles"
-          value={cycleCountGoal}
-          onUpdateValue={(cycleCountGoal) => onUpdateCycleGoal(cycleCountGoal)}
+          value={workIntervalCountGoal}
+          onUpdateValue={(newCountGoal) =>
+            onUpdateWorkIntervalCount(newCountGoal)
+          }
         >
           <>
-            <b className={styles["cycle-goal"]}>
-              {cycleCountGoal === Infinity ? "Ꝏ" : cycleCountGoal}
-            </b>{" "}
+            {workIntervalCountGoal === Infinity ? (
+              <BsInfinity className={styles.infinity} />
+            ) : (
+              workIntervalCountGoal
+            )}{" "}
             cycles
           </>
         </ContentEditable>
@@ -31,8 +39,10 @@ export function Header({
 }
 
 type Props = {
-  cycleCount: number;
-  cycleCountGoal: number;
-  type: string;
-  onUpdateCycleGoal: (value: number) => void;
+  workIntervalCount: number;
+  workIntervalCountGoal: number;
+  currentIntervalName: string;
+  onUpdateWorkIntervalCount: (value: number) => void;
 };
+
+// Ꝏ

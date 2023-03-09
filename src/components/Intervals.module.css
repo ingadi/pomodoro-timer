@@ -1,0 +1,31 @@
+.intervals {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* gap: 1rem; */
+}
+
+.interval-active {
+  font-family: "Lemon", cursive;
+  font-size: calc(3rem + 2vi);
+  flex: 0 0 4.6ch;
+}
+
+.interval-inactive {
+  font-size: calc(1rem + 1vi);
+  flex: 0 0 7ch;
+}
+
+.up-next {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: smaller;
+}
+
+.interval {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-block: 0.3rem 0;
+}
