@@ -52,14 +52,14 @@ export default function App() {
 
   function handlePauseTimer() {
     if (!isTimerActive) return;
-    !isAutoNextEnabled && setIsTimerActive(false);
+    setIsTimerActive(false);
   }
 
   function handleEndTimer() {
     if (!isTimerActive) return;
     currentIntervalName !== "work" && setCurrentIntervalName("work");
     setCurrentTimer(intervals["work"]);
-    setIsTimerActive(false);
+    !isAutoNextEnabled && setIsTimerActive(false);
   }
 
   return (
