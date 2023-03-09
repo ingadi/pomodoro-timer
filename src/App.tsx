@@ -5,6 +5,7 @@ import { useLocalStorage } from "@hooks/useLocalStorage";
 import { useTimer } from "@hooks/useTimer";
 import Intervals from "@components/Intervals";
 import Header from "@components/Header";
+import Controls from "@components/Controls";
 import styles from "./App.module.css";
 
 export default function App() {
@@ -59,6 +60,9 @@ export default function App() {
         }}
         isAutoNextEnabled={isAutoNextEnabled}
       />
+      <Controls>
+        <></>
+      </Controls>
     </div>
   );
 }
