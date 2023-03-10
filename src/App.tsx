@@ -61,6 +61,7 @@ export default function App() {
     setCurrentIntervalName(name);
     setCurrentTimer(duration);
 
+    chimes[nextIntervalName].load();
     chimes[nextIntervalName].play();
   });
 
@@ -82,7 +83,7 @@ export default function App() {
 
   return (
     <>
-      {workIntervalCount === workIntervalCountGoal && (
+      {workIntervalCount === workIntervalCountGoal && !isTimerActive && (
         <Confetti width={width} height={height} />
       )}
       <div className={styles.wrapper}>
