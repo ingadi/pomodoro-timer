@@ -39,6 +39,8 @@ export default function App() {
 
   const [isTimerActive, setIsTimerActive] = useState(false);
 
+  const { width, height } = useWindowSize();
+
   useTimer(isTimerActive, () => {
     if (currentTimer > 0) {
       setCurrentTimer((ct) => ct - 1);
@@ -80,32 +82,37 @@ export default function App() {
   }
 
   return (
-    <div className={styles.wrapper}>
-      <Header
-        workIntervalCount={workIntervalCount}
-        workIntervalCountGoal={workIntervalCountGoal}
-        currentIntervalName={currentIntervalName}
-        onUpdateWorkIntervalCount={(value) => setWorkIntervalCount(value)}
-      />
-      <Intervals
-        currentIntervalDuration={currentTimer}
-        nextInterval={{
-          name: nextIntervalName,
-          duration: nextIntervalDuration,
-        }}
-        isAutoNextEnabled={isAutoNextEnabled}
-      />
-      <Controls>
-        <>
-          <TimerControls
-            isActive={isTimerActive}
-            onStart={handleStartTimer}
-            onPause={handlePauseTimer}
-            onEnd={handleEndTimer}
-          />
-        </>
-      </Controls>
-    </div>
+    <>
+      {workIntervalCount === workIntervalCountGoal && (
+        <Confetti width={width} height={height} />
+      )}
+      <div className={styles.wrapper}>
+        <Header
+          workIntervalCount={workIntervalCount}
+          workIntervalCountGoal={workIntervalCountGoal}
+          currentIntervalName={currentIntervalName}
+          onUpdateWorkIntervalCount={(value) => setWorkIntervalCount(value)}
+        />
+        <Intervals
+          currentIntervalDuration={currentTimer}
+          nextInterval={{
+            name: nextIntervalName,
+            duration: nextIntervalDuration,
+          }}
+          isAutoNextEnabled={isAutoNextEnabled}
+        />
+        <Controls>
+          <>
+            <TimerControls
+              isActive={isTimerActive}
+              onStart={handleStartTimer}
+              onPause={handlePauseTimer}
+              onEnd={handleEndTimer}
+            />
+          </>
+        </Controls>
+      </div>
+    </>
   );
 }
 
