@@ -22,6 +22,7 @@ export default function App() {
     setConfig,
   ] = useLocalStorage<Config>("pomodoro-config", initialConfig);
 
+  // TODO: https://github.com/iway1/react-ts-form
   // TODO: use local storage to retrieve and reset daily pomodoro
   // TODO: make peer to peer for study sessions sync settings
 
@@ -46,7 +47,7 @@ export default function App() {
 
   const { width, height } = useWindowSize();
 
-  const [isSettingsVisible, setIsSettingsVisible] = useState(true);
+  const [isSettingsVisible, setIsSettingsVisible] = useState(false);
 
   useTimer(isTimerActive, () => {
     if (currentTimer > 0) {
@@ -102,7 +103,9 @@ export default function App() {
           workIntervalCount={workIntervalCount}
           workIntervalCountGoal={workIntervalCountGoal}
           currentIntervalName={currentIntervalName}
-          onUpdateWorkIntervalCount={(value) => setWorkIntervalCount(value)}
+          onUpdateGoal={(goal) => {
+            console.log(goal);
+          }}
         />
         <Intervals
           currentIntervalDuration={currentTimer}

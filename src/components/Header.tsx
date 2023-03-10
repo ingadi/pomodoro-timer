@@ -7,7 +7,7 @@ export default function Header({
   workIntervalCount,
   workIntervalCountGoal,
   currentIntervalName,
-  onUpdateWorkIntervalCount,
+  onUpdateGoal,
 }: Props) {
   return (
     <header className={styles.header}>
@@ -20,9 +20,7 @@ export default function Header({
         <ContentEditable
           label="pomos"
           value={workIntervalCountGoal}
-          onUpdateValue={(newCountGoal) =>
-            onUpdateWorkIntervalCount(newCountGoal)
-          }
+          onUpdateValue={(newGoal) => onUpdateGoal(newGoal)}
         >
           <>
             {workIntervalCountGoal === Infinity ? (
@@ -42,7 +40,7 @@ type Props = {
   workIntervalCount: number;
   workIntervalCountGoal: number;
   currentIntervalName: string;
-  onUpdateWorkIntervalCount: (value: number) => void;
+  onUpdateGoal: (goal: number) => void;
 };
 
 // Ꝏ
