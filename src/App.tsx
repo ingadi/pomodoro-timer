@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Confetti from "react-confetti";
+import { IoMdSettings } from "react-icons/io";
 import { useWindowSize } from "@hooks/useWindowSize";
 import { useLocalStorage } from "@hooks/useLocalStorage";
 import { useTimer } from "@hooks/useTimer";
@@ -115,6 +116,9 @@ export default function App() {
               onPause={handlePauseTimer}
               onEnd={handleEndTimer}
             />
+            <button>
+              <IoMdSettings />
+            </button>
           </>
         </Controls>
       </div>
