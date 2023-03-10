@@ -1,6 +1,7 @@
 import { BsCupHot, BsPersonWorkspace } from "react-icons/bs";
 import { TbBed } from "react-icons/tb";
 import { VscSync, VscSyncIgnored } from "react-icons/vsc";
+import { AiOutlineFileDone } from "react-icons/ai";
 import styles from "./Intervals.module.css";
 
 export default function Intervals({
@@ -22,7 +23,11 @@ export default function Intervals({
         </b>
         <div title={capitalize(nextInterval.name)} className={styles.interval}>
           <span className={styles.icon}>{icons[nextInterval.name]}</span>
-          <Interval duration={nextInterval.duration} />
+          {nextInterval.name === "goal achieved" ? (
+            <small>End</small>
+          ) : (
+            <Interval duration={nextInterval.duration} />
+          )}
         </div>
       </div>
     </section>
@@ -47,6 +52,7 @@ const icons = {
   work: <BsPersonWorkspace />,
   "short break": <BsCupHot />,
   "long break": <TbBed />,
+  "goal achieved": <AiOutlineFileDone />,
 };
 
 type IntervalsProps = {
@@ -59,4 +65,4 @@ type IntervalProps = {
   duration: number;
 };
 
-type IntervalName = "work" | "short break" | "long break";
+type IntervalName = "work" | "short break" | "long break" | "goal achieved";

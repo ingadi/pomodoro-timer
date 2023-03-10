@@ -26,12 +26,13 @@ export default function App() {
   const currentIntervalDuration = intervals[currentIntervalName];
   const [currentTimer, setCurrentTimer] = useState(currentIntervalDuration);
 
-  const [workIntervalCount, setWorkIntervalCount] = useState(0);
+  const [workIntervalCount, setWorkIntervalCount] = useState(3);
 
   const nextIntervalName = getNextIntervalName(
     currentIntervalName,
     workIntervalCount,
-    workIntervalsToLongBreak
+    workIntervalsToLongBreak,
+    workIntervalCountGoal
   );
 
   const nextIntervalDuration = intervals[nextIntervalName];
@@ -268,9 +269,12 @@ export default function App() {
 function getNextIntervalName(
   currentIntervalName: string,
   workIntervalCount: number,
-  workIntervalsToLongBreak: number
+  workIntervalsToLongBreak: number,
+  workIntervalCountGoal: number
 ): IntervalName {
   if (currentIntervalName !== "work") return "work";
+
+  if (workIntervalCount + 1 === workIntervalCountGoal) return "goal achieved";
 
   return (workIntervalCount + 1) % workIntervalsToLongBreak === 0
     ? "long break"
@@ -281,11 +285,12 @@ const intervals = {
   work: 10,
   "short break": 5,
   "long break": 1800,
+  "goal achieved": 0,
 };
 
 const initialConfig = {
   intervals,
-  workIntervalCountGoal: Infinity,
+  workIntervalCountGoal: 4,
   isAutoNextEnabled: false,
   workIntervalsToLongBreak: 4,
 };
@@ -297,7 +302,7 @@ const chimes = {
   "goal achieved": new Audio("./goal-achieved.ogg"),
 };
 
-type IntervalName = "work" | "short break" | "long break";
+type IntervalName = "work" | "short break" | "long break" | "goal achieved";
 
 type Config = {
   intervals: { [key: string]: number };
@@ -305,35 +310,3 @@ type Config = {
   isAutoNextEnabled: boolean;
   workIntervalsToLongBreak: number;
 };
-
-// const sessions = new Map<string, { duration: number; type: string }>([
-//   ["work", { duration: 2700, type: "work" }],
-//   ["short break", { duration: 900, type: "short break" }],
-//   ["long break", { duration: 1800, type: "long break" }],
-// ]);
-
-// function getNextSession(
-//   sessionType: string,
-//   cycleCount: number,
-//   cycleCountToLongBreak: number,
-//   sessions: Map<
-//     string,
-//     {
-//       duration: number;
-//       type: string;
-//     }
-//   >
-// ) {
-//   let nextSession;
-
-//   if (sessionType === "work") {
-//     nextSession =
-//       cycleCount < cycleCountToLongBreak
-//         ? sessions.get("short break")!
-//         : sessions.get("long break")!;
-//   } else {
-//     nextSession = sessions.get("work")!;
-//   }
-
-//   return nextSession;
-// }
