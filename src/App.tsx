@@ -90,7 +90,8 @@ export default function App() {
   function handleEndTimer() {
     currentIntervalName !== "work" && setCurrentIntervalName("work");
     setCurrentTimer(intervals["work"]);
-    !isAutoNextEnabled && setIsTimerActive(false);
+    console.log(isAutoNextEnabled, currentIntervalName !== "work");
+    setIsTimerActive(isAutoNextEnabled && currentIntervalName !== "work");
   }
 
   return (
