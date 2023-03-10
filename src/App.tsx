@@ -4,6 +4,7 @@ import { IoMdSettings } from "react-icons/io";
 import { useWindowSize } from "@hooks/useWindowSize";
 import { useLocalStorage } from "@hooks/useLocalStorage";
 import { useTimer } from "@hooks/useTimer";
+import Settings from "@components/Settings";
 import Intervals from "@components/Intervals";
 import Header from "@components/Header";
 import Controls from "@components/Controls";
@@ -22,6 +23,7 @@ export default function App() {
   ] = useLocalStorage<Config>("pomodoro-config", initialConfig);
 
   // TODO: use local storage to retrieve and reset daily pomodoro
+  // TODO: make peer to peer for study sessions sync settings
 
   const [currentIntervalName, setCurrentIntervalName] =
     useState<IntervalName>("work");
@@ -43,6 +45,8 @@ export default function App() {
   const [isTimerActive, setIsTimerActive] = useState(false);
 
   const { width, height } = useWindowSize();
+
+  const [isSettingsVisible, setIsSettingsVisible] = useState(true);
 
   useTimer(isTimerActive, () => {
     if (currentTimer > 0) {
@@ -116,12 +120,24 @@ export default function App() {
               onPause={handlePauseTimer}
               onEnd={handleEndTimer}
             />
-            <button>
+            <button onClick={() => setIsSettingsVisible(true)}>
               <IoMdSettings />
             </button>
           </>
         </Controls>
       </div>
+      <Settings
+        isOpen={isSettingsVisible}
+        onClose={() => setIsSettingsVisible(false)}
+      >
+        <>
+          <p>Pomo goals</p>
+          <p>Work duration</p>
+          <p>Short break duration</p>
+          <p>Long break duration</p>
+          <p>Auto next</p>
+        </>
+      </Settings>
     </>
   );
 }

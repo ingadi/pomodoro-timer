@@ -4,6 +4,7 @@ body {
   display: grid;
   place-content: center;
   font-family: "Sofia Sans", sans-serif;
+  position: relative;
 }
 
 .wrapper {
