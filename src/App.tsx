@@ -21,7 +21,7 @@ export default function App() {
   ] = useLocalStorage<Config>("pomodoro-config", initialConfig);
 
   const [currentIntervalName, setCurrentIntervalName] =
-    useState<IntervalName>("short break");
+    useState<IntervalName>("work");
 
   const currentIntervalDuration = intervals[currentIntervalName];
   const [currentTimer, setCurrentTimer] = useState(currentIntervalDuration);
@@ -43,6 +43,17 @@ export default function App() {
       setCurrentTimer((ct) => ct - 1);
       return;
     }
+
+    currentIntervalName === "work" && setWorkIntervalCount((wic) => wic + 1);
+
+    setCurrentIntervalName(nextIntervalName);
+    setCurrentTimer(nextIntervalDuration);
+
+    chimes[
+      workIntervalCount + 1 === workIntervalCountGoal
+        ? "goal achieved"
+        : nextIntervalName
+    ].play();
   });
 
   function handleStartTimer() {
@@ -261,15 +272,14 @@ function getNextIntervalName(
 ): IntervalName {
   if (currentIntervalName !== "work") return "work";
 
-  return workIntervalCount % workIntervalsToLongBreak === 0 &&
-    workIntervalCount >= workIntervalsToLongBreak
+  return (workIntervalCount + 1) % workIntervalsToLongBreak === 0
     ? "long break"
     : "short break";
 }
 
 const intervals = {
-  work: 2700,
-  "short break": 900,
+  work: 10,
+  "short break": 5,
   "long break": 1800,
 };
 
@@ -281,9 +291,10 @@ const initialConfig = {
 };
 
 const chimes = {
-  break: new Audio("./break-start.ogg"),
+  "long break": new Audio("./break-start.ogg"),
+  "short break": new Audio("./break-start.ogg"),
   work: new Audio("./break-end.ogg"),
-  goalAchieved: new Audio("./goal-achieved.ogg"),
+  "goal achieved": new Audio("./goal-achieved.ogg"),
 };
 
 type IntervalName = "work" | "short break" | "long break";
