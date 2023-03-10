@@ -75,7 +75,6 @@ export default function App() {
   }
 
   function handleEndTimer() {
-    if (!isTimerActive) return;
     currentIntervalName !== "work" && setCurrentIntervalName("work");
     setCurrentTimer(intervals["work"]);
     !isAutoNextEnabled && setIsTimerActive(false);
