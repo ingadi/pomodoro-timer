@@ -1,6 +1,6 @@
 import { BsCupHot, BsPersonWorkspace } from "react-icons/bs";
 import { TbBed } from "react-icons/tb";
-import { VscSync, VscSyncIgnored } from "react-icons/vsc";
+import { FiSkipForward, FiFastForward } from "react-icons/fi";
 import { AiOutlineFileDone } from "react-icons/ai";
 import styles from "./Intervals.module.css";
 
@@ -19,7 +19,7 @@ export default function Intervals({
           title={`Auto next ${isAutoNextEnabled ? "enabled" : "disabled"}`}
           className={styles["up-next"]}
         >
-          Up next {isAutoNextEnabled ? <VscSync /> : <VscSyncIgnored />}
+          Up next {isAutoNextEnabled ? <FiFastForward /> : <FiSkipForward />}
         </b>
         <div title={capitalize(nextInterval.name)} className={styles.interval}>
           <span className={styles.icon}>{icons[nextInterval.name]}</span>
