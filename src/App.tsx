@@ -47,14 +47,19 @@ export default function App() {
 
     currentIntervalName === "work" && setWorkIntervalCount((wic) => wic + 1);
 
-    setCurrentIntervalName(nextIntervalName);
-    setCurrentTimer(nextIntervalDuration);
+    // skip ahead to work if current interval is goal achieved
+    const duration =
+      nextIntervalName === "goal achieved"
+        ? intervals["work"]
+        : nextIntervalDuration;
 
-    chimes[
-      workIntervalCount + 1 === workIntervalCountGoal
-        ? "goal achieved"
-        : nextIntervalName
-    ].play();
+    const name =
+      nextIntervalName === "goal achieved" ? "work" : nextIntervalName;
+
+    setCurrentIntervalName(name);
+    setCurrentTimer(duration);
+
+    chimes[nextIntervalName].play();
   });
 
   function handleStartTimer() {
