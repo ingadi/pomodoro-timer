@@ -20,13 +20,15 @@ export default function App() {
     setConfig,
   ] = useLocalStorage<Config>("pomodoro-config", initialConfig);
 
+  // TODO: use local storage to retrieve and reset daily pomodoro
+
   const [currentIntervalName, setCurrentIntervalName] =
     useState<IntervalName>("work");
 
   const currentIntervalDuration = intervals[currentIntervalName];
   const [currentTimer, setCurrentTimer] = useState(currentIntervalDuration);
 
-  const [workIntervalCount, setWorkIntervalCount] = useState(3);
+  const [workIntervalCount, setWorkIntervalCount] = useState(2);
 
   const nextIntervalName = getNextIntervalName(
     currentIntervalName,
@@ -60,6 +62,10 @@ export default function App() {
 
     setCurrentIntervalName(name);
     setCurrentTimer(duration);
+
+    setIsTimerActive(
+      isAutoNextEnabled && !(nextIntervalName === "goal achieved")
+    );
 
     chimes[nextIntervalName].load();
     chimes[nextIntervalName].play();
@@ -116,168 +122,6 @@ export default function App() {
   );
 }
 
-// export default function App() {
-
-//   const [currentSessionType, setCurrentSessionType] = useState("work");
-
-//   const [cycleCount, setCycleCount] = useState(0);
-
-//   const { duration, type } = sessions.get(currentSessionType)!;
-
-//   const [isSessionActive, setIsSessionActive] = useState(false);
-
-//   const [currentTimer, setCurrentTimer] = useState(duration);
-//   const [isAutoNextEnabled, setIsAutoNextEnabled] = useState(false);
-
-//   const [cyclesToLongBreak, setCyclesToLongBreak] = useState(4);
-
-//   const [cycleCountGoal, setCycleCountGoal] = useState(2);
-
-//   const { width, height } = useWindowSize();
-
-//   console.log({
-//     intervals,
-//     cycleCountGoal,
-//     cyclesToLongBreak,
-//     isAutoNextEnabled,
-//   });
-
-//   // TODO: order sessions appropriately
-//   const upcomingSessions = [...sessions.values()].filter(
-//     ({ type: t }) => t !== type
-//   );
-
-//   useTimer(isSessionActive, onTick);
-
-//   function onTick() {
-//     if (currentTimer > 0) {
-//       setCurrentTimer((ct) => ct - 1);
-//       return;
-//     }
-
-//     let nextSessionType;
-
-//     if (type === "work") {
-//       setCycleCount(cycleCount + 1);
-//       nextSessionType = cycleCount + 1 === cycleCountGoal ? "work" : undefined;
-//     }
-
-//     handleNextSession(nextSessionType);
-//   }
-
-//   function handleStartTimer() {
-//     if (isSessionActive) return;
-//     setIsSessionActive(true);
-//   }
-
-//   function handlePauseTimer() {
-//     if (!isSessionActive) return;
-//     setIsSessionActive(false);
-//   }
-
-//   function handleNextSession(nextSessionType?: string) {
-//     const nextSession = nextSessionType
-//       ? sessions.get(nextSessionType)!
-//       : getNextSession(type, cycleCount, cyclesToLongBreak, sessions);
-
-//     setCurrentSessionType(nextSession.type);
-//     setCurrentTimer(nextSession.duration);
-
-//     const goalAchieved = type === "work" && cycleCount + 1 === cycleCountGoal;
-
-//     (!isAutoNextEnabled || goalAchieved) && setIsSessionActive(false);
-
-//     handlePlayChime(nextSession.type);
-//   }
-
-//   function handlePlayChime(nextSessionType: string) {
-//     let chime = nextSessionType === "work" ? chimes["work"] : chimes["break"];
-//     if (type === "work" && cycleCount + 1 === cycleCountGoal) {
-//       chime = chimes["goalAchieved"];
-//     }
-//     chime.play();
-//   }
-
-//   function handleEndSession() {
-//     if (type === "work") {
-//       setCurrentTimer(duration);
-//       setIsSessionActive(false);
-//     } else {
-//       handleNextSession("work");
-//     }
-//   }
-
-//   return (
-//     <>
-//       {cycleCount === cycleCountGoal && (
-//         <Confetti width={width} height={height} />
-//       )}
-//       <section className={styles.wrapper}>
-//         <Header
-//           cycleCount={cycleCount}
-//           cycleCountGoal={cycleCountGoal}
-//           type={type}
-//           onUpdateCycleGoal={(value) => setCycleCountGoal(value)}
-//         />
-
-//         <section className={styles.sessions}>
-//           <Interval duration={currentTimer} type={type} isActive={true} />
-//           <div>
-//             {upcomingSessions.map(({ duration, type }, idx) => (
-//               <Interval
-//                 key={idx}
-//                 duration={duration}
-//                 type={type}
-//                 isActive={false}
-//               />
-//             ))}
-//           </div>
-//         </section>
-//         <div className={styles.controls}>
-//           <div className={styles.buttons}>
-//             {!isSessionActive ? (
-//               <button onClick={handleStartTimer} className={styles.button}>
-//                 {currentTimer < duration ? "Continue" : "Start"}
-//               </button>
-//             ) : (
-//               <button onClick={handlePauseTimer} className={styles.button}>
-//                 Pause
-//               </button>
-//             )}
-
-//             <button onClick={handleEndSession} className={styles.button}>
-//               End
-//             </button>
-//           </div>
-//           <div>
-//             {/* <label className={styles["text-controls"]} htmlFor="">
-//               Long break every
-//               <span> {cyclesToLongBreak} cycles</span>
-//               <input type="text" />
-//             </label> */}
-//             <div className={styles["toggle-wrapper"]}>
-//               <span className={styles["toggle-label"]}>Auto next</span>
-//               <input
-//                 className={`${styles.tgl} ${styles["tgl-skewed"]}`}
-//                 id="cb"
-//                 type="checkbox"
-//                 checked={isAutoNextEnabled}
-//                 onChange={() => setIsAutoNextEnabled(!isAutoNextEnabled)}
-//               />
-//               <label
-//                 className={styles["tgl-btn"]}
-//                 data-tg-off="OFF"
-//                 data-tg-on="ON"
-//                 htmlFor="cb"
-//               ></label>
-//             </div>
-//           </div>
-//         </div>
-//       </section>
-//     </>
-//   );
-// }
-
 function getNextIntervalName(
   currentIntervalName: string,
   workIntervalCount: number,
@@ -303,7 +147,7 @@ const intervals = {
 const initialConfig = {
   intervals,
   workIntervalCountGoal: 4,
-  isAutoNextEnabled: false,
+  isAutoNextEnabled: true,
   workIntervalsToLongBreak: 4,
 };
 

@@ -12,13 +12,13 @@ export default function Header({
   return (
     <header className={styles.header}>
       <h1 className={styles.title}>{currentIntervalName}</h1>
-      <label className={styles.count}>
+      <label title="Daily pomo goal" className={styles.count}>
         {workIntervalCount >= workIntervalCountGoal && (
           <GrAchievement className={styles.icon} />
         )}
         {workIntervalCount} /{" "}
         <ContentEditable
-          label="cycles"
+          label="pomos"
           value={workIntervalCountGoal}
           onUpdateValue={(newCountGoal) =>
             onUpdateWorkIntervalCount(newCountGoal)
@@ -30,7 +30,7 @@ export default function Header({
             ) : (
               workIntervalCountGoal
             )}{" "}
-            cycles
+            pomos
           </>
         </ContentEditable>
       </label>
