@@ -9,6 +9,7 @@ import Intervals from "@components/Intervals";
 import Header from "@components/Header";
 import Controls from "@components/Controls";
 import TimerControls from "@components/TimerConrols";
+import Modal from "@components/Modal";
 import styles from "./App.module.css";
 
 export default function App() {
@@ -22,7 +23,6 @@ export default function App() {
     setConfig,
   ] = useLocalStorage<Config>("pomodoro-config", initialConfig);
 
-  // TODO: https://github.com/iway1/react-ts-form
   // TODO: use local storage to retrieve and reset daily pomodoro
   // TODO: make peer to peer for study sessions sync settings
 
@@ -129,18 +129,12 @@ export default function App() {
           </>
         </Controls>
       </div>
-      <Settings
+      <Modal
         isOpen={isSettingsVisible}
         onClose={() => setIsSettingsVisible(false)}
       >
-        <>
-          <p>Pomo goals</p>
-          <p>Work duration</p>
-          <p>Short break duration</p>
-          <p>Long break duration</p>
-          <p>Auto next</p>
-        </>
-      </Settings>
+        <Settings onUpdate={(s) => setConfig(s)} />
+      </Modal>
     </>
   );
 }

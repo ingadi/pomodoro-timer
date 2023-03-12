@@ -1,30 +1,24 @@
-import { useEffect, useRef } from "react";
 import styles from "./Settings.module.css";
 
-export default function Settings({ children, isOpen, onClose }: Props) {
-  const dialogRef = useRef<HTMLDialogElement>(null);
-
-  function handleClose() {
-    dialogRef.current!.close();
-    onClose();
-  }
-
-  useEffect(() => {
-    const dialog = dialogRef.current!;
-    isOpen && dialog.showModal();
-    return () => dialog.close();
-  }, [isOpen]);
-
+export default function Settings({ onUpdate }: Props) {
   return (
-    <dialog className={styles.settings} ref={dialogRef}>
-      {children}
-      <button onClick={handleClose}>OK</button>
-    </dialog>
+    <>
+      <p>Pomo goals</p>
+      <p>Work duration</p>
+      <p>Short break duration</p>
+      <p>Long break duration</p>
+      <p>Auto next</p>
+    </>
   );
 }
 
 type Props = {
-  children: JSX.Element;
-  isOpen: boolean;
-  onClose: () => void;
+  onUpdate: (s: Config) => void;
+};
+
+type Config = {
+  intervals: { [key: string]: number };
+  workIntervalCountGoal: number;
+  isAutoNextEnabled: boolean;
+  workIntervalsToLongBreak: number;
 };
