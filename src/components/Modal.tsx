@@ -1,13 +1,13 @@
 import { useEffect, useRef } from "react";
 import styles from "./Modal.module.css";
 
-export default function Modal({ children, isOpen, onClose }: Props) {
+export default function Modal({ children, isOpen }: Props) {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
-  function handleClose() {
-    dialogRef.current!.close();
-    onClose();
-  }
+  // function handleClose() {
+  //   dialogRef.current!.close();
+  //   onClose();
+  // }
 
   useEffect(() => {
     const dialog = dialogRef.current!;
@@ -18,7 +18,7 @@ export default function Modal({ children, isOpen, onClose }: Props) {
   return (
     <dialog className={styles.modal} ref={dialogRef}>
       {children}
-      <button onClick={handleClose}>Ok</button>
+      {/* <button onClick={handleClose}>Ok</button> */}
     </dialog>
   );
 }
@@ -26,5 +26,5 @@ export default function Modal({ children, isOpen, onClose }: Props) {
 type Props = {
   children: JSX.Element;
   isOpen: boolean;
-  onClose: () => void;
+  // onClose: () => void;
 };

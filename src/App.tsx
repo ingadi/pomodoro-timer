@@ -131,9 +131,12 @@ export default function App() {
       </div>
       <Modal
         isOpen={isSettingsVisible}
-        onClose={() => setIsSettingsVisible(false)}
+        // onClose={() => setIsSettingsVisible(false)}
       >
-        <Settings onUpdate={(s) => setConfig(s)} />
+        <Settings
+          onUpdate={(s) => setConfig(s)}
+          onDone={() => setIsSettingsVisible(false)}
+        />
       </Modal>
     </>
   );
