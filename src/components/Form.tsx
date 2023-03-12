@@ -2,17 +2,6 @@ import { z } from "zod";
 import { createTsForm, useTsController } from "@ts-react/form";
 import styles from "./Form.module.css";
 
-export default function Form({ onSubmit, schema, props, controls }: FormProps) {
-  return (
-    <MyForm
-      onSubmit={(data) => onSubmit(data)}
-      renderAfter={() => controls}
-      schema={schema}
-      props={props}
-    ></MyForm>
-  );
-}
-
 function TextField({ label }: { label: string }) {
   const { field, error } = useTsController<string>();
 
@@ -50,17 +39,4 @@ const mapping = [
   [z.boolean(), CheckBoxField],
 ] as const;
 
-const MyForm = createTsForm(mapping);
-
-type FormProps = {
-  onSubmit: (data: any) => void;
-  schema: any;
-  props: any;
-  controls: JSX.Element;
-};
-
-// const SignUpSchema = z.object({
-//   email: z.string().email("Enter a real email please."),
-//   password: z.string(),
-//   notificationsOn: z.boolean(),
-// });
+export default createTsForm(mapping);
