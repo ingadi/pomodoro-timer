@@ -15,7 +15,7 @@ export default function Settings({ onUpdate, onDone, config }: Props) {
   }
 
   const formControls = (
-    <>
+    <div className={styles.controls}>
       <button type="submit">Submit</button>
       <button onClick={onDone} type="button">
         Cancel
@@ -23,7 +23,7 @@ export default function Settings({ onUpdate, onDone, config }: Props) {
       <button onClick={handleUseDefaultSettings} type="button">
         Use default settings
       </button>
-    </>
+    </div>
   );
 
   return (
