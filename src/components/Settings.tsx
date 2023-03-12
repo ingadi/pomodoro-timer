@@ -10,7 +10,7 @@ export default function Settings({ onUpdate, onDone, config }: Props) {
     isAutoNextEnabled,
   } = config;
 
-  function handleResetToDefaults() {
+  function handleUseDefaultSettings() {
     // onUpdate(initialConfig);
   }
 
@@ -20,8 +20,8 @@ export default function Settings({ onUpdate, onDone, config }: Props) {
       <button onClick={onDone} type="button">
         Cancel
       </button>
-      <button onClick={handleResetToDefaults} type="button">
-        Reset to defaults
+      <button onClick={handleUseDefaultSettings} type="button">
+        Use default settings
       </button>
     </>
   );
