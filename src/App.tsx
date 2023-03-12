@@ -13,15 +13,17 @@ import Modal from "@components/Modal";
 import styles from "./App.module.css";
 
 export default function App() {
-  const [
-    {
-      intervals,
-      workIntervalCountGoal,
-      workIntervalsToLongBreak,
-      isAutoNextEnabled,
-    },
-    setConfig,
-  ] = useLocalStorage<Config>("pomodoro-config", initialConfig);
+  const [config, setConfig] = useLocalStorage<Config>(
+    "pomodoro-config",
+    initialConfig
+  );
+
+  const {
+    intervals,
+    workIntervalCountGoal,
+    workIntervalsToLongBreak,
+    isAutoNextEnabled,
+  } = config;
 
   // TODO: use local storage to retrieve and reset daily pomodoro
   // TODO: make peer to peer for study sessions sync settings
@@ -134,6 +136,7 @@ export default function App() {
         // onClose={() => setIsSettingsVisible(false)}
       >
         <Settings
+          config={config}
           onUpdate={(s) => setConfig(s)}
           onDone={() => setIsSettingsVisible(false)}
         />

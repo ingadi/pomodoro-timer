@@ -2,52 +2,94 @@ import { z } from "zod";
 import Form from "@components/Form";
 import styles from "./Settings.module.css";
 
-export default function Settings({ onUpdate, onDone }: Props) {
+export default function Settings({ onUpdate, onDone, config }: Props) {
+  const {
+    intervals,
+    workIntervalCountGoal,
+    workIntervalsToLongBreak,
+    isAutoNextEnabled,
+  } = config;
+
+  function handleResetToDefaults() {
+    // onUpdate(initialConfig);
+  }
+
+  const formControls = (
+    <>
+      <button type="submit">Submit</button>
+      <button onClick={onDone} type="button">
+        Cancel
+      </button>
+      <button onClick={handleResetToDefaults} type="button">
+        Reset to defaults
+      </button>
+    </>
+  );
+
   return (
     <Form
       onSubmit={(data) => {
         console.info(JSON.stringify(data));
         onDone();
       }}
-      renderAfter={() => <button type="submit">Submit</button>}
+      renderAfter={() => formControls}
       schema={SettingsSchema}
       props={{
-        email: {
-          label: "Enter an email",
-          defaultValue: "beans@beans.com",
+        "pomo goals": {
+          label: "Daily pomo goal",
+          defaultValue: workIntervalCountGoal,
         },
-        password: {
-          label: "Enter a password",
-          defaultValue: "beans",
+        "work duration": {
+          label: "Work duration",
+          defaultValue: intervals.work,
         },
-        notificationsOn: {
-          label: "Enter a password",
-          defaultValue: true,
+        "short break duration": {
+          label: "Short break duration",
+          defaultValue: intervals["short break"],
+        },
+        "long break duration": {
+          label: "Long break duration",
+          defaultValue: intervals["long break"],
+        },
+        "work intervals to long break": {
+          label: "Work intervals before long break",
+          defaultValue: workIntervalsToLongBreak,
+        },
+        "auto next": {
+          label: "Enable auto next",
+          defaultValue: isAutoNextEnabled,
         },
       }}
     />
   );
-
-  // return (
-  //   <>
-  //     <p>Pomo goals</p>
-  //     <p>Work duration</p>
-  //     <p>Short break duration</p>
-  //     <p>Long break duration</p>
-  //     <p>Auto next</p>
-  //   </>
-  // );
 }
-
 const SettingsSchema = z.object({
-  email: z.string().email("Enter a real email please."),
-  password: z.string(),
-  notificationsOn: z.boolean(),
+  "pomo goals": z.number(),
+  "work duration": z.number(),
+  "short break duration": z.number(),
+  "long break duration": z.number(),
+  "work intervals to long break": z.number(),
+  "auto next": z.boolean(),
 });
+
+const intervals = {
+  work: 25,
+  "short break": 5,
+  "long break": 15,
+  "goal achieved": 0,
+};
+
+const initialConfig = {
+  intervals,
+  workIntervalCountGoal: 4,
+  isAutoNextEnabled: true,
+  workIntervalsToLongBreak: 4,
+};
 
 type Props = {
   onUpdate: (s: Config) => void;
   onDone: () => void;
+  config: Config;
 };
 
 type Config = {
