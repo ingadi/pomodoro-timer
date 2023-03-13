@@ -139,6 +139,7 @@ export default function App() {
       >
         <Settings
           config={config}
+          // TODO: update timer states
           onUpdate={(s) => setConfig(s)}
           onDone={() => setIsSettingsVisible(false)}
         />
