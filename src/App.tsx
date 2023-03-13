@@ -140,7 +140,11 @@ export default function App() {
         <Settings
           config={config}
           // TODO: update timer states
-          onUpdate={(s) => setConfig(s)}
+          onUpdate={(s) => {
+            setConfig(s);
+            currentIntervalName !== "work" && setCurrentIntervalName("work");
+            setCurrentTimer(s.intervals["work"]);
+          }}
           onDone={() => setIsSettingsVisible(false)}
         />
       </Modal>
