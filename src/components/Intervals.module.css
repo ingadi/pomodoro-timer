@@ -15,9 +15,12 @@
   flex: 0 0 7ch;
 }
 
+.auto-next {
+  cursor: help;
+}
+
 .up-next {
   display: flex;
-  align-items: center;
   gap: 0.5rem;
   font-size: smaller;
 }
@@ -27,4 +30,5 @@
   gap: 0.5rem;
   align-items: center;
   margin-block: 0.3rem 0;
+  cursor: help;
 }

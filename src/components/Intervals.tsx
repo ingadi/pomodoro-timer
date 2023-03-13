@@ -15,11 +15,14 @@ export default function Intervals({
         <Interval duration={currentIntervalDuration} />
       </div>
       <div className={styles["interval-inactive"]}>
-        <b
-          title={`Auto next ${isAutoNextEnabled ? "enabled" : "disabled"}`}
-          className={styles["up-next"]}
-        >
-          Up next {isAutoNextEnabled ? <FiFastForward /> : <FiSkipForward />}
+        <b className={styles["up-next"]}>
+          Up next{" "}
+          <span
+            className={styles["auto-next"]}
+            title={`Auto next ${isAutoNextEnabled ? "enabled" : "disabled"}`}
+          >
+            {isAutoNextEnabled ? <FiFastForward /> : <FiSkipForward />}
+          </span>
         </b>
         <div title={capitalize(nextInterval.name)} className={styles.interval}>
           <span className={styles.icon}>{icons[nextInterval.name]}</span>

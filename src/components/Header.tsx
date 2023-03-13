@@ -11,7 +11,9 @@ export default function Header({
 }: Props) {
   return (
     <header className={styles.header}>
-      <h1 className={styles.title}>{currentIntervalName}</h1>
+      <h1 title="Current interval" className={styles.title}>
+        {currentIntervalName}
+      </h1>
       <label title="Daily pomo goal" className={styles.count}>
         {workIntervalCount >= workIntervalCountGoal && (
           <GrAchievement className={styles.icon} />
