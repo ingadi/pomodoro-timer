@@ -127,7 +127,12 @@ export default function App() {
               onPause={handlePauseTimer}
               onEnd={handleEndTimer}
             />
-            <button onClick={() => setIsSettingsVisible(true)}>
+            <button
+              onClick={() => {
+                setIsTimerActive(false);
+                setIsSettingsVisible(true);
+              }}
+            >
               <IoMdSettings />
             </button>
           </>
