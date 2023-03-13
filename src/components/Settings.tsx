@@ -89,15 +89,19 @@ function toConfig(data: z.infer<typeof SettingsSchema>): Config {
   // TODO; Transfer to config
   return {
     intervals: {
-      work: data["work duration"],
-      "short break": data["short break duration"],
-      "long break": data["long break duration"],
+      work: toSeconds(data["work duration"]),
+      "short break": toSeconds(data["short break duration"]),
+      "long break": toSeconds(data["long break duration"]),
       "goal achieved": 0,
     },
     workIntervalCountGoal: data["pomo goals"],
     isAutoNextEnabled: data["auto next"],
     workIntervalsToLongBreak: data["work intervals to long break"],
   };
+}
+
+function toSeconds(minutes: number) {
+  return minutes * 60;
 }
 
 // TODO: Move to constants and import
