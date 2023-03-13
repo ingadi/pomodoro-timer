@@ -1,46 +1,47 @@
 import { z } from "zod";
-import { createTsForm, useTsController } from "@ts-react/form";
+import { createTsForm, useDescription, useTsController } from "@ts-react/form";
 import styles from "./Form.module.css";
 
-function NumberField({
-  label,
-  defaultValue,
-}: {
-  label: string;
-  defaultValue: number;
-}) {
-  const { field, error } = useTsController<string>();
+// TODO: Style input forms
+
+function NumberField() {
+  const {
+    field: { value, onChange },
+    error,
+  } = useTsController<number>();
+  const { label, placeholder } = useDescription();
 
   return (
     <>
       <label>{label}</label>
       <input
+        placeholder={placeholder}
         className={styles.input}
         type="number"
-        value={field.value ?? defaultValue}
-        onChange={(e) => field.onChange(e.target.value)}
+        value={value ?? ""}
+        onChange={(e) => {
+          const value = e.target.valueAsNumber;
+          onChange(isNaN(value) ? undefined : value);
+        }}
       />
       {error?.errorMessage && <p>{error?.errorMessage}</p>}
     </>
   );
 }
 
-function CheckBoxField({
-  label,
-  defaultValue = false,
-}: {
-  label: string;
-  defaultValue: boolean;
-}) {
-  const { field } = useTsController<boolean>();
+function CheckBoxField() {
+  const {
+    field: { value, onChange },
+  } = useTsController<boolean>();
+  const { label } = useDescription();
 
   return (
     <>
       <label>{label}</label>
       <input
         type="checkbox"
-        checked={field.value ?? defaultValue}
-        onChange={(e) => field.onChange(e.target.checked)}
+        checked={value ?? false}
+        onChange={(e) => onChange(e.target.checked)}
       />
     </>
   );

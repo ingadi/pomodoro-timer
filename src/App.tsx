@@ -25,6 +25,8 @@ export default function App() {
     isAutoNextEnabled,
   } = config;
 
+  // TODO: Steal button animation from nesto.cc to apply to trophy
+  // TODO: Add sound on click start button
   // TODO: use local storage to retrieve and reset daily pomodoro
   // TODO: make peer to peer for study sessions sync settings
 
