@@ -50,7 +50,7 @@ export default function Settings({ onUpdate, onDone, config }: Props) {
       form={form}
       onSubmit={(data: z.infer<typeof SettingsSchema>) => {
         console.info(JSON.stringify(data));
-        // onUpdate();
+        onUpdate(toConfig(data));
         onDone();
       }}
       renderAfter={() => formControls}
@@ -84,6 +84,21 @@ const SettingsSchema = z.object({
     .min(2, "Must be 2 or more"),
   "auto next": z.boolean().describe("Auto next"),
 });
+
+function toConfig(data: z.infer<typeof SettingsSchema>): Config {
+  // TODO; Transfer to config
+  return {
+    intervals: {
+      work: data["work duration"],
+      "short break": data["short break duration"],
+      "long break": data["long break duration"],
+      "goal achieved": 0,
+    },
+    workIntervalCountGoal: data["pomo goals"],
+    isAutoNextEnabled: data["auto next"],
+    workIntervalsToLongBreak: data["work intervals to long break"],
+  };
+}
 
 // TODO: Move to constants and import
 const initialIntervals = {
