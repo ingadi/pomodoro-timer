@@ -1,4 +1,3 @@
-import { useCallback, useEffect, useMemo } from "react";
 import { z } from "zod";
 import Form from "@components/Form";
 import styles from "./Settings.module.css";
@@ -12,40 +11,21 @@ export default function Settings({ onUpdate, onDone, config }: Props) {
     isAutoNextEnabled,
   } = config;
 
-  const workDuration = intervals["work"];
-  const shortBreakDuration = intervals["short break"];
-  const longBreakDuration = intervals["long break"];
+  const initialFormValues = {
+    "pomo goals": workIntervalCountGoal,
+    "work duration": toMinutes(intervals["work"]),
+    "short break duration": toMinutes(intervals["short break"]),
+    "long break duration": toMinutes(intervals["long break"]),
+    "work intervals to long break": workIntervalsToLongBreak,
+    "auto next": isAutoNextEnabled,
+  };
 
-  const initialFormValues = useMemo(
-    () => ({
-      "pomo goals": workIntervalCountGoal,
-      "work duration": toMinutes(workDuration),
-      "short break duration": toMinutes(shortBreakDuration),
-      "long break duration": toMinutes(longBreakDuration),
-      "work intervals to long break": workIntervalsToLongBreak,
-      "auto next": isAutoNextEnabled,
-    }),
-    [
-      workDuration,
-      shortBreakDuration,
-      longBreakDuration,
-      isAutoNextEnabled,
-      workIntervalCountGoal,
-      workIntervalsToLongBreak,
-    ]
-  );
-
-  const SettingsForm = useForm<z.infer<typeof SettingsSchema>>();
+  const SettingsForm = useForm<FormValues>();
   const { reset } = SettingsForm;
 
-  const onReset = useCallback(
-    (values: z.infer<typeof SettingsSchema>) => reset(values),
-    [reset]
-  );
-
-  useEffect(() => {
-    onReset(initialFormValues);
-  }, [initialFormValues, onReset]);
+  function onReset(formValues: FormValues) {
+    reset(formValues);
+  }
 
   const formControls = (
     <div className={styles.controls}>
@@ -75,7 +55,7 @@ export default function Settings({ onUpdate, onDone, config }: Props) {
         onDone();
       }}
       renderAfter={() => formControls}
-      // defaultValues={formValues}
+      defaultValues={initialFormValues}
     />
   );
 }
@@ -169,3 +149,5 @@ type Config = {
   isAutoNextEnabled: boolean;
   workIntervalsToLongBreak: number;
 };
+
+type FormValues = z.infer<typeof SettingsSchema>;

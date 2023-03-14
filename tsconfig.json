@@ -19,7 +19,8 @@
     "baseUrl": ".",
     "paths": {
       "@hooks/*": ["src/hooks/*"],
-      "@components/*": ["src/components/*"]
+      "@components/*": ["src/components/*"],
+      "@constants/index.ts": ["src/components/index.ts"]
     }
   },
   "include": ["src"],
