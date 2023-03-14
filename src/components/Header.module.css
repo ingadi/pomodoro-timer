@@ -8,10 +8,15 @@
   cursor: help;
 }
 
-.count {
+.pomo-count {
   font-size: calc(0.8rem + 1vi);
   padding: 0;
   margin: 0;
+}
+
+.pomo-goal,
+.icon,
+.work-interval-count {
   cursor: help;
 }
 

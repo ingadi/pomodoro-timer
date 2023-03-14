@@ -7,7 +7,7 @@ const defaultIntervals = {
 
 export const defaultConfig = {
   intervals: defaultIntervals,
-  workIntervalCountGoal: 4,
-  isAutoNextEnabled: true,
+  workIntervalCountGoal: 0,
+  isAutoNextEnabled: false,
   workIntervalsToLongBreak: 4,
 };

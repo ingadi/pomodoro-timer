@@ -14,22 +14,31 @@ export default function Header({
       <h1 title="Current interval" className={styles.title}>
         {currentIntervalName}
       </h1>
-      <label title="Daily pomo goal" className={styles.count}>
-        {workIntervalCount >= workIntervalCountGoal && (
-          <GrAchievement className={styles.icon} />
-        )}
-        {workIntervalCount} /{" "}
+      <label className={styles["pomo-count"]}>
+        {workIntervalCount >= workIntervalCountGoal &&
+          workIntervalCountGoal !== 0 && (
+            <GrAchievement
+              title="Daily pomo goal achieved"
+              className={styles.icon}
+            />
+          )}
+        <span className={styles["work-interval-count"]} title="Completed pomos">
+          {workIntervalCount}
+        </span>{" "}
+        /{" "}
         <ContentEditable
           label="pomos"
           value={workIntervalCountGoal}
           onUpdateValue={(newGoal) => onUpdateGoal(newGoal)}
         >
           <>
-            {workIntervalCountGoal === Infinity ? (
-              <BsInfinity className={styles.infinity} />
-            ) : (
-              workIntervalCountGoal
-            )}{" "}
+            <span className={styles["pomo-goal"]} title="Daily pomo goal">
+              {workIntervalCountGoal === 0 ? (
+                <BsInfinity className={styles.infinity} />
+              ) : (
+                workIntervalCountGoal
+              )}{" "}
+            </span>
             pomos
           </>
         </ContentEditable>
