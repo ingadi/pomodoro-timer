@@ -94,10 +94,6 @@ const defaultFormValues = {
 };
 
 const SettingsSchema = z.object({
-  "pomo goals": z
-    .number()
-    .describe(`Pomo goals // ${defaultFormValues["pomo goals"]}`)
-    .min(1, "Must be 1 or more"),
   "work duration": z
     .number()
     .describe(`Work duration // ${defaultFormValues["work duration"]}`)
@@ -120,6 +116,10 @@ const SettingsSchema = z.object({
       `Work intervals before long break // ${defaultFormValues["work intervals to long break"]}`
     )
     .min(2, "Must be 2 or more"),
+  "pomo goals": z
+    .number()
+    .describe(`Pomo goals // ${defaultFormValues["pomo goals"]}`)
+    .min(0),
   "auto next": z.boolean().describe("Enable auto next"),
 });
 
