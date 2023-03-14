@@ -12,17 +12,23 @@ export default function Settings({ onUpdate, onDone, config }: Props) {
     isAutoNextEnabled,
   } = config;
 
-  const formValues = useMemo(
+  const workDuration = intervals["work"];
+  const shortBreakDuration = intervals["short break"];
+  const longBreakDuration = intervals["long break"];
+
+  const initialFormValues = useMemo(
     () => ({
       "pomo goals": workIntervalCountGoal,
-      "work duration": toMinutes(intervals["work"]),
-      "short break duration": toMinutes(intervals["short break"]),
-      "long break duration": toMinutes(intervals["long break"]),
+      "work duration": toMinutes(workDuration),
+      "short break duration": toMinutes(shortBreakDuration),
+      "long break duration": toMinutes(longBreakDuration),
       "work intervals to long break": workIntervalsToLongBreak,
       "auto next": isAutoNextEnabled,
     }),
     [
-      intervals,
+      workDuration,
+      shortBreakDuration,
+      longBreakDuration,
       isAutoNextEnabled,
       workIntervalCountGoal,
       workIntervalsToLongBreak,
@@ -38,8 +44,8 @@ export default function Settings({ onUpdate, onDone, config }: Props) {
   );
 
   useEffect(() => {
-    onReset(formValues);
-  }, [formValues, onReset]);
+    onReset(initialFormValues);
+  }, [initialFormValues, onReset]);
 
   const formControls = (
     <div className={styles.controls}>
@@ -49,7 +55,7 @@ export default function Settings({ onUpdate, onDone, config }: Props) {
       <button type="submit">Submit</button>
       <button
         onClick={() => {
-          onReset(formValues);
+          onReset(initialFormValues);
           onDone();
         }}
         type="button"
@@ -120,7 +126,6 @@ const defaultFormValues = {
   "auto next": initialConfig.isAutoNextEnabled,
 };
 
-// TODO: Derive placeholders from default config
 const SettingsSchema = z.object({
   "pomo goals": z
     .number()
