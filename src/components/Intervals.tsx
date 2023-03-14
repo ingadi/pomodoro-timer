@@ -38,6 +38,10 @@ export default function Intervals({
   );
 }
 
+// TODO: put in hours:minutes:seconds
+// https://www.wonderspace.app/
+// TODO: Dim timer on YouTube or Team
+
 function Interval({ duration }: IntervalProps) {
   return <>{toformattedMinsSecs(duration)}</>;
 }

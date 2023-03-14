@@ -97,25 +97,29 @@ const SettingsSchema = z.object({
   "work duration": z
     .number()
     .describe(`Work duration // ${defaultFormValues["work duration"]}`)
-    .min(25, "Must be 25 or more"),
+    .min(25, "Must be 25 or more")
+    .max(60, "Must be 60 or less"),
   "short break duration": z
     .number()
     .describe(
       `Short break duration // ${defaultFormValues["short break duration"]}`
     )
-    .min(5, "Must be 5 or more"),
+    .min(5, "Must be 5 or more")
+    .max(60, "Must be 60 or less"),
   "long break duration": z
     .number()
     .describe(
       `Long break duration // ${defaultFormValues["long break duration"]}`
     )
-    .min(15, "Must be 15 or more"),
+    .min(15, "Must be 15 or more")
+    .max(60, "Must be 60 or less"),
   "work intervals to long break": z
     .number()
     .describe(
       `Work intervals before long break // ${defaultFormValues["work intervals to long break"]}`
     )
-    .min(2, "Must be 2 or more"),
+    .min(2, "Must be 2 or more")
+    .max(60, "Must be 60 or less"),
   "pomo goals": z
     .number()
     .describe(`Pomo goals // ${defaultFormValues["pomo goals"]}`)
