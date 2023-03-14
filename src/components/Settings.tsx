@@ -1,3 +1,4 @@
+import { useCallback, useEffect, useMemo } from "react";
 import { z } from "zod";
 import Form from "@components/Form";
 import styles from "./Settings.module.css";
@@ -11,21 +12,34 @@ export default function Settings({ onUpdate, onDone, config }: Props) {
     isAutoNextEnabled,
   } = config;
 
-  const formValues = {
-    "pomo goals": workIntervalCountGoal,
-    "work duration": intervals["work"],
-    "short break duration": intervals["short break"],
-    "long break duration": intervals["long break"],
-    "work intervals to long break": workIntervalsToLongBreak,
-    "auto next": isAutoNextEnabled,
-  };
+  const formValues = useMemo(
+    () => ({
+      "pomo goals": workIntervalCountGoal,
+      "work duration": toMinutes(intervals["work"]),
+      "short break duration": toMinutes(intervals["short break"]),
+      "long break duration": toMinutes(intervals["long break"]),
+      "work intervals to long break": workIntervalsToLongBreak,
+      "auto next": isAutoNextEnabled,
+    }),
+    [
+      intervals,
+      isAutoNextEnabled,
+      workIntervalCountGoal,
+      workIntervalsToLongBreak,
+    ]
+  );
 
-  const form = useForm<z.infer<typeof SettingsSchema>>();
-  const { reset } = form;
+  const SettingsForm = useForm<z.infer<typeof SettingsSchema>>();
+  const { reset } = SettingsForm;
 
-  function onReset(values: z.infer<typeof SettingsSchema>) {
-    reset(values);
-  }
+  const onReset = useCallback(
+    (values: z.infer<typeof SettingsSchema>) => reset(values),
+    [reset]
+  );
+
+  useEffect(() => {
+    onReset(formValues);
+  }, [formValues, onReset]);
 
   const formControls = (
     <div className={styles.controls}>
@@ -47,46 +61,20 @@ export default function Settings({ onUpdate, onDone, config }: Props) {
 
   return (
     <Form
-      form={form}
+      form={SettingsForm}
+      schema={SettingsSchema}
       onSubmit={(data: z.infer<typeof SettingsSchema>) => {
         console.info(JSON.stringify(data));
         onUpdate(toConfig(data));
         onDone();
       }}
       renderAfter={() => formControls}
-      schema={SettingsSchema}
-      defaultValues={formValues}
+      // defaultValues={formValues}
     />
   );
 }
 
-// TODO: Derive placeholders from default config
-const SettingsSchema = z.object({
-  "pomo goals": z
-    .number()
-    .describe("Pomo goals // Infinity")
-    .min(1, "Must be 1 or more"),
-  "work duration": z
-    .number()
-    .describe("Work duration // 25")
-    .min(25, "Must be 25 or more"),
-  "short break duration": z
-    .number()
-    .describe("Short break duration // 25")
-    .min(5, "Must be 5 or more"),
-  "long break duration": z
-    .number()
-    .describe("Long break duration // 15")
-    .min(15, "Must be 15 or more"),
-  "work intervals to long break": z
-    .number()
-    .describe("Work interwvals before long break // 4")
-    .min(2, "Must be 2 or more"),
-  "auto next": z.boolean().describe("Auto next"),
-});
-
 function toConfig(data: z.infer<typeof SettingsSchema>): Config {
-  // TODO; Transfer to config
   return {
     intervals: {
       work: toSeconds(data["work duration"]),
@@ -102,6 +90,10 @@ function toConfig(data: z.infer<typeof SettingsSchema>): Config {
 
 function toSeconds(minutes: number) {
   return minutes * 60;
+}
+
+function toMinutes(seconds: number) {
+  return Math.floor(seconds / 60);
 }
 
 // TODO: Move to constants and import
@@ -127,6 +119,37 @@ const defaultFormValues = {
   "work intervals to long break": initialConfig.workIntervalsToLongBreak,
   "auto next": initialConfig.isAutoNextEnabled,
 };
+
+// TODO: Derive placeholders from default config
+const SettingsSchema = z.object({
+  "pomo goals": z
+    .number()
+    .describe(`Pomo goals // ${defaultFormValues["pomo goals"]}`)
+    .min(1, "Must be 1 or more"),
+  "work duration": z
+    .number()
+    .describe(`Work duration // ${defaultFormValues["work duration"]}`)
+    .min(25, "Must be 25 or more"),
+  "short break duration": z
+    .number()
+    .describe(
+      `Short break duration // ${defaultFormValues["short break duration"]}`
+    )
+    .min(5, "Must be 5 or more"),
+  "long break duration": z
+    .number()
+    .describe(
+      `Long break duration // ${defaultFormValues["long break duration"]}`
+    )
+    .min(15, "Must be 15 or more"),
+  "work intervals to long break": z
+    .number()
+    .describe(
+      `Work intervals before long break // ${defaultFormValues["work intervals to long break"]}`
+    )
+    .min(2, "Must be 2 or more"),
+  "auto next": z.boolean().describe("Enable auto next"),
+});
 
 type Props = {
   onUpdate: (s: Config) => void;
