@@ -20,7 +20,8 @@
     "paths": {
       "@hooks/*": ["src/hooks/*"],
       "@components/*": ["src/components/*"],
-      "@constants/index.ts": ["src/components/index.ts"]
+      "@constants": ["src/constants/index.ts"],
+      "@types": ["src/types/index.d.ts"]
     }
   },
   "include": ["src"],

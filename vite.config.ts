@@ -10,6 +10,8 @@ export default defineConfig({
     alias: {
       "@hooks": path.resolve(__dirname, "./src/hooks"),
       "@components": path.resolve(__dirname, "./src/components"),
+      "@constants": path.resolve(__dirname, "./src/constants/index.ts"),
+      "@types": path.resolve(__dirname, "./src/types/index.d.ts"),
     },
   },
   base: "",

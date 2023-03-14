@@ -1,7 +1,7 @@
 const defaultIntervals = {
-  work: 25,
-  "short break": 5,
-  "long break": 15,
+  work: 1500,
+  "short break": 300,
+  "long break": 900,
   "goal achieved": 0,
 };
 

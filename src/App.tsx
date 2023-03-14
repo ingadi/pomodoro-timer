@@ -10,12 +10,14 @@ import Header from "@components/Header";
 import Controls from "@components/Controls";
 import TimerControls from "@components/TimerConrols";
 import Modal from "@components/Modal";
+import { defaultConfig } from "@constants";
+import { Config, IntervalName } from "@types";
 import styles from "./App.module.css";
 
 export default function App() {
   const [config, setConfig] = useLocalStorage<Config>(
     "pomodoro-config",
-    initialConfig
+    defaultConfig
   );
 
   const {
@@ -172,32 +174,9 @@ function getNextIntervalName(
     : "short break";
 }
 
-const intervals = {
-  work: 10,
-  "short break": 5,
-  "long break": 1800,
-  "goal achieved": 0,
-};
-
-const initialConfig = {
-  intervals,
-  workIntervalCountGoal: 4,
-  isAutoNextEnabled: true,
-  workIntervalsToLongBreak: 4,
-};
-
 const chimes = {
   "long break": new Audio("./break-start.ogg"),
   "short break": new Audio("./break-start.ogg"),
   work: new Audio("./break-end.ogg"),
   "goal achieved": new Audio("./goal-achieved.ogg"),
-};
-
-type IntervalName = "work" | "short break" | "long break" | "goal achieved";
-
-type Config = {
-  intervals: { [key: string]: number };
-  workIntervalCountGoal: number;
-  isAutoNextEnabled: boolean;
-  workIntervalsToLongBreak: number;
 };

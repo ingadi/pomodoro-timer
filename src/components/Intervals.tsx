@@ -2,6 +2,7 @@ import { BsCupHot, BsPersonWorkspace } from "react-icons/bs";
 import { TbBed } from "react-icons/tb";
 import { FiSkipForward, FiFastForward } from "react-icons/fi";
 import { AiOutlineFileDone } from "react-icons/ai";
+import { IntervalName } from "@types";
 import styles from "./Intervals.module.css";
 
 export default function Intervals({
@@ -68,4 +69,4 @@ type IntervalProps = {
   duration: number;
 };
 
-type IntervalName = "work" | "short break" | "long break" | "goal achieved";
+// type IntervalName = "work" | "short break" | "long break" | "goal achieved";

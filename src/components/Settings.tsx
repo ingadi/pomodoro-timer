@@ -1,7 +1,9 @@
 import { z } from "zod";
-import Form from "@components/Form";
-import styles from "./Settings.module.css";
 import { useForm } from "react-hook-form";
+import Form from "@components/Form";
+import { Config } from "@types";
+import { defaultConfig } from "@constants";
+import styles from "./Settings.module.css";
 
 export default function Settings({ onUpdate, onDone, config }: Props) {
   const {
@@ -82,28 +84,13 @@ function toMinutes(seconds: number) {
   return Math.floor(seconds / 60);
 }
 
-// TODO: Move to constants and import
-const initialIntervals = {
-  work: 25,
-  "short break": 5,
-  "long break": 15,
-  "goal achieved": 0,
-};
-
-const initialConfig = {
-  intervals: initialIntervals,
-  workIntervalCountGoal: 4,
-  isAutoNextEnabled: true,
-  workIntervalsToLongBreak: 4,
-};
-
 const defaultFormValues = {
-  "pomo goals": initialConfig.workIntervalCountGoal,
-  "work duration": initialConfig.intervals["work"],
-  "short break duration": initialConfig.intervals["short break"],
-  "long break duration": initialConfig.intervals["long break"],
-  "work intervals to long break": initialConfig.workIntervalsToLongBreak,
-  "auto next": initialConfig.isAutoNextEnabled,
+  "pomo goals": defaultConfig.workIntervalCountGoal,
+  "work duration": toMinutes(defaultConfig.intervals["work"]),
+  "short break duration": toMinutes(defaultConfig.intervals["short break"]),
+  "long break duration": toMinutes(defaultConfig.intervals["long break"]),
+  "work intervals to long break": defaultConfig.workIntervalsToLongBreak,
+  "auto next": defaultConfig.isAutoNextEnabled,
 };
 
 const SettingsSchema = z.object({
@@ -140,14 +127,6 @@ type Props = {
   onUpdate: (s: Config) => void;
   onDone: () => void;
   config: Config;
-};
-
-// TODO: Move to types and import
-type Config = {
-  intervals: { [key: string]: number };
-  workIntervalCountGoal: number;
-  isAutoNextEnabled: boolean;
-  workIntervalsToLongBreak: number;
 };
 
 type FormValues = z.infer<typeof SettingsSchema>;
