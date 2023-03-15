@@ -42,13 +42,13 @@ function Interval({ duration }: IntervalProps) {
   return <>{toformattedMinsSecs(duration)}</>;
 }
 
-function toformattedMinsSecs(totalSeconds: number) {
+export function toformattedMinsSecs(totalSeconds: number) {
   const minutes = `${Math.floor(totalSeconds / 60)}`;
   const seconds = `${totalSeconds % 60}`;
   return `${minutes.padStart(2, "0")}:${seconds.padStart(2, "0")}`;
 }
 
-function capitalize(str: string) {
+export function capitalize(str: string) {
   return `${str.charAt(0).toUpperCase() + str.slice(1)}`;
 }
 

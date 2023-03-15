@@ -3,6 +3,7 @@ import Confetti from "react-confetti";
 import { IoMdSettings } from "react-icons/io";
 import { useWindowSize } from "@hooks/useWindowSize";
 import { useLocalStorage } from "@hooks/useLocalStorage";
+import { useTitle } from "@hooks/useTitle";
 import { useTimer } from "@hooks/useTimer";
 import Settings from "@components/Settings";
 import Intervals from "@components/Intervals";
@@ -10,6 +11,7 @@ import Header from "@components/Header";
 import Controls from "@components/Controls";
 import TimerControls from "@components/TimerConrols";
 import Modal from "@components/Modal";
+import { toformattedMinsSecs, capitalize } from "@components/Intervals";
 import { defaultConfig } from "@constants";
 import { Config, IntervalName } from "@types";
 import styles from "./App.module.css";
@@ -88,6 +90,10 @@ export default function App() {
     chimes[nextIntervalName].load();
     chimes[nextIntervalName].play();
   });
+
+  useTitle(
+    `${toformattedMinsSecs(currentTimer)} | ${capitalize(currentIntervalName)}`
+  );
 
   function handleStartTimer() {
     if (isTimerActive) return;
