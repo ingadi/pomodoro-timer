@@ -1,7 +1,35 @@
 .input {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  border-block-end: 0.125rem solid;
+}
+
+.field {
+  border: 0;
+  outline: 0;
+}
+
+.input,
+.checkbox {
+  margin-block: 0 1rem;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .controls {
   display: block;
+}
+
+.label {
+  font-weight: bold;
+  letter-spacing: 0.05em;
+}
+
+.field-group {
+  display: flex;
+  justify-content: space-between;
 }

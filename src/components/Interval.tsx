@@ -1,6 +1,6 @@
 import { ContentEditable } from "@components/ContentEditable";
 
-export default function Interval({ duration, name }: Props) {
+export default function Interval({ duration }: Props) {
   return (
     <article>
       <ContentEditable
@@ -22,7 +22,4 @@ function toformattedMinsSecs(totalSeconds: number) {
 
 type Props = {
   duration: number;
-  name: intervalName;
 };
-
-type intervalName = "work" | "short break" | "long break";

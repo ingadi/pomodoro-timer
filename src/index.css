@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 
+html {
+  font-size: calc(15px + 0.390625vw);
+}
+
 /* Remove default margin */
 body,
 h1 {

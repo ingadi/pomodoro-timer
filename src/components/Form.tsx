@@ -2,9 +2,7 @@ import { z } from "zod";
 import { createTsForm, useDescription, useTsController } from "@ts-react/form";
 import styles from "./Form.module.css";
 
-// TODO: Style input forms
-
-function NumberField() {
+function NumberField({ subLabel }: { subLabel?: string }) {
   const {
     field: { value, onChange },
     error,
@@ -12,20 +10,23 @@ function NumberField() {
   const { label, placeholder } = useDescription();
 
   return (
-    <>
-      <label>{label}</label>
-      <input
-        placeholder={placeholder}
-        className={styles.input}
-        type="number"
-        value={value ?? ""}
-        onChange={(e) => {
-          const value = e.target.valueAsNumber;
-          onChange(isNaN(value) ? undefined : value);
-        }}
-      />
+    <div className={styles.input}>
+      <label className={styles.label}>{label}</label>
+      <span className={styles["field-group"]}>
+        <input
+          placeholder={placeholder}
+          className={styles.field}
+          type="number"
+          value={value ?? ""}
+          onChange={(e) => {
+            const value = e.target.valueAsNumber;
+            onChange(isNaN(value) ? undefined : value);
+          }}
+        />
+        <span>{subLabel}</span>
+      </span>
       {error?.errorMessage && <p>{error?.errorMessage}</p>}
-    </>
+    </div>
   );
 }
 
@@ -36,14 +37,14 @@ function CheckBoxField() {
   const { label } = useDescription();
 
   return (
-    <>
-      <label>{label}</label>
+    <div className={styles.checkbox}>
+      <label className={styles.label}>{label}</label>
       <input
         type="checkbox"
         checked={value ?? false}
         onChange={(e) => onChange(e.target.checked)}
       />
-    </>
+    </div>
   );
 }
 

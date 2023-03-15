@@ -8,17 +8,16 @@ export default function TimerControls({
 }: Props) {
   return (
     <>
-      <div>
-        {isActive ? (
-          <button className={styles.button} onClick={onPause}>
-            Pause
-          </button>
-        ) : (
-          <button className={styles.button} onClick={onStart}>
-            Start
-          </button>
-        )}
-      </div>
+      {isActive ? (
+        <button className={styles.button} onClick={onPause}>
+          Pause
+        </button>
+      ) : (
+        <button className={styles.button} onClick={onStart}>
+          Start
+        </button>
+      )}
+
       <button className={styles.button} onClick={onEnd}>
         End
       </button>

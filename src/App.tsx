@@ -27,10 +27,11 @@ export default function App() {
     isAutoNextEnabled,
   } = config;
 
-  // TODO: Steal button animation from nesto.cc to apply to trophy
   // TODO: Add sound on click start button
+  // TODO: Steal button animation from nesto.cc to apply to trophy
   // TODO: use local storage to retrieve and reset daily pomodoro
   // TODO: make peer to peer for study sessions sync settings
+  // TODO: Add animated background
 
   const [currentIntervalName, setCurrentIntervalName] =
     useState<IntervalName>("work");
@@ -38,7 +39,7 @@ export default function App() {
   const currentIntervalDuration = intervals[currentIntervalName];
   const [currentTimer, setCurrentTimer] = useState(currentIntervalDuration);
 
-  const [workIntervalCount, setWorkIntervalCount] = useState(2);
+  const [workIntervalCount, setWorkIntervalCount] = useState(0);
 
   const nextIntervalName = getNextIntervalName(
     currentIntervalName,
@@ -54,6 +55,11 @@ export default function App() {
   const { width, height } = useWindowSize();
 
   const [isSettingsVisible, setIsSettingsVisible] = useState(false);
+
+  const showConfetti =
+    workIntervalCount === workIntervalCountGoal &&
+    workIntervalCountGoal !== 0 &&
+    !isTimerActive;
 
   useTimer(isTimerActive, () => {
     if (currentTimer > 0) {
@@ -101,9 +107,7 @@ export default function App() {
 
   return (
     <>
-      {workIntervalCount === workIntervalCountGoal && !isTimerActive && (
-        <Confetti width={width} height={height} />
-      )}
+      {showConfetti && <Confetti width={width} height={height} />}
       <div className={styles.wrapper}>
         <Header
           workIntervalCount={workIntervalCount}
@@ -130,6 +134,7 @@ export default function App() {
               onEnd={handleEndTimer}
             />
             <button
+              className={styles.settings}
               onClick={() => {
                 setIsTimerActive(false);
                 setIsSettingsVisible(true);
@@ -146,7 +151,6 @@ export default function App() {
       >
         <Settings
           config={config}
-          // TODO: update timer states
           onUpdate={(s) => {
             setConfig(s);
             currentIntervalName !== "work" && setCurrentIntervalName("work");

@@ -1,6 +1,7 @@
 .controls {
   display: flex;
-  gap: 1.5rem;
+  gap: calc(8px + 1.5625vw);
   justify-content: center;
-  margin-block: 2.5rem;
+  align-items: center;
+  margin-block: calc(8px + 1.5625vw);
 }

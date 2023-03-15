@@ -1,1 +1,45 @@
+.settings {
+  padding-inline: calc(8px + 1.5625vw);
+}
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-block: 0 0.5rem;
+}
+
+.close {
+  background: none;
+  border: 0;
+  outline: 0;
+  font-size: x-large;
+  cursor: pointer;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  margin-block: 2rem calc(8px + 1.5625vw);
+  justify-content: right;
+  gap: calc(8px + 5vw);
+}
+
+.button {
+  background: none;
+  border: 0.13rem solid black;
+  padding: 0.5em;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+.primary {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.button-primary {
+  color: white;
+  background-color: black;
+}

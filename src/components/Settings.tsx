@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { useForm } from "react-hook-form";
+import { AiFillCloseCircle } from "react-icons/ai";
 import Form from "@components/Form";
 import { Config } from "@types";
 import { defaultConfig } from "@constants";
@@ -29,36 +30,64 @@ export default function Settings({ onUpdate, onDone, config }: Props) {
     reset(formValues);
   }
 
+  function handleCancel() {
+    onReset(initialFormValues);
+    onDone();
+  }
+
   const formControls = (
     <div className={styles.controls}>
-      <button onClick={() => onReset(defaultFormValues)} type="button">
-        Use default settings
-      </button>
-      <button type="submit">Submit</button>
       <button
-        onClick={() => {
-          onReset(initialFormValues);
-          onDone();
-        }}
+        className={styles.button}
+        onClick={() => onReset(defaultFormValues)}
         type="button"
       >
-        Cancel
+        Use default settings
       </button>
+      <div className={styles.primary}>
+        <button className={styles.button} onClick={handleCancel} type="button">
+          Cancel
+        </button>
+        <button
+          className={`${styles.button} ${styles["button-primary"]}`}
+          type="submit"
+        >
+          Save changes
+        </button>
+      </div>
     </div>
   );
 
   return (
-    <Form
-      form={SettingsForm}
-      schema={SettingsSchema}
-      onSubmit={(data: z.infer<typeof SettingsSchema>) => {
-        console.info(JSON.stringify(data));
-        onUpdate(toConfig(data));
-        onDone();
-      }}
-      renderAfter={() => formControls}
-      defaultValues={initialFormValues}
-    />
+    <section className={styles.settings}>
+      <header className={styles.header}>
+        <h2>Settings</h2>
+        <button className={styles.close} type="button" onClick={handleCancel}>
+          <AiFillCloseCircle />
+        </button>
+      </header>
+      <Form
+        form={SettingsForm}
+        schema={SettingsSchema}
+        onSubmit={(data: z.infer<typeof SettingsSchema>) => {
+          onUpdate(toConfig(data));
+          onDone();
+        }}
+        renderAfter={() => formControls}
+        props={{
+          "work duration": {
+            subLabel: "Mins",
+          },
+          "short break duration": {
+            subLabel: "Mins",
+          },
+          "long break duration": {
+            subLabel: "Mins",
+          },
+        }}
+        defaultValues={initialFormValues}
+      />
+    </section>
   );
 }
 
@@ -122,7 +151,7 @@ const SettingsSchema = z.object({
     .max(60, "Must be 60 or less"),
   "pomo goals": z
     .number()
-    .describe(`Pomo goals // ${defaultFormValues["pomo goals"]}`)
+    .describe(`Daily pomo goal // ${defaultFormValues["pomo goals"]}`)
     .min(0),
   "auto next": z.boolean().describe("Enable auto next"),
 });
