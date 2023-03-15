@@ -98,6 +98,8 @@ export default function App() {
   function handleStartTimer() {
     if (isTimerActive) return;
     setIsTimerActive(true);
+    chimes["start timer"].load();
+    chimes["start timer"].play();
   }
 
   function handlePauseTimer() {
@@ -189,4 +191,5 @@ const chimes = {
   "short break": new Audio("./break-start.ogg"),
   work: new Audio("./break-end.ogg"),
   "goal achieved": new Audio("./goal-achieved.ogg"),
+  "start timer": new Audio("./start-timer.ogg"),
 };
