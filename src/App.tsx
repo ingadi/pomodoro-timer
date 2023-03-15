@@ -87,8 +87,7 @@ export default function App() {
       isAutoNextEnabled && !(nextIntervalName === "goal achieved")
     );
 
-    chimes[nextIntervalName].load();
-    chimes[nextIntervalName].play();
+    playChime(nextIntervalName);
   });
 
   useTitle(
@@ -98,8 +97,7 @@ export default function App() {
   function handleStartTimer() {
     if (isTimerActive) return;
     setIsTimerActive(true);
-    chimes["start timer"].load();
-    chimes["start timer"].play();
+    playChime("start timer");
   }
 
   function handlePauseTimer() {
@@ -186,10 +184,15 @@ function getNextIntervalName(
     : "short break";
 }
 
+function playChime(name: keyof typeof chimes) {
+  chimes[name].load();
+  chimes[name].play();
+}
+
 const chimes = {
   "long break": new Audio("./break-start.ogg"),
   "short break": new Audio("./break-start.ogg"),
   work: new Audio("./break-end.ogg"),
   "goal achieved": new Audio("./goal-achieved.ogg"),
   "start timer": new Audio("./start-timer.ogg"),
-};
+} as const;
