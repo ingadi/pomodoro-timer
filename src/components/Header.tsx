@@ -55,5 +55,3 @@ type Props = {
   currentIntervalName: string;
   onUpdateGoal: (goal: number) => void;
 };
-
-// Ꝏ

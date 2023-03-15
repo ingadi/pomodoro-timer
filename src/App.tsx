@@ -29,10 +29,9 @@ export default function App() {
     isAutoNextEnabled,
   } = config;
 
-  // TODO: Steal button animation from nesto.cc to apply to trophy
+  // TODO: Add animated background
   // TODO: use local storage to retrieve and reset daily pomodoro
   // TODO: make peer to peer for study sessions sync settings
-  // TODO: Add animated background
 
   const [currentIntervalName, setCurrentIntervalName] =
     useState<IntervalName>("work");
@@ -150,10 +149,7 @@ export default function App() {
           </>
         </Controls>
       </div>
-      <Modal
-        isOpen={isSettingsVisible}
-        // onClose={() => setIsSettingsVisible(false)}
-      >
+      <Modal isOpen={isSettingsVisible}>
         <Settings
           config={config}
           onUpdate={(s) => {

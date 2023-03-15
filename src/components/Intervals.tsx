@@ -68,5 +68,3 @@ type IntervalsProps = {
 type IntervalProps = {
   duration: number;
 };
-
-// type IntervalName = "work" | "short break" | "long break" | "goal achieved";
