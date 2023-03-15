@@ -1,7 +1,8 @@
 .button {
   font-size: calc(0.8rem + 1vi);
   background: none;
-  border: 0.18rem solid black;
+  border: 0.18rem solid whitesmoke;
+  color: whitesmoke;
   padding: 0.4em;
   border-radius: 5rem;
   cursor: pointer;

@@ -11,6 +11,7 @@ import Header from "@components/Header";
 import Controls from "@components/Controls";
 import TimerControls from "@components/TimerConrols";
 import Modal from "@components/Modal";
+import Background from "@components/Background";
 import { toformattedMinsSecs, capitalize } from "@components/Intervals";
 import { defaultConfig } from "@constants";
 import { Config, IntervalName } from "@types";
@@ -111,7 +112,8 @@ export default function App() {
 
   return (
     <>
-      {showConfetti && <Confetti width={width} height={height} />}
+      <Background name="squares" />
+      {/* {showConfetti && <Confetti width={width} height={height} />} */}
       <div className={styles.wrapper}>
         <Header
           workIntervalCount={workIntervalCount}
