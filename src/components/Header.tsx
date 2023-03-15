@@ -19,7 +19,9 @@ export default function Header({
           workIntervalCountGoal !== 0 && (
             <GrAchievement
               title="Daily pomo goal achieved"
-              className={styles.icon}
+              className={`${styles.icon} ${
+                workIntervalCount === workIntervalCountGoal ? styles.wiggle : ""
+              }`}
             />
           )}
         <span className={styles["work-interval-count"]} title="Completed pomos">
