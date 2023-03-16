@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Confetti from "react-confetti";
+// import Confetti from "react-confetti";
 import { IoMdSettings } from "react-icons/io";
-import { useWindowSize } from "@hooks/useWindowSize";
+// import { useWindowSize } from "@hooks/useWindowSize";
 import { useLocalStorage } from "@hooks/useLocalStorage";
 import { useTitle } from "@hooks/useTitle";
 import { useTimer } from "@hooks/useTimer";
@@ -31,6 +31,8 @@ export default function App() {
   } = config;
 
   // TODO: Add animated background
+  // TODO: Remove content editable component
+  // TODO: Change squares background gradient and get color pallette
   // TODO: use local storage to retrieve and reset daily pomodoro
   // TODO: make peer to peer for study sessions sync settings
 
@@ -53,14 +55,12 @@ export default function App() {
 
   const [isTimerActive, setIsTimerActive] = useState(false);
 
-  const { width, height } = useWindowSize();
+  // const { width, height } = useWindowSize();
 
   const [isSettingsVisible, setIsSettingsVisible] = useState(false);
 
-  const showConfetti =
-    workIntervalCount === workIntervalCountGoal &&
-    workIntervalCountGoal !== 0 &&
-    !isTimerActive;
+  const goalAchieved =
+    workIntervalCount === workIntervalCountGoal && workIntervalCountGoal !== 0;
 
   useTimer(isTimerActive, () => {
     if (currentTimer > 0) {
@@ -112,7 +112,7 @@ export default function App() {
 
   return (
     <>
-      <Background name="squares" />
+      <Background name={`${goalAchieved ? "fireworks" : "squares"}`} />
       {/* {showConfetti && <Confetti width={width} height={height} />} */}
       <div className={styles.wrapper}>
         <Header
