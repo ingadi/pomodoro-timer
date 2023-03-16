@@ -1,25 +1,25 @@
 import styles from "./Background.module.css";
 
 export default function Background({ name }: Props) {
-  return Backgrounds[name];
+  return <div className={styles.background}>{Particles[name]}</div>;
 }
 
 function Squares() {
   return (
-    //TODO: Transorm to divs
-    <ul className={styles["squares"]}>
+    <>
       {Array.from({ length: 10 }, (_, i) => (
-        <li className={styles.square} key={i}></li>
+        <div key={i} className={styles.square}></div>
       ))}
-    </ul>
+    </>
   );
 }
 
 function FireWorks() {
   return (
-    <div className={styles.background}>
+    <>
       {Array.from({ length: 20 }, (_, i) => (
         <div
+          key={i}
           className={`${styles[`pattern${i}`]} ${styles.fireworks} ${
             styles[`fire${i}`]
           }`}
@@ -28,15 +28,15 @@ function FireWorks() {
           <div className={styles["ring_2"]}></div>
         </div>
       ))}
-    </div>
+    </>
   );
 }
 
-const Backgrounds = {
+const Particles = {
   squares: <Squares />,
   fireworks: <FireWorks />,
 } as const;
 
 type Props = {
-  name: keyof typeof Backgrounds;
+  name: keyof typeof Particles;
 };
