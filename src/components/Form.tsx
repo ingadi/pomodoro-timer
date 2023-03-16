@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { BiErrorCircle } from "react-icons/bi";
 import { createTsForm, useDescription, useTsController } from "@ts-react/form";
 import styles from "./Form.module.css";
 
@@ -10,22 +11,29 @@ function NumberField({ subLabel }: { subLabel?: string }) {
   const { label, placeholder } = useDescription();
 
   return (
-    <div className={styles.input}>
-      <label className={styles.label}>{label}</label>
-      <span className={styles["field-group"]}>
-        <input
-          placeholder={placeholder}
-          className={styles.field}
-          type="number"
-          value={value ?? ""}
-          onChange={(e) => {
-            const value = e.target.valueAsNumber;
-            onChange(isNaN(value) ? undefined : value);
-          }}
-        />
-        <span>{subLabel}</span>
-      </span>
-      {error?.errorMessage && <p>{error?.errorMessage}</p>}
+    <div className={styles["input-group"]}>
+      <div className={styles.input}>
+        <label className={styles.label}>{label}</label>
+        <span className={styles["field-group"]}>
+          <input
+            placeholder={placeholder}
+            className={styles.field}
+            type="number"
+            value={value ?? ""}
+            onChange={(e) => {
+              const value = e.target.valueAsNumber;
+              onChange(isNaN(value) ? undefined : value);
+            }}
+          />
+          <span>{subLabel}</span>
+        </span>
+      </div>
+      {error?.errorMessage && (
+        <p className={styles.error}>
+          <BiErrorCircle />
+          {error?.errorMessage}
+        </p>
+      )}
     </div>
   );
 }

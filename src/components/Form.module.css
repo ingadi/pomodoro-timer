@@ -1,17 +1,25 @@
 .input {
+  border-block-end: 0.125rem solid;
+}
+
+.input-group {
   display: flex;
   flex-direction: column;
-  border-block-end: 0.125rem solid;
+  margin-block: 0 1rem;
 }
 
 .field {
   border: 0;
   outline: 0;
+  flex: 1;
 }
 
-.input,
-.checkbox {
-  margin-block: 0 1rem;
+.error {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  margin-block: 0.2rem 0;
+  color: rgb(250, 108, 92);
 }
 
 .checkbox {
@@ -32,4 +40,5 @@
 .field-group {
   display: flex;
   justify-content: space-between;
+  gap: 0.2rem;
 }
