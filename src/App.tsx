@@ -1,7 +1,5 @@
 import { useState } from "react";
-// import Confetti from "react-confetti";
 import { IoMdSettings } from "react-icons/io";
-// import { useWindowSize } from "@hooks/useWindowSize";
 import { useLocalStorage } from "@hooks/useLocalStorage";
 import { useTitle } from "@hooks/useTitle";
 import { useTimer } from "@hooks/useTimer";
