@@ -151,7 +151,7 @@ const SettingsSchema = z.object({
     .max(60, "Must be 60 or less"),
   "pomo goals": z
     .number()
-    .describe(`Daily pomo goal // ${defaultFormValues["pomo goals"]}`)
+    .describe(`Daily work intervals goal // ${defaultFormValues["pomo goals"]}`)
     .min(0),
   "auto next": z.boolean().describe("Enable auto next"),
 });

@@ -1,8 +1,9 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, useMemo } from "react";
 import { IoMdSettings } from "react-icons/io";
 import { useLocalStorage } from "@hooks/useLocalStorage";
 import { useTitle } from "@hooks/useTitle";
 import { useTimer } from "@hooks/useTimer";
+import { useWorkInterval } from "@hooks/useWorkInterval";
 import Settings from "@components/Settings";
 import Intervals from "@components/Intervals";
 import Header from "@components/Header";
@@ -16,7 +17,7 @@ import { Config, IntervalName } from "@types";
 import styles from "./App.module.css";
 
 export default function App() {
-  const [config, setConfig] = useLocalStorage<Config>(
+  const [config, updateConfig] = useLocalStorage<Config>(
     "pomodoro-config",
     defaultConfig
   );
@@ -28,9 +29,9 @@ export default function App() {
     isAutoNextEnabled,
   } = config;
 
-  // TODO: use local storage to retrieve and reset daily pomodoro
   // TODO: use toggle switch for auto next
   // TODO: combine toggle switch with daily pomo goal then revert to inifity instead of zero
+  // TODO: sync youtube video with timer
   // TODO: make peer to peer for study sessions sync settings
 
   const [currentIntervalName, setCurrentIntervalName] =
@@ -39,7 +40,7 @@ export default function App() {
   const currentIntervalDuration = intervals[currentIntervalName];
   const [currentTimer, setCurrentTimer] = useState(currentIntervalDuration);
 
-  const [workIntervalCount, setWorkIntervalCount] = useState(0);
+  const [workIntervalCount, incrementWorkIntervalCount] = useWorkInterval();
 
   const nextIntervalName = getNextIntervalName(
     currentIntervalName,
@@ -57,6 +58,8 @@ export default function App() {
   const goalAchieved =
     workIntervalCount === workIntervalCountGoal && workIntervalCountGoal !== 0;
 
+  const cachedIntervals = useMemo(() => intervals, [intervals]);
+
   useTimer(
     isTimerActive,
     useCallback(() => {
@@ -65,12 +68,12 @@ export default function App() {
         return;
       }
 
-      currentIntervalName === "work" && setWorkIntervalCount((wic) => wic + 1);
+      currentIntervalName === "work" && incrementWorkIntervalCount();
 
       // skip ahead to work if current interval is goal achieved
       const duration =
         nextIntervalName === "goal achieved"
-          ? intervals["work"]
+          ? cachedIntervals["work"]
           : nextIntervalDuration;
 
       const name =
@@ -87,10 +90,11 @@ export default function App() {
     }, [
       currentIntervalName,
       currentTimer,
-      intervals,
+      cachedIntervals,
       isAutoNextEnabled,
       nextIntervalDuration,
       nextIntervalName,
+      incrementWorkIntervalCount,
     ])
   );
 
@@ -156,7 +160,7 @@ export default function App() {
         <Settings
           config={config}
           onUpdate={(s) => {
-            setConfig(s);
+            updateConfig(s);
             currentIntervalName !== "work" && setCurrentIntervalName("work");
             setCurrentTimer(s.intervals["work"]);
           }}

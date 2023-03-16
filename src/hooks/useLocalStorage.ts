@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 export function useLocalStorage<T>(
   key: string,
@@ -14,6 +14,11 @@ export function useLocalStorage<T>(
         );
   });
 
+  const handleChangeStoredValue = useCallback(
+    (value: T) => setStoredValue(value),
+    []
+  );
+
   useEffect(() => {
     localStorage.setItem(
       key,
@@ -22,10 +27,6 @@ export function useLocalStorage<T>(
       )
     );
   }, [key, storedValue]);
-
-  function handleChangeStoredValue(value: T) {
-    setStoredValue(value);
-  }
 
   return [storedValue, handleChangeStoredValue];
 }

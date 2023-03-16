@@ -22,7 +22,10 @@ export default function Header({
               }`}
             />
           )}
-        <span className={styles["work-interval-count"]} title="Completed pomos">
+        <span
+          className={styles["work-interval-count"]}
+          title="Today's completed work intervals"
+        >
           {workIntervalCount}
         </span>{" "}
         /{" "}
