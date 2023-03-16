@@ -1,6 +1,5 @@
 import { GrAchievement } from "react-icons/gr";
 import { BsInfinity } from "react-icons/bs";
-import { ContentEditable } from "@components/ContentEditable";
 import styles from "./Header.module.css";
 
 export default function Header({
@@ -28,22 +27,14 @@ export default function Header({
           {workIntervalCount}
         </span>{" "}
         /{" "}
-        <ContentEditable
-          label="pomos"
-          value={workIntervalCountGoal}
-          onUpdateValue={(newGoal) => onUpdateGoal(newGoal)}
-        >
-          <>
-            <span className={styles["pomo-goal"]} title="Daily pomo goal">
-              {workIntervalCountGoal === 0 ? (
-                <BsInfinity className={styles.infinity} />
-              ) : (
-                workIntervalCountGoal
-              )}{" "}
-            </span>
-            pomos
-          </>
-        </ContentEditable>
+        <span className={styles["pomo-goal"]} title="Daily pomo goal">
+          {workIntervalCountGoal === 0 ? (
+            <BsInfinity className={styles.infinity} />
+          ) : (
+            workIntervalCountGoal
+          )}{" "}
+        </span>
+        pomos
       </label>
     </header>
   );

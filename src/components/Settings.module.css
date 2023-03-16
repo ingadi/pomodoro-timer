@@ -1,5 +1,6 @@
 .settings {
   padding-inline: calc(8px + 1.5625vw);
+  color: #2d2727;
 }
 
 .header {
@@ -27,11 +28,12 @@
 
 .button {
   background: none;
-  border: 0.13rem solid black;
+  border: 0.13rem solid #2d2727;
   padding: 0.5em;
   cursor: pointer;
   font-weight: bold;
   font-size: 0.8rem;
+  color: #2d2727;
 }
 
 .primary {
@@ -41,5 +43,6 @@
 
 .button-primary {
   color: white;
-  background-color: black;
+  background-color: #251e62;
+  border: 0.13rem solid #251e62;
 }

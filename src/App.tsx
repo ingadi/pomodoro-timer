@@ -28,9 +28,7 @@ export default function App() {
     isAutoNextEnabled,
   } = config;
 
-  // TODO: Add animated background
   // TODO: Remove content editable component
-  // TODO: Change squares background gradient and get color pallette
   // TODO: use local storage to retrieve and reset daily pomodoro
   // TODO: make peer to peer for study sessions sync settings
 
@@ -52,8 +50,6 @@ export default function App() {
   const nextIntervalDuration = intervals[nextIntervalName];
 
   const [isTimerActive, setIsTimerActive] = useState(false);
-
-  // const { width, height } = useWindowSize();
 
   const [isSettingsVisible, setIsSettingsVisible] = useState(false);
 
@@ -111,7 +107,6 @@ export default function App() {
   return (
     <>
       <Background name={`${goalAchieved ? "fireworks" : "squares"}`} />
-      {/* {showConfetti && <Confetti width={width} height={height} />} */}
       <div className={styles.wrapper}>
         <Header
           workIntervalCount={workIntervalCount}

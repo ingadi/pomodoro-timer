@@ -6,9 +6,8 @@
   inset: 0;
   z-index: -1;
   overflow: hidden;
-  background: #0f0c29;
-  background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);
-  background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+  background: #251e62;
+  background: linear-gradient(to right, #3b3b6c, #302b63, #251e62);
 }
 
 .square {
@@ -17,7 +16,7 @@
   list-style: none;
   width: 20px;
   height: 20px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(150, 150, 150, 0.2);
   animation: animate 25s linear infinite;
   bottom: -150px;
 }
@@ -111,7 +110,6 @@
   }
 }
 /* End of squares background */
-
 
 .fireworks {
   opacity: 0;
