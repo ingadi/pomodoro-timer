@@ -6,7 +6,6 @@ export default function Header({
   workIntervalCount,
   workIntervalCountGoal,
   currentIntervalName,
-  onUpdateGoal,
 }: Props) {
   return (
     <header className={styles.header}>

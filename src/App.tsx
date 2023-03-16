@@ -28,7 +28,6 @@ export default function App() {
     isAutoNextEnabled,
   } = config;
 
-  // TODO: Remove content editable component
   // TODO: use local storage to retrieve and reset daily pomodoro
   // TODO: make peer to peer for study sessions sync settings
 
