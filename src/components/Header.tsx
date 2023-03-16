@@ -43,5 +43,4 @@ type Props = {
   workIntervalCount: number;
   workIntervalCountGoal: number;
   currentIntervalName: string;
-  onUpdateGoal: (goal: number) => void;
 };

@@ -5,5 +5,5 @@ export function useTimer(isActive: boolean, onTick: () => void, delay = 1000) {
     if (!isActive) return;
     const interval = setInterval(onTick, delay);
     return () => clearInterval(interval);
-  }, [onTick, delay, isActive]);
+  }, [delay, isActive, onTick]);
 }

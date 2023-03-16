@@ -6,7 +6,7 @@ import { Config } from "@types";
 import { defaultConfig } from "@constants";
 import styles from "./Settings.module.css";
 
-export default function Settings({ onUpdate, onDone, config }: Props) {
+export default function Settings({ config, onUpdate, onDone }: Props) {
   const {
     intervals,
     workIntervalCountGoal,
@@ -157,9 +157,9 @@ const SettingsSchema = z.object({
 });
 
 type Props = {
+  config: Config;
   onUpdate: (s: Config) => void;
   onDone: () => void;
-  config: Config;
 };
 
 type FormValues = z.infer<typeof SettingsSchema>;

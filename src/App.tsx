@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { IoMdSettings } from "react-icons/io";
 import { useLocalStorage } from "@hooks/useLocalStorage";
 import { useTitle } from "@hooks/useTitle";
@@ -29,6 +29,8 @@ export default function App() {
   } = config;
 
   // TODO: use local storage to retrieve and reset daily pomodoro
+  // TODO: use toggle switch for auto next
+  // TODO: combine toggle switch with daily pomo goal then revert to inifity instead of zero
   // TODO: make peer to peer for study sessions sync settings
 
   const [currentIntervalName, setCurrentIntervalName] =
@@ -55,32 +57,42 @@ export default function App() {
   const goalAchieved =
     workIntervalCount === workIntervalCountGoal && workIntervalCountGoal !== 0;
 
-  useTimer(isTimerActive, () => {
-    if (currentTimer > 0) {
-      setCurrentTimer((ct) => ct - 1);
-      return;
-    }
+  useTimer(
+    isTimerActive,
+    useCallback(() => {
+      if (currentTimer > 0) {
+        setCurrentTimer((ct) => ct - 1);
+        return;
+      }
 
-    currentIntervalName === "work" && setWorkIntervalCount((wic) => wic + 1);
+      currentIntervalName === "work" && setWorkIntervalCount((wic) => wic + 1);
 
-    // skip ahead to work if current interval is goal achieved
-    const duration =
-      nextIntervalName === "goal achieved"
-        ? intervals["work"]
-        : nextIntervalDuration;
+      // skip ahead to work if current interval is goal achieved
+      const duration =
+        nextIntervalName === "goal achieved"
+          ? intervals["work"]
+          : nextIntervalDuration;
 
-    const name =
-      nextIntervalName === "goal achieved" ? "work" : nextIntervalName;
+      const name =
+        nextIntervalName === "goal achieved" ? "work" : nextIntervalName;
 
-    setCurrentIntervalName(name);
-    setCurrentTimer(duration);
+      setCurrentIntervalName(name);
+      setCurrentTimer(duration);
 
-    setIsTimerActive(
-      isAutoNextEnabled && !(nextIntervalName === "goal achieved")
-    );
+      setIsTimerActive(
+        isAutoNextEnabled && !(nextIntervalName === "goal achieved")
+      );
 
-    playChime(nextIntervalName);
-  });
+      playChime(nextIntervalName);
+    }, [
+      currentIntervalName,
+      currentTimer,
+      intervals,
+      isAutoNextEnabled,
+      nextIntervalDuration,
+      nextIntervalName,
+    ])
+  );
 
   useTitle(
     `${toformattedMinsSecs(currentTimer)} | ${capitalize(currentIntervalName)}`
@@ -111,9 +123,6 @@ export default function App() {
           workIntervalCount={workIntervalCount}
           workIntervalCountGoal={workIntervalCountGoal}
           currentIntervalName={currentIntervalName}
-          onUpdateGoal={(goal) => {
-            console.log(goal);
-          }}
         />
         <Intervals
           currentIntervalDuration={currentTimer}

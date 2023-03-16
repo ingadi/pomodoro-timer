@@ -1,6 +1,5 @@
 .settings {
   padding-inline: calc(8px + 1.5625vw);
-  color: #2d2727;
 }
 
 .header {
@@ -8,6 +7,7 @@
   justify-content: space-between;
   align-items: center;
   margin-block: 0 0.5rem;
+  color: #251e62;
 }
 
 .close {
@@ -16,6 +16,7 @@
   outline: 0;
   font-size: x-large;
   cursor: pointer;
+  color: #2d2727;
 }
 
 .controls {
