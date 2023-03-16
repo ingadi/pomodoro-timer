@@ -30,7 +30,7 @@ export default function App() {
   } = config;
 
   // TODO: use toggle switch for auto next
-  // TODO: combine toggle switch with daily pomo goal then revert to inifity instead of zero
+  // TODO: combine toggle switch with daily pomo goal then revert to inifity instead of zero, fix header too
   // TODO: sync youtube video with timer
   // TODO: make peer to peer for study sessions sync settings
 

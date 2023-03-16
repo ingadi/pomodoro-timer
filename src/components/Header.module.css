@@ -1,32 +1,25 @@
-.header {
-  text-align: center;
-}
-
 .title {
+  text-align: center;
   font-size: calc(1.8rem + 1vi);
   text-transform: uppercase;
   cursor: help;
 }
 
-.pomo-count {
+.pomos {
   font-size: calc(0.8rem + 1vi);
-  padding: 0;
-  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.pomo-goal,
-.icon,
-.work-interval-count {
+.tooltip {
   cursor: help;
 }
 
-.icon {
-  vertical-align: middle;
-  margin-inline-end: 0.8rem;
-}
-
-.infinity {
-  vertical-align: middle;
+.trophy {
+  font-size: calc(1rem + 1vi);
+  margin-inline-end: 0.2rem;
 }
 
 .wiggle {
@@ -50,6 +43,7 @@
   }
   30% {
     transform: rotateZ(6deg);
+    transform: scale(1);
   }
   35% {
     transform: rotateZ(-4deg);

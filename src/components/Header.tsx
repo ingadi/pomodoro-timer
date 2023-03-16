@@ -1,4 +1,4 @@
-import { GrAchievement } from "react-icons/gr";
+import { AiOutlineTrophy } from "react-icons/ai";
 import { BsInfinity } from "react-icons/bs";
 import styles from "./Header.module.css";
 
@@ -8,36 +8,36 @@ export default function Header({
   currentIntervalName,
 }: Props) {
   return (
-    <header className={styles.header}>
+    <header>
       <h1 title="Current interval" className={styles.title}>
         {currentIntervalName}
       </h1>
-      <label className={styles["pomo-count"]}>
+      <div className={styles.pomos}>
         {workIntervalCount >= workIntervalCountGoal &&
           workIntervalCountGoal !== 0 && (
-            <GrAchievement
-              title="Daily pomo goal achieved"
-              className={`${styles.icon} ${
+            <AiOutlineTrophy
+              title="Daily goal achieved"
+              className={`${styles.trophy} ${styles.tooltip} ${
                 workIntervalCount === workIntervalCountGoal ? styles.wiggle : ""
               }`}
             />
           )}
         <span
-          className={styles["work-interval-count"]}
+          className={`${styles["work-interval-count"]} ${styles.tooltip}`}
           title="Today's completed work intervals"
         >
           {workIntervalCount}
-        </span>{" "}
-        /{" "}
-        <span className={styles["pomo-goal"]} title="Daily pomo goal">
-          {workIntervalCountGoal === 0 ? (
-            <BsInfinity className={styles.infinity} />
-          ) : (
-            workIntervalCountGoal
-          )}{" "}
         </span>
+        &#824;
+        {workIntervalCountGoal === 0 ? (
+          <BsInfinity className={styles.tooltip} title="No daily goal" />
+        ) : (
+          <span className={styles.tooltip} title="Daily goal">
+            workIntervalCountGoal
+          </span>
+        )}
         pomos
-      </label>
+      </div>
     </header>
   );
 }

@@ -26,7 +26,7 @@ export default function Intervals({
           </span>
         </b>
         <div title={capitalize(nextInterval.name)} className={styles.interval}>
-          <span className={styles.icon}>{icons[nextInterval.name]}</span>
+          <i>{icons[nextInterval.name]}</i>
           {nextInterval.name === "goal achieved" ? (
             <small>End</small>
           ) : (
