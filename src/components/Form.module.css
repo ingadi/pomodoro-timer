@@ -32,7 +32,8 @@
   display: block;
 }
 
-.label {
+.label,
+.toggle-field-label {
   font-weight: bold;
   letter-spacing: 0.05em;
 }
@@ -41,4 +42,35 @@
   display: flex;
   justify-content: space-between;
   gap: 0.2rem;
+}
+
+.toggle-field-label {
+  display: block;
+}
+
+.toggle-group {
+  display: inline-flex;
+  border: 0.125rem solid #251e62;
+  margin-block: 0.2rem 0;
+}
+
+.toggle-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.1em;
+  cursor: pointer;
+  background: transparent;
+  inline-size: 3rem;
+  padding: 0.1em 0.3em;
+  color: #2d2727;
+}
+
+.toggle-label:has(> .toggle-input:checked) {
+  background-color: #251e62;
+  color: whitesmoke;
+}
+
+.toggle-input {
+  display: none;
 }

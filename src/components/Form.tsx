@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { BiErrorCircle } from "react-icons/bi";
+import { TfiControlForward, TfiControlSkipForward } from "react-icons/tfi";
 import { createTsForm, useDescription, useTsController } from "@ts-react/form";
 import styles from "./Form.module.css";
 
@@ -38,27 +39,55 @@ function NumberField({ subLabel }: { subLabel?: string }) {
   );
 }
 
-function CheckBoxField() {
+function ToggleSwitchField() {
   const {
     field: { value, onChange },
   } = useTsController<boolean>();
+
   const { label } = useDescription();
 
   return (
-    <div className={styles.checkbox}>
-      <label className={styles.label}>{label}</label>
-      <input
-        type="checkbox"
-        checked={value ?? false}
-        onChange={(e) => onChange(e.target.checked)}
-      />
-    </div>
+    <>
+      <label htmlFor="toggle" className={styles["toggle-field-label"]}>
+        {label}
+      </label>
+
+      <div className={styles["toggle-group"]}>
+        <label htmlFor="no" className={styles["toggle-label"]}>
+          No
+          <TfiControlSkipForward />
+          <input
+            className={styles["toggle-input"]}
+            type="radio"
+            name="toggle"
+            value="no"
+            id="no"
+            checked={!value}
+            onChange={() => onChange(false)}
+          />
+        </label>
+
+        <label htmlFor="yes" className={styles["toggle-label"]}>
+          Yes
+          <TfiControlForward />
+          <input
+            className={styles["toggle-input"]}
+            type="radio"
+            name="toggle"
+            value="yes"
+            id="yes"
+            checked={value}
+            onChange={() => onChange(true)}
+          />
+        </label>
+      </div>
+    </>
   );
 }
 
 const mapping = [
   [z.number(), NumberField],
-  [z.boolean(), CheckBoxField],
+  [z.boolean(), ToggleSwitchField],
 ] as const;
 
 export default createTsForm(mapping);
