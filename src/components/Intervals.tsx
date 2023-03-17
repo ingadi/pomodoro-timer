@@ -1,6 +1,6 @@
 import { BsCupHot, BsPersonWorkspace } from "react-icons/bs";
 import { TbBed } from "react-icons/tb";
-import { FiSkipForward, FiFastForward } from "react-icons/fi";
+import { TfiControlForward, TfiControlSkipForward } from "react-icons/tfi";
 import { AiOutlineFileDone } from "react-icons/ai";
 import { IntervalName } from "@types";
 import styles from "./Intervals.module.css";
@@ -22,7 +22,11 @@ export default function Intervals({
             className={styles["auto-next"]}
             title={`Auto next ${isAutoNextEnabled ? "enabled" : "disabled"}`}
           >
-            {isAutoNextEnabled ? <FiFastForward /> : <FiSkipForward />}
+            {isAutoNextEnabled ? (
+              <TfiControlForward />
+            ) : (
+              <TfiControlSkipForward />
+            )}
           </span>
         </b>
         <div title={capitalize(nextInterval.name)} className={styles.interval}>
