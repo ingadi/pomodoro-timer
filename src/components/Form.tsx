@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { BiErrorCircle } from "react-icons/bi";
-import { TfiControlForward, TfiControlSkipForward } from "react-icons/tfi";
+import { FiSkipForward, FiFastForward } from "react-icons/fi";
 import { createTsForm, useDescription, useTsController } from "@ts-react/form";
 import styles from "./Form.module.css";
 
@@ -55,7 +55,7 @@ function ToggleSwitchField() {
       <div className={styles["toggle-group"]}>
         <label htmlFor="no" className={styles["toggle-label"]}>
           No
-          <TfiControlSkipForward />
+          <FiSkipForward />
           <input
             className={styles["toggle-input"]}
             type="radio"
@@ -69,7 +69,7 @@ function ToggleSwitchField() {
 
         <label htmlFor="yes" className={styles["toggle-label"]}>
           Yes
-          <TfiControlForward />
+          <FiFastForward />
           <input
             className={styles["toggle-input"]}
             type="radio"
