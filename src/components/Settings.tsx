@@ -26,27 +26,17 @@ export default function Settings({ config, onUpdate, onDone }: Props) {
   const SettingsForm = useForm<FormValues>();
   const { reset } = SettingsForm;
 
-  function onReset(formValues: FormValues) {
-    console.log(formValues);
-    // reset(formValues);
-  }
-
-  function handleCancel() {
-    onReset(initialFormValues);
-    onDone();
-  }
-
   const formControls = (
     <div className={styles.controls}>
       <button
         className={styles.button}
-        onClick={() => onReset(defaultFormValues)}
+        onClick={() => reset(defaultFormValues)}
         type="button"
       >
         Use default settings
       </button>
       <div className={styles.primary}>
-        <button className={styles.button} onClick={handleCancel} type="button">
+        <button className={styles.button} onClick={onDone} type="button">
           Cancel
         </button>
         <button
@@ -63,7 +53,7 @@ export default function Settings({ config, onUpdate, onDone }: Props) {
     <section className={styles.settings}>
       <header className={styles.header}>
         <h2>Settings</h2>
-        <button className={styles.close} type="button" onClick={handleCancel}>
+        <button className={styles.close} type="button" onClick={onDone}>
           <AiFillCloseCircle />
         </button>
       </header>
@@ -154,7 +144,7 @@ const SettingsSchema = z.object({
     .number()
     .describe(`Daily work intervals goal // ${defaultFormValues["pomo goals"]}`)
     .min(0),
-  "auto next": z.boolean().describe("Enable auto next"),
+  "auto next": z.boolean().describe("Auto next"),
 });
 
 type Props = {

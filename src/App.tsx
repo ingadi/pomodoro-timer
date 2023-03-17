@@ -51,7 +51,7 @@ export default function App() {
 
   const [isTimerActive, setIsTimerActive] = useState(false);
 
-  const [isSettingsVisible, setIsSettingsVisible] = useState(false);
+  const [isSettingsVisible, setIsSettingsVisible] = useState(true);
 
   const goalAchieved =
     workIntervalCount === workIntervalCountGoal && workIntervalCountGoal !== 0;

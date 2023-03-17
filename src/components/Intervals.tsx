@@ -20,7 +20,7 @@ export default function Intervals({
           Up next{" "}
           <span
             className={styles["auto-next"]}
-            title={`Auto next ${isAutoNextEnabled ? "enabled" : "disabled"}`}
+            title={`Auto next ${isAutoNextEnabled ? "on" : "off"}`}
           >
             {isAutoNextEnabled ? <FiFastForward /> : <FiSkipForward />}
           </span>
