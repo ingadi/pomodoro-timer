@@ -29,8 +29,6 @@ export default function App() {
     isAutoNextEnabled,
   } = config;
 
-  // TODO: use toggle switch for auto next
-  // TODO: combine toggle switch with daily pomo goal then revert to inifity instead of zero, fix header too
   // TODO: sync youtube video with timer
   // TODO: make peer to peer for study sessions sync settings
 
@@ -156,17 +154,19 @@ export default function App() {
           </>
         </Controls>
       </div>
-      <Modal isOpen={isSettingsVisible}>
-        <Settings
-          config={config}
-          onUpdate={(s) => {
-            updateConfig(s);
-            currentIntervalName !== "work" && setCurrentIntervalName("work");
-            setCurrentTimer(s.intervals["work"]);
-          }}
-          onDone={() => setIsSettingsVisible(false)}
-        />
-      </Modal>
+      {isSettingsVisible && (
+        <Modal>
+          <Settings
+            config={config}
+            onUpdate={(s) => {
+              updateConfig(s);
+              currentIntervalName !== "work" && setCurrentIntervalName("work");
+              setCurrentTimer(s.intervals["work"]);
+            }}
+            onDone={() => setIsSettingsVisible(false)}
+          />
+        </Modal>
+      )}
     </>
   );
 }

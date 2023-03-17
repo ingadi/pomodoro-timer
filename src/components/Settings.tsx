@@ -27,7 +27,8 @@ export default function Settings({ config, onUpdate, onDone }: Props) {
   const { reset } = SettingsForm;
 
   function onReset(formValues: FormValues) {
-    reset(formValues);
+    console.log(formValues);
+    // reset(formValues);
   }
 
   function handleCancel() {

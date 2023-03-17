@@ -1,6 +1,15 @@
 .modal {
+  position: absolute;
+  inset: 0;
+  margin: auto;
   box-shadow: #00000029 2px 2px 5px 2px;
+  background-color: whitesmoke;
 }
 
-/* .settings::backdrop {
-} */
+.modal::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: -1;
+}

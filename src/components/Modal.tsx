@@ -1,23 +1,15 @@
-import { useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import styles from "./Modal.module.css";
 
-export default function Modal({ children, isOpen }: Props) {
-  const dialogRef = useRef<HTMLDialogElement>(null);
-
-  useEffect(() => {
-    const dialog = dialogRef.current!;
-    isOpen && dialog.showModal();
-    return () => dialog.close();
-  }, [isOpen]);
-
-  return (
-    <dialog className={styles.modal} ref={dialogRef}>
+export default function Modal({ children }: Props) {
+  return createPortal(
+    <dialog className={styles.modal} open>
       {children}
-    </dialog>
+    </dialog>,
+    document.body
   );
 }
 
 type Props = {
   children: JSX.Element;
-  isOpen: boolean;
 };

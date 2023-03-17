@@ -39,55 +39,74 @@ function NumberField({ subLabel }: { subLabel?: string }) {
   );
 }
 
-function ToggleSwitchField() {
+function Checkbox() {
   const {
     field: { value, onChange },
   } = useTsController<boolean>();
-
   const { label } = useDescription();
 
   return (
     <>
-      <label htmlFor="toggle" className={styles["toggle-field-label"]}>
-        {label}
-      </label>
-
-      <div className={styles["toggle-group"]}>
-        <label htmlFor="no" className={styles["toggle-label"]}>
-          No
-          <FiSkipForward />
-          <input
-            className={styles["toggle-input"]}
-            type="radio"
-            name="toggle"
-            value="no"
-            id="no"
-            checked={!value}
-            onChange={() => onChange(false)}
-          />
-        </label>
-
-        <label htmlFor="yes" className={styles["toggle-label"]}>
-          Yes
-          <FiFastForward />
-          <input
-            className={styles["toggle-input"]}
-            type="radio"
-            name="toggle"
-            value="yes"
-            id="yes"
-            checked={value}
-            onChange={() => onChange(true)}
-          />
-        </label>
-      </div>
+      <label className={styles.label}>{label}</label>
+      <input
+        onChange={(e) => onChange(e.target.checked)}
+        checked={value ?? false}
+        type="checkbox"
+      />
     </>
   );
 }
 
+// function ToggleSwitchField() {
+//   const {
+//     field: { value, onChange },
+//   } = useTsController<boolean>();
+
+//   const { label } = useDescription();
+
+//   return (
+//     <>
+//       <label htmlFor="toggle" className={styles["toggle-field-label"]}>
+//         {label}
+//       </label>
+
+//       <div className={styles["toggle-group"]}>
+//         <label htmlFor="no" className={styles["toggle-label"]}>
+//           No
+//           <FiSkipForward />
+//           <input
+//             className={styles["toggle-input"]}
+//             type="radio"
+//             name="toggle"
+//             value={!value ? "no" : "yes"}
+//             id="no"
+//             checked={!value}
+//             onChange={(e) => onChange(e.target.value)}
+//           />
+//         </label>
+
+//         <label htmlFor="yes" className={styles["toggle-label"]}>
+//           Yes
+//           <FiFastForward />
+//           <input
+//             className={styles["toggle-input"]}
+//             type="radio"
+//             name="toggle"
+//             value={value ? "yes" : "no"}
+//             id="yes"
+//             checked={value}
+//             onChange={(e) => onChange(e.target.value)}
+//           />
+//         </label>
+//       </div>
+//     </>
+//   );
+// }
+
 const mapping = [
   [z.number(), NumberField],
-  [z.boolean(), ToggleSwitchField],
+  // [z.boolean(), ToggleSwitchField],
+  [z.boolean(), Checkbox],
 ] as const;
 
 export default createTsForm(mapping);
