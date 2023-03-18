@@ -33,7 +33,7 @@ export default function Header({
           <BsInfinity className={styles.tooltip} title="Daily goal not set" />
         ) : (
           <span className={styles.tooltip} title="Daily goal">
-            workIntervalCountGoal
+            {workIntervalCountGoal}
           </span>
         )}
         pomos
