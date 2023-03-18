@@ -29,7 +29,9 @@ export default function App() {
     isAutoNextEnabled,
   } = config;
 
-  // TODO: change all values and calculations to work with strings remove NumberField validation hack - use refinements https://blog.logrocket.com/schema-validation-typescript-zod/#refinements-zod
+  // TODO: change all values and calculations to work with strings remove NumberField validation hack
+  // - use refinements https://blog.logrocket.com/schema-validation-typescript-zod/#refinements-zod
+  // - https://bobbyhadz.com/blog/react-only-number-input
   // TODO: sync youtube video with timer
   // TODO: make peer to peer for study sessions sync settings
 
