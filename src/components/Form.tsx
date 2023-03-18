@@ -44,41 +44,24 @@ function ToggleSwitchField() {
   const { label } = useDescription();
 
   return (
-    <>
-      <label htmlFor="toggle" className={styles["toggle-field-label"]}>
-        {label}
-      </label>
-
-      <div className={styles["toggle-group"]}>
-        <label htmlFor="no" className={styles["toggle-label"]}>
-          Off
-          <FiSkipForward />
-          <input
-            className={styles["toggle-input"]}
-            type="radio"
-            name="toggle"
-            value="no"
-            id="no"
-            checked={!value}
-            onChange={() => onChange(false)}
-          />
-        </label>
-
-        <label htmlFor="yes" className={styles["toggle-label"]}>
-          On
-          <FiFastForward />
-          <input
-            className={styles["toggle-input"]}
-            type="radio"
-            name="toggle"
-            value="yes"
-            id="yes"
-            checked={value}
-            onChange={() => onChange(true)}
-          />
-        </label>
+    <label htmlFor="toggle">
+      <span className={styles["toggle-label"]}>{label}</span>
+      <input
+        className={styles["toggle-checkbox"]}
+        id="toggle"
+        type="checkbox"
+        onChange={(e) => onChange(e.target.checked)}
+        checked={value ?? false}
+      />
+      <div className={styles["toggle-options"]}>
+        <span className={styles["toggle-option"]}>
+          No <FiSkipForward />
+        </span>
+        <span className={styles["toggle-option"]}>
+          Yes <FiFastForward />
+        </span>
       </div>
-    </>
+    </label>
   );
 }
 

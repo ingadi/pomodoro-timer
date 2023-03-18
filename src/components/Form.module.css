@@ -24,18 +24,12 @@
   color: rgb(250, 108, 92);
 }
 
-.checkbox {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
 .controls {
   display: block;
 }
 
 .label,
-.toggle-field-label {
+.toggle-label {
   font-weight: bold;
   letter-spacing: 0.05em;
 }
@@ -46,33 +40,37 @@
   gap: 0.2rem;
 }
 
-.toggle-field-label {
+.toggle-label {
   display: block;
+  cursor: pointer;
+  margin-block: 0 0.2rem;
 }
 
-.toggle-group {
+.toggle-checkbox {
+  display: none;
+}
+
+.toggle-options {
   display: inline-flex;
   border: 0.125rem solid #251e62;
-  margin-block: 0.2rem 0;
 }
 
-.toggle-label {
+.toggle-option {
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.1em;
-  cursor: pointer;
-  background: transparent;
-  inline-size: 3rem;
-  padding: 0.1em 0.3em;
-  color: #2d2727;
+  gap: 0.1rem;
+  padding: 0.1rem 0.4rem;
+  min-inline-size: 2.5rem;
 }
 
-.toggle-label:has(> .toggle-input:checked) {
-  background-color: #251e62;
+.toggle-checkbox:not(:checked) + .toggle-options > .toggle-option:nth-child(1) {
   color: whitesmoke;
+  background-color: #251e62;
 }
 
-.toggle-input {
-  display: none;
+.toggle-checkbox:checked + .toggle-options > .toggle-option:nth-child(2) {
+  color: whitesmoke;
+  background-color: #251e62;
 }
