@@ -21,7 +21,10 @@ function NumberField({ subLabel }: { subLabel?: string }) {
             className={styles.field}
             type="number"
             value={value ?? ""}
-            onChange={(e) => onChange(e.target.value)}
+            onChange={(e) => {
+              const val = e.target.valueAsNumber;
+              onChange(isNaN(val) ? "" : val);
+            }}
           />
           <span>{subLabel}</span>
         </span>
