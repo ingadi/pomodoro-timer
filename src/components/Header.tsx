@@ -28,7 +28,7 @@ export default function Header({
         >
           {workIntervalCount}
         </span>
-        &#824;
+        /
         {workIntervalCountGoal === 0 ? (
           <BsInfinity className={styles.tooltip} title="Daily goal not set" />
         ) : (
