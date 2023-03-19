@@ -9,21 +9,25 @@ A pomodoro timer with an auto next feature.
 ```
 
 ├── components
-│   ├── Background 		<- Renders the 'wordle' title
-│   ├── Controls			<- Renders a single letter input.
-│   ├── Form 			    <- Renders every cell and shows game states (loose, win, errors) for a single row
-│   ├── Header			  <- Renders every row
-│   ├── Intervals 		<- Renders the qwerty keyboard
-│   ├── Modal         <- Renders a tooltip to show game states (loose, win, errors) textually
-│   ├── TimerControls <- Renders a tooltip to show game states (loose, win, errors) textually
-│   ├── Interval      <- Renders a tooltip to show game states (loose, win, errors) textually
-│   └── Settings 			<- Renders the Grid and Keyboard
+│   ├── Squares 		<- Handles the square background
+│   ├── Fireworks 		<- Handles the fireworks background
+│   ├── Background 		<- Picks between the backgrounds (squares, fireworks)
+│   ├── Controls			<- Renders the timer and settings controls.
+│   ├── TimerControls		<- Controls the timer
+│   ├── NumberField 		<- Handles number field
+│   ├── ToggleSwitchField 	<- Handles toggle switch field
+│   ├── Header			  <- Renders interval name and the day's goals
+│   ├── Interval      <- Handles rendering of the timer duration
+│   ├── Intervals 		<- Renders both the current interval and details of the interval coming up next
+│   ├── Modal         <- Renders the settings
+│   ├── Settings 			<- Renders the form
+│   └── Form 			    <- Defines and renders the input fields to update default configuration
 ├── types 			      <- TypeScript types.
 ├── hooks
-│   ├── useLocalStorage.ts 		<- Logic for tracking guesses
-│   ├── useTimer.ts 		<- Logic for tracking guesses
-│   ├── useTitle.ts 		<- Logic for tracking guesses
-│   └── useWorkInterval.ts 		<- Capture all key presses, returns key values
+│   ├── useLocalStorage.ts 		<- Retrieving and storing values in local storage
+│   ├── useTimer.ts 		<- Updating timer every second
+│   ├── useTitle.ts 		<- Updating document title
+│   └── useWorkInterval.ts 		<- Saves/resets work interval count for the day
 └── constants
 ```
 
