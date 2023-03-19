@@ -4,17 +4,19 @@
 
 A pomodoro timer with an auto next feature.
 
+[Demo](https://ingadi.github.io/pomodoro-timer/).
+
 ## Project Structure (src)
 
 ```
 
 ├── components
-│   ├── Squares 		<- Handles the square background
-│   ├── Fireworks 		<- Handles the fireworks background
-│   ├── Background 		<- Picks between the backgrounds (squares, fireworks)
-│   ├── Controls			<- Renders the timer and settings controls.
-│   ├── TimerControls		<- Controls the timer
-│   ├── NumberField 		<- Handles number field
+│   ├── Squares 		        <- Handles the square background
+│   ├── Fireworks 		      <- Handles the fireworks background
+│   ├── Background 		      <- Picks between the backgrounds (squares, fireworks)
+│   ├── Controls			      <- Renders the timer and settings controls.
+│   ├── TimerControls		    <- Controls the timer
+│   ├── NumberField 		    <- Handles number field
 │   ├── ToggleSwitchField 	<- Handles toggle switch field
 │   ├── Header			  <- Renders interval name and the day's goals
 │   ├── Interval      <- Handles rendering of the timer duration
@@ -25,10 +27,10 @@ A pomodoro timer with an auto next feature.
 ├── types 			      <- TypeScript types.
 ├── hooks
 │   ├── useLocalStorage.ts 		<- Retrieving and storing values in local storage
-│   ├── useTimer.ts 		<- Updating timer every second
-│   ├── useTitle.ts 		<- Updating document title
+│   ├── useTimer.ts 		      <- Updating timer every second
+│   ├── useTitle.ts 		      <- Updating document title
 │   └── useWorkInterval.ts 		<- Saves/resets work interval count for the day
-└── constants
+└── constants         <- Project constants.
 ```
 
 ## Component Tree
