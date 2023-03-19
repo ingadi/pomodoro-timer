@@ -5,7 +5,7 @@
 A pomodoro timer with an auto next feature.
 
 
-## Project Structure
+## Project Structure (src)
 
 ```
 
@@ -21,8 +21,10 @@ A pomodoro timer with an auto next feature.
 │   └── Settings 			<- Renders the Grid and Keyboard
 ├── types 			      <- TypeScript types.
 ├── hooks
-│   ├── useGuesses.ts 		<- Logic for tracking guesses
-│   └── useKeyPress.ts 		<- Capture all key presses, returns key values
+│   ├── useLocalStorage.ts 		<- Logic for tracking guesses
+│   ├── useTimer.ts 		<- Logic for tracking guesses
+│   ├── useTitle.ts 		<- Logic for tracking guesses
+│   └── useWorkInterval.ts 		<- Capture all key presses, returns key values
 └── constants
 ```
 
