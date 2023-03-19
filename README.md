@@ -20,7 +20,7 @@ A pomodoro timer with an auto next feature.
 │   ├── Interval      <- Renders a tooltip to show game states (loose, win, errors) textually
 │   └── Settings 			<- Renders the Grid and Keyboard
 ├── types 			      <- TypeScript types.
-└── hooks
+├── hooks
 │   ├── useGuesses.ts 		<- Logic for tracking guesses
 │   └── useKeyPress.ts 		<- Capture all key presses, returns key values
 └── constants
