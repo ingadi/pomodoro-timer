@@ -1,9 +1,8 @@
 # Pomodoro timer
 
-[<img src="public/wordle.png" width="250"/>](public/wordle.png)
+[<img src="public/pomodoro-timer.jpg" width="250"/>](public/pomodoro-timer.jpg)
 
 A pomodoro timer with an auto next feature.
-
 
 ## Project Structure (src)
 
@@ -32,12 +31,17 @@ A pomodoro timer with an auto next feature.
 
 ```mermaid
 graph TB
-A((App))-->B((Wordle))
-A-->C((Notification))
-A-->D((Navigation))
-B-->E((Notification))
-B-->F((Grid))
-B-->G((Keyboard))
-F-->H((Row))
-H-->I((Cell))
+A((App))-->B((Background))
+A-->C((Header))
+A-->D((Intervals))
+A-->E((Modal))
+A-->F((Controls))
+B-->G((Squares))
+B-->H((Fireworks))
+D-->I((Interval))
+E-->J((Settings))
+J-->K((Form))
+J-->L((NumberField))
+J-->M((ToggleSwitchField))
+F-->N((TimerControls))
 ```
