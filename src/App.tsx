@@ -1,9 +1,7 @@
 import { useState } from "react";
+import { useInterval, useDocumentTitle, useLocalStorage } from "usehooks-ts";
 import { IoMdSettings } from "react-icons/io";
-import { useLocalStorage } from "@hooks/useLocalStorage";
-import { useTitle } from "@hooks/useTitle";
-import { useTimer } from "@hooks/useTimer";
-import { useWorkInterval } from "@hooks/useWorkInterval";
+import { useWorkIntervalCount } from "@hooks/useWorkIntervalCount";
 import Settings from "@components/Settings";
 import Intervals from "@components/Intervals";
 import Header from "@components/Header";
@@ -18,7 +16,7 @@ import styles from "./App.module.css";
 
 // TODO: sync youtube video with timer
 // TODO: make peer to peer for study sessions sync settings
-// TODO: performance & seo - (proxx) - solidjs?
+// TODO: performance & seo - (proxx) - preact
 
 export default function App() {
   const [config, updateConfig] = useLocalStorage<Config>(
@@ -39,7 +37,8 @@ export default function App() {
   const currentIntervalDuration = intervals[currentIntervalName];
   const [currentTimer, setCurrentTimer] = useState(currentIntervalDuration);
 
-  const [workIntervalCount, incrementWorkIntervalCount] = useWorkInterval();
+  const [workIntervalCount, onIncrementWorkIntervalCount] =
+    useWorkIntervalCount();
 
   const nextIntervalName = getNextIntervalName(
     currentIntervalName,
@@ -57,34 +56,37 @@ export default function App() {
   const goalAchieved =
     workIntervalCount === workIntervalCountGoal && workIntervalCountGoal !== 0;
 
-  useTimer(isTimerActive, () => {
-    if (currentTimer > 0) {
-      setCurrentTimer((ct) => ct - 1);
-      return;
-    }
+  useInterval(
+    () => {
+      if (currentTimer > 0) {
+        setCurrentTimer((ct) => ct - 1);
+        return;
+      }
 
-    currentIntervalName === "work" && incrementWorkIntervalCount();
+      currentIntervalName === "work" && onIncrementWorkIntervalCount();
 
-    // skip ahead to work if current interval is goal achieved
-    const duration =
-      nextIntervalName === "goal achieved"
-        ? intervals["work"]
-        : nextIntervalDuration;
+      // skip ahead to work if current interval is goal achieved
+      const duration =
+        nextIntervalName === "goal achieved"
+          ? intervals["work"]
+          : nextIntervalDuration;
 
-    const name =
-      nextIntervalName === "goal achieved" ? "work" : nextIntervalName;
+      const name =
+        nextIntervalName === "goal achieved" ? "work" : nextIntervalName;
 
-    setCurrentIntervalName(name);
-    setCurrentTimer(duration);
+      setCurrentIntervalName(name);
+      setCurrentTimer(duration);
 
-    setIsTimerActive(
-      isAutoNextEnabled && !(nextIntervalName === "goal achieved")
-    );
+      setIsTimerActive(
+        isAutoNextEnabled && !(nextIntervalName === "goal achieved")
+      );
 
-    playChime(nextIntervalName);
-  });
+      playChime(nextIntervalName);
+    },
+    isTimerActive ? 1000 : null
+  );
 
-  useTitle(
+  useDocumentTitle(
     `${toformattedMinsSecs(currentTimer)} | ${capitalize(currentIntervalName)}`
   );
 
