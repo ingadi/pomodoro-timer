@@ -23,7 +23,7 @@
 }
 
 .wiggle {
-  animation: wiggle 2s linear infinite;
+  animation: wiggle 2s linear forwards;
 }
 
 /* Keyframes */
