@@ -1,5 +1,6 @@
-import { BsCupHot, BsPersonWorkspace } from "react-icons/bs";
-import { TbBed } from "react-icons/tb";
+import { BsCupHot } from "react-icons/bs";
+import { FaLaptopCode } from "react-icons/fa";
+import { SlGameController } from "react-icons/sl";
 import { FiSkipForward, FiFastForward } from "react-icons/fi";
 import { AiOutlineFileDone } from "react-icons/ai";
 import { IntervalName } from "@types";
@@ -53,9 +54,9 @@ export function capitalize(str: string) {
 }
 
 const icons = {
-  work: <BsPersonWorkspace />,
+  work: <FaLaptopCode />,
   "short break": <BsCupHot />,
-  "long break": <TbBed />,
+  "long break": <SlGameController />,
   "goal achieved": <AiOutlineFileDone />,
 };
 
