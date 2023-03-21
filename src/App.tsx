@@ -1,4 +1,4 @@
-import { useCallback, useState, useMemo } from "react";
+import { useState } from "react";
 import { IoMdSettings } from "react-icons/io";
 import { useLocalStorage } from "@hooks/useLocalStorage";
 import { useTitle } from "@hooks/useTitle";
@@ -57,45 +57,32 @@ export default function App() {
   const goalAchieved =
     workIntervalCount === workIntervalCountGoal && workIntervalCountGoal !== 0;
 
-  const cachedIntervals = useMemo(() => intervals, [intervals]);
+  useTimer(isTimerActive, () => {
+    if (currentTimer > 0) {
+      setCurrentTimer((ct) => ct - 1);
+      return;
+    }
 
-  useTimer(
-    isTimerActive,
-    useCallback(() => {
-      if (currentTimer > 0) {
-        setCurrentTimer((ct) => ct - 1);
-        return;
-      }
+    currentIntervalName === "work" && incrementWorkIntervalCount();
 
-      currentIntervalName === "work" && incrementWorkIntervalCount();
+    // skip ahead to work if current interval is goal achieved
+    const duration =
+      nextIntervalName === "goal achieved"
+        ? intervals["work"]
+        : nextIntervalDuration;
 
-      // skip ahead to work if current interval is goal achieved
-      const duration =
-        nextIntervalName === "goal achieved"
-          ? cachedIntervals["work"]
-          : nextIntervalDuration;
+    const name =
+      nextIntervalName === "goal achieved" ? "work" : nextIntervalName;
 
-      const name =
-        nextIntervalName === "goal achieved" ? "work" : nextIntervalName;
+    setCurrentIntervalName(name);
+    setCurrentTimer(duration);
 
-      setCurrentIntervalName(name);
-      setCurrentTimer(duration);
+    setIsTimerActive(
+      isAutoNextEnabled && !(nextIntervalName === "goal achieved")
+    );
 
-      setIsTimerActive(
-        isAutoNextEnabled && !(nextIntervalName === "goal achieved")
-      );
-
-      playChime(nextIntervalName);
-    }, [
-      currentIntervalName,
-      currentTimer,
-      cachedIntervals,
-      isAutoNextEnabled,
-      nextIntervalDuration,
-      nextIntervalName,
-      incrementWorkIntervalCount,
-    ])
-  );
+    playChime(nextIntervalName);
+  });
 
   useTitle(
     `${toformattedMinsSecs(currentTimer)} | ${capitalize(currentIntervalName)}`

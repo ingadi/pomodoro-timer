@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 
-export function useTimer(isActive: boolean, onTick: () => void, delay = 1000) {
+export function useTimer(isActive: boolean, onTick: () => void) {
   useEffect(() => {
-    if (!isActive) return;
-    const interval = setInterval(onTick, delay);
-    return () => clearInterval(interval);
-  }, [delay, isActive, onTick]);
+    const intervalId = isActive ? setInterval(onTick, 1000) : undefined;
+    return () => clearInterval(intervalId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isActive]);
 }
