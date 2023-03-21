@@ -14,10 +14,6 @@ import { defaultConfig } from "@constants";
 import { Config, IntervalName } from "@types";
 import styles from "./App.module.css";
 
-// TODO: sync youtube video with timer
-// TODO: make peer to peer for study sessions sync settings
-// TODO: performance & seo - (proxx) - preact
-
 export default function App() {
   const [config, updateConfig] = useLocalStorage<Config>(
     "pomodoro-config",
