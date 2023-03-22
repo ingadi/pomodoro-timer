@@ -1,35 +1,6 @@
-.intervals {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.interval-active {
-  font-family: "Lemon", cursive;
-  font-size: calc(3rem + 2vi);
-  flex: 0 0 4.6ch;
-}
-
-.interval-inactive {
-  font-size: calc(1rem + 1vi);
-  flex: 0 0 7ch;
-}
-
-.auto-next {
-  cursor: help;
-}
-
-.up-next {
-  display: flex;
-  gap: 0.5rem;
-  font-size: smaller;
-  color: #f0eb8d;
-}
-
-.interval {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-  margin-block: 0.3rem 0;
+.title {
+  text-align: center;
+  font-size: calc(1.8rem + 1vi);
+  text-transform: uppercase;
   cursor: help;
 }

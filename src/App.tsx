@@ -3,19 +3,20 @@ import { useInterval, useDocumentTitle, useLocalStorage } from "usehooks-ts";
 import { IoMdSettings } from "react-icons/io";
 import { usePomodoroCount } from "@hooks/usePomodoroCount";
 import Settings from "@components/Settings";
+import Pomodoro from "@components/Pomodoro";
+import Timers from "@components/Timers";
 import Intervals from "@components/Intervals";
-import Header from "@components/Header";
 import Controls from "@components/Controls";
 import TimerControls from "@components/TimerConrols";
 import Modal from "@components/Modal";
 import Background from "@components/Background";
-import { toformattedMinsSecs, capitalize } from "@components/Intervals";
+import { toformattedMinsSecs, capitalize } from "@components/Timers";
 import { defaultConfig } from "@constants";
 import { Config, IntervalName } from "@types";
 import styles from "./App.module.css";
 
 export default function App() {
-  const [config, updateConfig] = useLocalStorage<Config>(
+  const [config, setConfig] = useLocalStorage<Config>(
     "pomodoro-config",
     defaultConfig
   );
@@ -30,8 +31,9 @@ export default function App() {
   const [currentIntervalName, setCurrentIntervalName] =
     useState<IntervalName>("work");
 
-  const currentIntervalDuration = intervals[currentIntervalName];
-  const [currentTimer, setCurrentTimer] = useState(currentIntervalDuration);
+  const [currentTimer, setCurrentTimer] = useState(
+    intervals[currentIntervalName]
+  );
 
   const [pomodoroCount, onIncrementPomodoroCount] = usePomodoroCount();
 
@@ -48,8 +50,7 @@ export default function App() {
 
   const [isSettingsVisible, setIsSettingsVisible] = useState(false);
 
-  const goalAchieved =
-    pomodoroCount === pomodoroGoal && pomodoroGoal !== 0 && !isTimerActive;
+  const goalAchieved = pomodoroCount === pomodoroGoal && pomodoroGoal !== 0;
 
   useInterval(
     () => {
@@ -60,23 +61,12 @@ export default function App() {
 
       currentIntervalName === "work" && onIncrementPomodoroCount();
 
-      // skip ahead to work if current interval is goal achieved
-      const duration =
-        nextIntervalName === "goal achievement"
-          ? intervals["work"]
-          : nextIntervalDuration;
+      setCurrentIntervalName(nextIntervalName);
+      setCurrentTimer(nextIntervalDuration);
 
-      const name =
-        nextIntervalName === "goal achievement" ? "work" : nextIntervalName;
+      setIsTimerActive(isAutoNextEnabled && !goalAchieved);
 
-      setCurrentIntervalName(name);
-      setCurrentTimer(duration);
-
-      setIsTimerActive(
-        isAutoNextEnabled && !(nextIntervalName === "goal achievement")
-      );
-
-      playChime(nextIntervalName);
+      playChime(goalAchieved ? "goal achievement" : nextIntervalName);
     },
     isTimerActive ? 1000 : null
   );
@@ -104,19 +94,18 @@ export default function App() {
 
   return (
     <>
-      <Background name={`${goalAchieved ? "fireworks" : "squares"}`} />
+      <Background
+        name={`${goalAchieved && !isTimerActive ? "fireworks" : "squares"}`}
+      />
       <div className={styles.wrapper}>
-        <Header
-          workIntervalCount={pomodoroCount}
-          workIntervalCountGoal={pomodoroGoal}
-          currentIntervalName={currentIntervalName}
-        />
-        <Intervals
-          currentIntervalDuration={currentTimer}
-          nextInterval={{
-            name: nextIntervalName,
-            duration: nextIntervalDuration,
-          }}
+        <Intervals currentIntervalName={currentIntervalName} />
+        <Pomodoro count={pomodoroCount} goal={pomodoroGoal} />
+        <Timers
+          currentTimerDuration={currentTimer}
+          nextIntervalName={
+            goalAchieved ? "goal achievement" : nextIntervalName
+          }
+          nextTimerDuration={nextIntervalDuration}
           isAutoNextEnabled={isAutoNextEnabled}
         />
         <Controls>
@@ -143,10 +132,10 @@ export default function App() {
         <Modal>
           <Settings
             config={config}
-            onUpdate={(s) => {
-              updateConfig(s);
+            onUpdate={(c) => {
+              setConfig(c);
               currentIntervalName !== "work" && setCurrentIntervalName("work");
-              setCurrentTimer(s.intervals["work"]);
+              setCurrentTimer(c.intervals["work"]);
             }}
             onDone={() => setIsSettingsVisible(false)}
           />
@@ -158,16 +147,14 @@ export default function App() {
 
 function getNextIntervalName(
   currentIntervalName: string,
-  workIntervalCount: number,
-  workIntervalsToLongBreak: number,
-  workIntervalCountGoal: number
+  pomodoroCount: number,
+  pomodorosToLongBreak: number,
+  pomodoroGoal: number
 ): IntervalName {
-  if (currentIntervalName !== "work") return "work";
+  if (currentIntervalName !== "work" || pomodoroCount + 1 === pomodoroGoal)
+    return "work";
 
-  if (workIntervalCount + 1 === workIntervalCountGoal)
-    return "goal achievement";
-
-  return (workIntervalCount + 1) % workIntervalsToLongBreak === 0
+  return (pomodoroCount + 1) % pomodorosToLongBreak === 0
     ? "long break"
     : "short break";
 }

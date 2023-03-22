@@ -88,7 +88,6 @@ function toConfig(data: z.infer<typeof SettingsSchema>): Config {
       work: toSeconds(data["work duration"]),
       "short break": toSeconds(data["short break duration"]),
       "long break": toSeconds(data["long break duration"]),
-      "goal achievement": 0,
     },
     pomodoroGoal: data["daily pomodoro goal"],
     isAutoNextEnabled: data["auto next"],
