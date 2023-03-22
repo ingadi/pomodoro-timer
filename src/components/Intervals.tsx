@@ -1,7 +1,15 @@
 import { IntervalName } from "@types";
 import styles from "./Intervals.module.css";
 
-export default function Intervals({ currentIntervalName }: Props) {
+export default function Intervals({
+  currentIntervalName,
+  onSelecteInterval,
+}: Props) {
+  function handleClick(name: IntervalName) {
+    if (name === currentIntervalName) return;
+    onSelecteInterval(name);
+  }
+
   return (
     <nav>
       <ol className={styles.intervals}>
@@ -11,6 +19,7 @@ export default function Intervals({ currentIntervalName }: Props) {
             className={`${name === currentIntervalName ? styles.active : ""} ${
               styles.interval
             }`}
+            onClick={() => handleClick(name)}
           >
             {name}
           </li>
@@ -24,4 +33,5 @@ const IntervalNames = ["short break", "work", "long break"] as const;
 
 type Props = {
   currentIntervalName: IntervalName;
+  onSelecteInterval: (name: IntervalName) => void;
 };

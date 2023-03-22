@@ -63,7 +63,6 @@ export default function App() {
 
       setCurrentIntervalName(nextIntervalName);
       setCurrentTimer(nextIntervalDuration);
-
       setIsTimerActive(isAutoNextEnabled && !goalAchieved);
 
       playChime(goalAchieved ? "goal achievement" : nextIntervalName);
@@ -74,6 +73,12 @@ export default function App() {
   useDocumentTitle(
     `${toformattedMinsSecs(currentTimer)} | ${capitalize(currentIntervalName)}`
   );
+
+  function handleSelectInterval(name: IntervalName) {
+    setCurrentIntervalName(name);
+    setCurrentTimer(intervals[name]);
+    setIsTimerActive(false);
+  }
 
   function handleStartTimer() {
     if (isTimerActive) return;
@@ -98,7 +103,10 @@ export default function App() {
         name={`${goalAchieved && !isTimerActive ? "fireworks" : "squares"}`}
       />
       <div className={styles.wrapper}>
-        <Intervals currentIntervalName={currentIntervalName} />
+        <Intervals
+          currentIntervalName={currentIntervalName}
+          onSelecteInterval={handleSelectInterval}
+        />
         <Timers
           currentTimerDuration={currentTimer}
           nextIntervalName={
