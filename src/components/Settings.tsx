@@ -15,11 +15,11 @@ export default function Settings({ config, onUpdate, onDone }: Props) {
   } = config;
 
   const initialFormValues = {
-    "pomo goals": workIntervalCountGoal,
+    "daily pomodoro goal": workIntervalCountGoal,
     "work duration": toMinutes(intervals["work"]),
     "short break duration": toMinutes(intervals["short break"]),
     "long break duration": toMinutes(intervals["long break"]),
-    "work intervals to long break": workIntervalsToLongBreak,
+    "pomodoros before long break": workIntervalsToLongBreak,
     "auto next": isAutoNextEnabled,
   };
 
@@ -88,11 +88,11 @@ function toConfig(data: z.infer<typeof SettingsSchema>): Config {
       work: toSeconds(data["work duration"]),
       "short break": toSeconds(data["short break duration"]),
       "long break": toSeconds(data["long break duration"]),
-      "goal achieved": 0,
+      "goal achievement": 0,
     },
-    workIntervalCountGoal: data["pomo goals"],
+    workIntervalCountGoal: data["pomodoro goals"],
     isAutoNextEnabled: data["auto next"],
-    workIntervalsToLongBreak: data["work intervals to long break"],
+    workIntervalsToLongBreak: data["pomodoros before long break"],
   };
 }
 
@@ -105,18 +105,20 @@ function toMinutes(seconds: number) {
 }
 
 const defaultFormValues = {
-  "pomo goals": defaultConfig.workIntervalCountGoal,
+  "daily pomodoro goal": defaultConfig.workIntervalCountGoal,
   "work duration": toMinutes(defaultConfig.intervals["work"]),
   "short break duration": toMinutes(defaultConfig.intervals["short break"]),
   "long break duration": toMinutes(defaultConfig.intervals["long break"]),
-  "work intervals to long break": defaultConfig.workIntervalsToLongBreak,
+  "work intervals before long break": defaultConfig.workIntervalsToLongBreak,
   "auto next": defaultConfig.isAutoNextEnabled,
 };
 
 const SettingsSchema = z.object({
   "work duration": z
     .number({ invalid_type_error: "Required" })
-    .describe(`Work duration // ${defaultFormValues["work duration"]}`)
+    .describe(
+      `Work duration (Pomodoro) // ${defaultFormValues["work duration"]}`
+    )
     .min(1, "Must be 1 more"),
   "short break duration": z
     .number({ invalid_type_error: "Required" })
@@ -130,15 +132,17 @@ const SettingsSchema = z.object({
       `Long break duration // ${defaultFormValues["long break duration"]}`
     )
     .min(1, "Must be 1 or more"),
-  "work intervals to long break": z
+  "pomodoros before long break": z
     .number({ invalid_type_error: "Required" })
     .describe(
-      `Work intervals before long break // ${defaultFormValues["work intervals to long break"]}`
+      `Pomodoros before long break // ${defaultFormValues["work intervals before long break"]}`
     )
     .min(1, "Must be 1 or more"),
-  "pomo goals": z
+  "pomodoro goals": z
     .number({ invalid_type_error: "Required" })
-    .describe(`Daily work intervals goal // ${defaultFormValues["pomo goals"]}`)
+    .describe(
+      `Daily pomodoro goal // ${defaultFormValues["daily pomodoro goal"]}`
+    )
     .min(0),
   "auto next": z.boolean().describe("Auto next"),
 });
