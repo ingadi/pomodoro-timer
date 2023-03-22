@@ -40,8 +40,6 @@ export default function Timers({
   );
 }
 
-// TODO: Extract upnext into own component
-
 function Timer({ duration }: TimerProps) {
   return <>{toformattedMinsSecs(duration)}</>;
 }

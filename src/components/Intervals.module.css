@@ -1,6 +1,42 @@
-.title {
-  text-align: center;
-  font-size: calc(1.8rem + 1vi);
+.intervals {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0;
+  margin: 0;
   text-transform: uppercase;
+}
+
+.interval {
+  opacity: 0.5;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+}
+
+.interval:hover {
+  opacity: 1;
+}
+
+.active {
+  display: flex;
+  align-items: center;
+  font-size: calc(1.8rem + 1vi);
+  opacity: 1;
   cursor: help;
+}
+
+.active::before,
+.active::after {
+  content: "\2758";
+  font-size: 1rem;
+}
+
+.active::before {
+  margin-inline-end: 0.5em;
+}
+
+.active::after {
+  margin-inline-start: 0.5em;
 }

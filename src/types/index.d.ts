@@ -5,4 +5,5 @@ export type Config = {
   pomodorosBeforeLongBreak: number;
 };
 
-export type IntervalName = "work" | "short break" | "long break";
+// export type IntervalName = "short break" | "work" | "long break";
+export type IntervalName = "short break" | "work" | "long break";

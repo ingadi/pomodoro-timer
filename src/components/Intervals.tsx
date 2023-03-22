@@ -1,15 +1,27 @@
+import { IntervalName } from "@types";
 import styles from "./Intervals.module.css";
 
 export default function Intervals({ currentIntervalName }: Props) {
   return (
-    <header>
-      <h1 title="Current interval" className={styles.title}>
-        {currentIntervalName}
-      </h1>
-    </header>
+    <nav>
+      <ol className={styles.intervals}>
+        {IntervalNames.map((name, idx) => (
+          <li
+            key={idx}
+            className={`${name === currentIntervalName ? styles.active : ""} ${
+              styles.interval
+            }`}
+          >
+            {name}
+          </li>
+        ))}
+      </ol>
+    </nav>
   );
 }
 
+const IntervalNames = ["short break", "work", "long break"] as const;
+
 type Props = {
-  currentIntervalName: string;
+  currentIntervalName: IntervalName;
 };

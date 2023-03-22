@@ -7,4 +7,10 @@
   border-radius: 5rem;
   cursor: pointer;
   min-inline-size: 10ch;
+  opacity: 0.8;
+  transition: all 0.15s ease-in-out;
+}
+
+.button:hover {
+  opacity: 1;
 }

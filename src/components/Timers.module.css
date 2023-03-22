@@ -7,12 +7,11 @@
 .timer-active {
   font-family: "Lemon", cursive;
   font-size: calc(3rem + 2vi);
-  flex: 0 0 4.6ch;
+  flex: 0 0 4.5ch;
 }
 
 .timer-inactive {
-  font-size: calc(1rem + 1vi);
-  flex: 0 0 7ch;
+  font-size: calc(0.6rem + 1vi);
 }
 
 .auto-next {

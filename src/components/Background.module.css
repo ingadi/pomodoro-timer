@@ -7,7 +7,7 @@
   z-index: -1;
   overflow: hidden;
   background: #251e62;
-  background: linear-gradient(to right, #3b3b6c, #302b63, #251e62);
+  /* background: linear-gradient(to right, #3b3b6c, #302b63, #251e62); */
 }
 
 .square {

@@ -99,7 +99,6 @@ export default function App() {
       />
       <div className={styles.wrapper}>
         <Intervals currentIntervalName={currentIntervalName} />
-        <Pomodoro count={pomodoroCount} goal={pomodoroGoal} />
         <Timers
           currentTimerDuration={currentTimer}
           nextIntervalName={
@@ -108,6 +107,7 @@ export default function App() {
           nextTimerDuration={nextIntervalDuration}
           isAutoNextEnabled={isAutoNextEnabled}
         />
+        <Pomodoro count={pomodoroCount} goal={pomodoroGoal} />
         <Controls>
           <>
             <TimerControls

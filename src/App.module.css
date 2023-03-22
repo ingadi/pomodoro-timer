@@ -24,4 +24,14 @@ body {
   font-size: calc(1rem + 1.5625vi);
   cursor: pointer;
   color: whitesmoke;
+  opacity: 0.8;
+  transition: all 0.15s ease-in-out;
+}
+
+.settings:hover {
+  opacity: 1;
+}
+
+.settings:focus-visible {
+  outline: none;
 }
