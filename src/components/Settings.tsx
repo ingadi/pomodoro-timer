@@ -90,7 +90,7 @@ function toConfig(data: z.infer<typeof SettingsSchema>): Config {
       "long break": toSeconds(data["long break duration"]),
       "goal achievement": 0,
     },
-    pomodoroGoal: data["pomodoro goals"],
+    pomodoroGoal: data["daily pomodoro goal"],
     isAutoNextEnabled: data["auto next"],
     pomodorosBeforeLongBreak: data["pomodoros before long break"],
   };
@@ -138,7 +138,7 @@ const SettingsSchema = z.object({
       `Pomodoros before long break // ${defaultFormValues["work intervals before long break"]}`
     )
     .min(1, "Must be 1 or more"),
-  "pomodoro goals": z
+  "daily pomodoro goal": z
     .number({ invalid_type_error: "Required" })
     .describe(
       `Daily pomodoro goal // ${defaultFormValues["daily pomodoro goal"]}`
