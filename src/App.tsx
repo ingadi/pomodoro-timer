@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useInterval, useDocumentTitle, useLocalStorage } from "usehooks-ts";
 import { IoMdSettings } from "react-icons/io";
-import { useWorkIntervalCount } from "@hooks/useWorkIntervalCount";
+import { usePomodoroCount } from "@hooks/usePomodoroCount";
 import Settings from "@components/Settings";
 import Intervals from "@components/Intervals";
 import Header from "@components/Header";
@@ -33,12 +33,11 @@ export default function App() {
   const currentIntervalDuration = intervals[currentIntervalName];
   const [currentTimer, setCurrentTimer] = useState(currentIntervalDuration);
 
-  const [workIntervalCount, onIncrementWorkIntervalCount] =
-    useWorkIntervalCount();
+  const [pomodoroCount, onIncrementPomodoroCount] = usePomodoroCount();
 
   const nextIntervalName = getNextIntervalName(
     currentIntervalName,
-    workIntervalCount,
+    pomodoroCount,
     pomodorosBeforeLongBreak,
     pomodoroGoal
   );
@@ -50,7 +49,7 @@ export default function App() {
   const [isSettingsVisible, setIsSettingsVisible] = useState(false);
 
   const goalAchieved =
-    workIntervalCount === pomodoroGoal && pomodoroGoal !== 0 && !isTimerActive;
+    pomodoroCount === pomodoroGoal && pomodoroGoal !== 0 && !isTimerActive;
 
   useInterval(
     () => {
@@ -59,7 +58,7 @@ export default function App() {
         return;
       }
 
-      currentIntervalName === "work" && onIncrementWorkIntervalCount();
+      currentIntervalName === "work" && onIncrementPomodoroCount();
 
       // skip ahead to work if current interval is goal achieved
       const duration =
@@ -108,7 +107,7 @@ export default function App() {
       <Background name={`${goalAchieved ? "fireworks" : "squares"}`} />
       <div className={styles.wrapper}>
         <Header
-          workIntervalCount={workIntervalCount}
+          workIntervalCount={pomodoroCount}
           workIntervalCountGoal={pomodoroGoal}
           currentIntervalName={currentIntervalName}
         />

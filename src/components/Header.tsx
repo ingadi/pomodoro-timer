@@ -12,7 +12,11 @@ export default function Header({
       <h1 title="Current interval" className={styles.title}>
         {currentIntervalName}
       </h1>
-      <div className={styles.pomos}>
+      <Pomodoro
+        workIntervalCount={workIntervalCount}
+        workIntervalCountGoal={workIntervalCountGoal}
+      />
+      {/* <div className={styles.pomos}>
         {workIntervalCount >= workIntervalCountGoal &&
           workIntervalCountGoal !== 0 && (
             <AiOutlineTrophy
@@ -24,7 +28,7 @@ export default function Header({
           )}
         <span
           className={`${styles["work-interval-count"]} ${styles.tooltip}`}
-          title="Today's completed work intervals"
+          title="Today's completed pomodoros"
         >
           {workIntervalCount}
         </span>
@@ -36,11 +40,47 @@ export default function Header({
             {workIntervalCountGoal}
           </span>
         )}
-        pomos
-      </div>
+        pomodoro
+      </div> */}
     </header>
   );
 }
+
+function Pomodoro({ workIntervalCount, workIntervalCountGoal }: PomodoroProps) {
+  return (
+    <div className={styles.pomos}>
+      {workIntervalCount >= workIntervalCountGoal &&
+        workIntervalCountGoal !== 0 && (
+          <AiOutlineTrophy
+            title="Daily goal achieved"
+            className={`${styles.trophy} ${styles.tooltip} ${
+              workIntervalCount === workIntervalCountGoal ? styles.wiggle : ""
+            }`}
+          />
+        )}
+      <span
+        className={`${styles["work-interval-count"]} ${styles.tooltip}`}
+        title="Today's completed pomodoros"
+      >
+        {workIntervalCount}
+      </span>
+      /
+      {workIntervalCountGoal === 0 ? (
+        <BsInfinity className={styles.tooltip} title="Daily goal not set" />
+      ) : (
+        <span className={styles.tooltip} title="Daily goal">
+          {workIntervalCountGoal}
+        </span>
+      )}
+      pomos
+    </div>
+  );
+}
+
+type PomodoroProps = {
+  workIntervalCount: number;
+  workIntervalCountGoal: number;
+};
 
 type Props = {
   workIntervalCount: number;
