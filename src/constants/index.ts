@@ -2,12 +2,12 @@ const defaultIntervals = {
   work: 1500,
   "short break": 300,
   "long break": 900,
-  "goal achieved": 0,
+  "goal achievement": 0,
 } as const;
 
 export const defaultConfig = {
   intervals: defaultIntervals,
-  workIntervalCountGoal: 0,
+  pomodoroGoal: 0,
   isAutoNextEnabled: false,
-  workIntervalsToLongBreak: 4,
+  pomodorosBeforeLongBreak: 4,
 } as const;

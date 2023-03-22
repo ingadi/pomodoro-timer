@@ -9,17 +9,17 @@ import styles from "./Settings.module.css";
 export default function Settings({ config, onUpdate, onDone }: Props) {
   const {
     intervals,
-    workIntervalCountGoal,
-    workIntervalsToLongBreak,
+    pomodoroGoal,
+    pomodorosBeforeLongBreak,
     isAutoNextEnabled,
   } = config;
 
   const initialFormValues = {
-    "daily pomodoro goal": workIntervalCountGoal,
+    "daily pomodoro goal": pomodoroGoal,
     "work duration": toMinutes(intervals["work"]),
     "short break duration": toMinutes(intervals["short break"]),
     "long break duration": toMinutes(intervals["long break"]),
-    "pomodoros before long break": workIntervalsToLongBreak,
+    "pomodoros before long break": pomodorosBeforeLongBreak,
     "auto next": isAutoNextEnabled,
   };
 
@@ -90,9 +90,9 @@ function toConfig(data: z.infer<typeof SettingsSchema>): Config {
       "long break": toSeconds(data["long break duration"]),
       "goal achievement": 0,
     },
-    workIntervalCountGoal: data["pomodoro goals"],
+    pomodoroGoal: data["pomodoro goals"],
     isAutoNextEnabled: data["auto next"],
-    workIntervalsToLongBreak: data["pomodoros before long break"],
+    pomodorosBeforeLongBreak: data["pomodoros before long break"],
   };
 }
 
@@ -105,11 +105,11 @@ function toMinutes(seconds: number) {
 }
 
 const defaultFormValues = {
-  "daily pomodoro goal": defaultConfig.workIntervalCountGoal,
+  "daily pomodoro goal": defaultConfig.pomodoroGoal,
   "work duration": toMinutes(defaultConfig.intervals["work"]),
   "short break duration": toMinutes(defaultConfig.intervals["short break"]),
   "long break duration": toMinutes(defaultConfig.intervals["long break"]),
-  "work intervals before long break": defaultConfig.workIntervalsToLongBreak,
+  "work intervals before long break": defaultConfig.pomodorosBeforeLongBreak,
   "auto next": defaultConfig.isAutoNextEnabled,
 };
 

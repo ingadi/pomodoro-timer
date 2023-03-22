@@ -1,12 +1,12 @@
 export type Config = {
   intervals: { [key: string]: number };
-  workIntervalCountGoal: number;
+  pomodoroGoal: number;
   isAutoNextEnabled: boolean;
-  workIntervalsToLongBreak: number;
+  pomodorosBeforeLongBreak: number;
 };
 
 export type IntervalName =
   | "work"
   | "short break"
   | "long break"
-  | "goal achieved";
+  | "goal achievement";

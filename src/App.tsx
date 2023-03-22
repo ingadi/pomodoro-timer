@@ -22,8 +22,8 @@ export default function App() {
 
   const {
     intervals,
-    workIntervalCountGoal,
-    workIntervalsToLongBreak,
+    pomodoroGoal,
+    pomodorosBeforeLongBreak,
     isAutoNextEnabled,
   } = config;
 
@@ -39,8 +39,8 @@ export default function App() {
   const nextIntervalName = getNextIntervalName(
     currentIntervalName,
     workIntervalCount,
-    workIntervalsToLongBreak,
-    workIntervalCountGoal
+    pomodorosBeforeLongBreak,
+    pomodoroGoal
   );
 
   const nextIntervalDuration = intervals[nextIntervalName];
@@ -50,9 +50,7 @@ export default function App() {
   const [isSettingsVisible, setIsSettingsVisible] = useState(false);
 
   const goalAchieved =
-    workIntervalCount === workIntervalCountGoal &&
-    workIntervalCountGoal !== 0 &&
-    !isTimerActive;
+    workIntervalCount === pomodoroGoal && pomodoroGoal !== 0 && !isTimerActive;
 
   useInterval(
     () => {
@@ -65,18 +63,18 @@ export default function App() {
 
       // skip ahead to work if current interval is goal achieved
       const duration =
-        nextIntervalName === "goal achieved"
+        nextIntervalName === "goal achievement"
           ? intervals["work"]
           : nextIntervalDuration;
 
       const name =
-        nextIntervalName === "goal achieved" ? "work" : nextIntervalName;
+        nextIntervalName === "goal achievement" ? "work" : nextIntervalName;
 
       setCurrentIntervalName(name);
       setCurrentTimer(duration);
 
       setIsTimerActive(
-        isAutoNextEnabled && !(nextIntervalName === "goal achieved")
+        isAutoNextEnabled && !(nextIntervalName === "goal achievement")
       );
 
       playChime(nextIntervalName);
@@ -111,7 +109,7 @@ export default function App() {
       <div className={styles.wrapper}>
         <Header
           workIntervalCount={workIntervalCount}
-          workIntervalCountGoal={workIntervalCountGoal}
+          workIntervalCountGoal={pomodoroGoal}
           currentIntervalName={currentIntervalName}
         />
         <Intervals
@@ -167,7 +165,8 @@ function getNextIntervalName(
 ): IntervalName {
   if (currentIntervalName !== "work") return "work";
 
-  if (workIntervalCount + 1 === workIntervalCountGoal) return "goal achieved";
+  if (workIntervalCount + 1 === workIntervalCountGoal)
+    return "goal achievement";
 
   return (workIntervalCount + 1) % workIntervalsToLongBreak === 0
     ? "long break"
@@ -183,6 +182,6 @@ const chimes = {
   "long break": new Audio("./break-start.ogg"),
   "short break": new Audio("./break-start.ogg"),
   work: new Audio("./break-end.ogg"),
-  "goal achieved": new Audio("./goal-achieved.ogg"),
+  "goal achievement": new Audio("./goal-achieved.ogg"),
   "start timer": new Audio("./start-timer.ogg"),
 } as const;
