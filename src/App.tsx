@@ -115,7 +115,6 @@ export default function App() {
           nextTimerDuration={nextIntervalDuration}
           isAutoNextEnabled={isAutoNextEnabled}
         />
-        <Pomodoro count={pomodoroCount} goal={pomodoroGoal} />
         <Controls>
           <>
             <TimerControls
@@ -135,6 +134,7 @@ export default function App() {
             </button>
           </>
         </Controls>
+        <Pomodoro count={pomodoroCount} goal={pomodoroGoal} />
       </div>
       {isSettingsVisible && (
         <Modal>
