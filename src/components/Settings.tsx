@@ -108,7 +108,7 @@ const defaultFormValues = {
   "work duration": toMinutes(defaultConfig.intervals["work"]),
   "short break duration": toMinutes(defaultConfig.intervals["short break"]),
   "long break duration": toMinutes(defaultConfig.intervals["long break"]),
-  "work intervals before long break": defaultConfig.pomodorosBeforeLongBreak,
+  "pomodoros before long break": defaultConfig.pomodorosBeforeLongBreak,
   "auto next": defaultConfig.isAutoNextEnabled,
 };
 
@@ -134,7 +134,7 @@ const SettingsSchema = z.object({
   "pomodoros before long break": z
     .number({ invalid_type_error: "Required" })
     .describe(
-      `Pomodoros before long break // ${defaultFormValues["work intervals before long break"]}`
+      `Pomodoros before long break // ${defaultFormValues["pomodoros before long break"]}`
     )
     .min(1, "Must be 1 or more"),
   "daily pomodoro goal": z
