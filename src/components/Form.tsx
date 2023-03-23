@@ -20,6 +20,7 @@ function NumberField({ subLabel }: { subLabel?: string }) {
             placeholder={placeholder}
             className={styles.field}
             type="number"
+            min="0"
             value={value ?? ""}
             onChange={(e) => {
               const val = e.target.valueAsNumber;
