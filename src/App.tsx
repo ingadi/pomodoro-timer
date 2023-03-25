@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useInterval, useDocumentTitle, useLocalStorage } from "usehooks-ts";
 import { IoMdSettings } from "react-icons/io";
-import { usePomodoroCount } from "@hooks/usePomodoroCount";
+import { useIntervalsCount } from "@hooks/useIntervalsCount";
 import Settings from "@components/Settings";
-import Pomodoro from "@components/Pomodoro";
+import IntervalTracker from "@components/IntervalTracker";
 import Timers from "@components/Timers";
 import Intervals from "@components/Intervals";
 import Controls from "@components/Controls";
@@ -35,7 +35,8 @@ export default function App() {
     intervals[currentIntervalName]
   );
 
-  const [pomodoroCount, onIncrementPomodoroCount] = usePomodoroCount();
+  const [intevalsCount, onIncrementIntervalsCount] = useIntervalsCount();
+  const { work: pomodoroCount } = intevalsCount;
 
   const nextIntervalName = getNextIntervalName(
     currentIntervalName,
@@ -59,8 +60,7 @@ export default function App() {
         return;
       }
 
-      currentIntervalName === "work" && onIncrementPomodoroCount();
-
+      onIncrementIntervalsCount(currentIntervalName);
       setCurrentIntervalName(nextIntervalName);
       setCurrentTimer(nextIntervalDuration);
       setIsTimerActive(isAutoNextEnabled && !goalAchieved);
@@ -134,7 +134,7 @@ export default function App() {
             </button>
           </>
         </Controls>
-        <Pomodoro count={pomodoroCount} goal={pomodoroGoal} />
+        <IntervalTracker intervals={intevalsCount} goal={pomodoroGoal} />
       </div>
       {isSettingsVisible && (
         <Modal>

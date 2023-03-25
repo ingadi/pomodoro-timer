@@ -1,17 +1,21 @@
 import { AiOutlineTrophy } from "react-icons/ai";
 import { BsInfinity } from "react-icons/bs";
-import styles from "./Pomodoro.module.css";
+import styles from "./IntervalTracker.module.css";
 
-export default function Pomodoro({ count, goal }: Props) {
+export default function IntervalTracker({ intervals, goal }: Props) {
+  const { work } = intervals;
+  const shortBreak = intervals["short break"];
+  const longBreak = intervals["long break"];
+
   return (
     <details className={styles.pomodoro}>
       <summary className={styles.wrapper}>
         <span className={styles.summary}>
-          {count >= goal && goal !== 0 && (
+          {work >= goal && goal !== 0 && (
             <AiOutlineTrophy
               title="Daily goal achieved"
               className={`${styles.trophy} ${styles.tooltip} ${
-                count === goal ? styles.wiggle : ""
+                work === goal ? styles.wiggle : ""
               }`}
             />
           )}
@@ -19,7 +23,7 @@ export default function Pomodoro({ count, goal }: Props) {
             className={`${styles["work-interval-count"]} ${styles.tooltip}`}
             title="Today's completed pomodoros"
           >
-            {count}
+            {work}
           </span>
           /
           {goal === 0 ? (
@@ -29,19 +33,27 @@ export default function Pomodoro({ count, goal }: Props) {
               {goal}
             </span>
           )}
-          pomos
+          pomodoros
         </span>
       </summary>
       <p className={styles.intervals}>
-        <span className={styles.interval}>1 Pomodoro</span>
-        <span className={styles.interval}>1 Short break</span>
-        <span className={styles.interval}>0 Long break</span>
+        <span className={styles.interval}>{pluralize(work, "Pomodoro")}</span>
+        <span className={styles.interval}>
+          {pluralize(shortBreak, "Short break")}
+        </span>
+        <span className={styles.interval}>
+          {pluralize(longBreak, "Long break")}
+        </span>
       </p>
     </details>
   );
 }
 
+function pluralize(count: number, noun: string, suffix = "s") {
+  return `${count} ${noun}${count !== 1 ? suffix : ""}`;
+}
+
 type Props = {
-  count: number;
+  intervals: { [key: string]: number };
   goal: number;
 };
