@@ -1,9 +1,44 @@
-.pomos {
+/* .pomos {
   font-size: calc(0.8rem + 1vi);
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
+} */
+
+.pomodoro {
+  text-align: center;
+}
+
+.wrapper {
+  cursor: pointer;
+}
+
+.summary {
+  font-size: calc(0.4rem + 1vi);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+}
+
+.intervals {
+  display: inline-flex;
+  gap: 0.5em;
+  font-size: calc(0.2rem + 1vi);
+}
+
+.interval {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.interval:nth-child(2)::before {
+  content: "\2022";
+}
+
+.interval:nth-child(2)::after {
+  content: "\2022";
 }
 
 .tooltip {
