@@ -64,7 +64,6 @@ export default function App() {
       setCurrentIntervalName(nextIntervalName);
       setCurrentTimer(nextIntervalDuration);
       setIsTimerActive(isAutoNextEnabled && !goalAchieved);
-
       playChime(goalAchieved ? "goal achievement" : nextIntervalName);
     },
     isTimerActive ? 1000 : null

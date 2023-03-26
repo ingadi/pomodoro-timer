@@ -18,9 +18,11 @@ export default function TimerControls({
         </button>
       )}
 
-      <button className={styles.button} onClick={onEnd}>
-        End
-      </button>
+      {isActive && (
+        <button className={styles.button} onClick={onEnd}>
+          End
+        </button>
+      )}
     </>
   );
 }
