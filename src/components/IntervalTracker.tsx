@@ -1,5 +1,6 @@
 import { AiOutlineTrophy } from "react-icons/ai";
 import { BsInfinity } from "react-icons/bs";
+import { IntervalData } from "@hooks/useIntervalData";
 import styles from "./IntervalTracker.module.css";
 
 export default function IntervalTracker({ intervals, goal }: Props) {
@@ -11,11 +12,11 @@ export default function IntervalTracker({ intervals, goal }: Props) {
     <details className={styles.pomodoro}>
       <summary className={styles.wrapper}>
         <span className={styles.summary}>
-          {work >= goal && goal !== 0 && (
+          {work.count >= goal && goal !== 0 && (
             <AiOutlineTrophy
               title="Daily goal achieved"
               className={`${styles.trophy} ${styles.tooltip} ${
-                work === goal ? styles.wiggle : ""
+                work.count === goal ? styles.wiggle : ""
               }`}
             />
           )}
@@ -23,7 +24,7 @@ export default function IntervalTracker({ intervals, goal }: Props) {
             className={`${styles["work-interval-count"]} ${styles.tooltip}`}
             title="Today's completed pomodoros"
           >
-            {work}
+            {work.count}
           </span>
           /
           {goal === 0 ? (
@@ -36,24 +37,49 @@ export default function IntervalTracker({ intervals, goal }: Props) {
           pomodoros
         </span>
       </summary>
-      <p className={styles.intervals}>
-        <span className={styles.interval}>{pluralize(work, "Pomodoro")}</span>
-        <span className={styles.interval}>
-          {pluralize(shortBreak, "Short break")}
-        </span>
-        <span className={styles.interval}>
-          {pluralize(longBreak, "Long break")}
-        </span>
-      </p>
+      <div className={styles.intervals}>
+        <p className={styles.interval}>
+          <span className={styles.count}>
+            {toPlural(work.count, "Pomodoro")}
+          </span>
+          <span className={styles.duration}>{toHrsMins(work.duration)}</span>
+        </p>
+        <p className={styles.interval}>
+          <span className={styles.count}>
+            {toPlural(shortBreak.count, "Short break")}
+          </span>
+          <span className={styles.duration}>
+            {toHrsMins(shortBreak.duration)}
+          </span>
+        </p>
+        <p className={styles.interval}>
+          <span className={styles.count}>
+            {toPlural(longBreak.count, "Long break")}
+          </span>
+          <span className={styles.duration}>
+            {toHrsMins(longBreak.duration)}
+          </span>
+        </p>
+      </div>
     </details>
   );
 }
 
-function pluralize(count: number, noun: string, suffix = "s") {
+function toPlural(count: number, noun: string, suffix = "s") {
   return `${count} ${noun}${count !== 1 ? suffix : ""}`;
 }
 
+function toHrsMins(duration: number) {
+  const hours = Math.floor(duration / 60);
+  const minutes = Math.floor(duration % 60);
+
+  return `${hours > 0 ? toPlural(hours, "hour") : ""} ${toPlural(
+    minutes,
+    "minute"
+  )}`;
+}
+
 type Props = {
-  intervals: { [key: string]: number };
+  intervals: IntervalData;
   goal: number;
 };

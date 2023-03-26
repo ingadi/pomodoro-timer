@@ -1,4 +1,4 @@
-const defaultIntervals = {
+export const defaultIntervals = {
   work: 1500,
   "short break": 300,
   "long break": 900,

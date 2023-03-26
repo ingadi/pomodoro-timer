@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { useInterval, useDocumentTitle, useLocalStorage } from "usehooks-ts";
-import { useIntervalsCount } from "@hooks/useIntervalsCount";
+import { useIntervalData } from "@hooks/useIntervalData";
 import IntervalTracker from "@components/IntervalTracker";
 import Settings from "@components/Settings";
 import Timers from "@components/Timers";
 import Intervals from "@components/Intervals";
-import AppControls, { FullSreenControl } from "@components/AppControls";
-import { SettingsControl } from "@components/AppControls";
+import AppControls, { SettingsControl } from "@components/AppControls";
 import TimerControls from "@components/TimerConrols";
 import Modal from "@components/Modal";
 import Background from "@components/Background";
@@ -35,8 +34,10 @@ export default function App() {
     intervals[currentIntervalName]
   );
 
-  const [intevalsCount, onIncrementIntervalsCount] = useIntervalsCount();
-  const { work: pomodoroCount } = intevalsCount;
+  const [intervalData, onIncrementIntervalData] = useIntervalData();
+  const {
+    work: { count: pomodoroCount },
+  } = intervalData;
 
   const nextIntervalName = getNextIntervalName(
     currentIntervalName,
@@ -60,7 +61,7 @@ export default function App() {
         return;
       }
 
-      onIncrementIntervalsCount(currentIntervalName);
+      onIncrementIntervalData(currentIntervalName);
       setCurrentIntervalName(nextIntervalName);
       setCurrentTimer(nextIntervalDuration);
       setIsTimerActive(isAutoNextEnabled && !goalAchieved);
@@ -120,8 +121,7 @@ export default function App() {
           onPause={handlePauseTimer}
           onEnd={handleEndTimer}
         />
-
-        <IntervalTracker intervals={intevalsCount} goal={pomodoroGoal} />
+        <IntervalTracker intervals={intervalData} goal={pomodoroGoal} />
         <AppControls>
           <>
             <div className={styles["button-group"]}>

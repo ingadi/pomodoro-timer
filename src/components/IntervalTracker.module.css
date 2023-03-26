@@ -14,23 +14,36 @@
 }
 
 .intervals {
-  display: inline-flex;
+  display: flex;
+  align-items: center;
   gap: 0.5em;
-  font-size: calc(0.2rem + 1vi);
+  font-size: calc(0.25rem + 1vi);
 }
 
 .interval {
-  display: inline-flex;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 0.5em;
 }
 
-.interval:nth-child(2)::before {
-  content: "\2022";
+.count {
+  display: flex;
+  align-items: center;
 }
 
-.interval:nth-child(2)::after {
+.duration {
+  font-size: calc(0.1rem + 1vi);
+}
+
+.interval:nth-child(2) > .count::before {
   content: "\2022";
+  margin-inline-end: 0.5em;
+}
+
+.interval:nth-child(2) > .count::after {
+  content: "\2022";
+  margin-inline-start: 0.5em;
 }
 
 .tooltip {
