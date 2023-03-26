@@ -75,8 +75,6 @@ export function SettingsControl({
   isActive: boolean;
   onClick: () => void;
 }) {
-  console.log(isActive);
-
   return (
     <button
       title="Open settings"

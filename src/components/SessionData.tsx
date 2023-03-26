@@ -70,6 +70,7 @@ function toPlural(count: number, noun: string, suffix = "s") {
 }
 
 function toHrsMins(duration: number) {
+  console.log(duration);
   const hours = Math.floor(duration / 60);
   const minutes = Math.floor(duration % 60);
 
