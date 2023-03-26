@@ -132,14 +132,14 @@ export default function App() {
           <>
             <div className={styles["button-group"]}>
               <FullSreenControl />
-              <SettingsControl
-                isActive={isSettingsVisible}
-                onClick={() => {
-                  setIsTimerActive(false);
-                  setIsSettingsVisible(true);
-                }}
-              />
             </div>
+            <SettingsControl
+              isActive={isSettingsVisible}
+              onClick={() => {
+                setIsTimerActive(false);
+                setIsSettingsVisible(true);
+              }}
+            />
           </>
         </AppControls>
       </div>
@@ -186,25 +186,3 @@ const chimes = {
   "goal achievement": new Audio("./goal-achieved.ogg"),
   "start timer": new Audio("./start-timer.ogg"),
 } as const;
-
-{
-  /* <Controls>
-          <>
-            <TimerControls
-              isActive={isTimerActive}
-              onStart={handleStartTimer}
-              onPause={handlePauseTimer}
-              onEnd={handleEndTimer}
-            />
-            <button
-            className={styles.settings}
-            onClick={() => {
-              setIsTimerActive(false);
-              setIsSettingsVisible(true);
-            }}
-          >
-            <IoMdSettings />
-          </button>
-          </>
-        </Controls> */
-}
