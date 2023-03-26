@@ -1,11 +1,10 @@
 import { useEffect } from "react";
 import { useLocalStorage } from "usehooks-ts";
 import { IntervalName } from "@types";
-import { defaultIntervals } from "@constants";
 
 export function useIntervalData(): [
   IntervalData,
-  (name: IntervalName) => void
+  (name: IntervalName, duration: number) => void
 ] {
   const [intervalSessionData, setIntervalSessionData] = useLocalStorage(
     "interval-session",
@@ -18,15 +17,17 @@ export function useIntervalData(): [
     day !== getDay() && setIntervalSessionData(defaultIntervalData);
   }, [day, setIntervalSessionData]);
 
-  function handleIntervalDataIncrement(intervalName: IntervalName) {
+  function handleIntervalDataIncrement(
+    intervalName: IntervalName,
+    intervalDuration: number
+  ) {
     setIntervalSessionData({
       day,
       intervals: {
         ...intervals,
         [intervalName]: {
           count: intervals[intervalName].count + 1,
-          duration:
-            intervals[intervalName].duration + defaultIntervals[intervalName],
+          duration: intervals[intervalName].duration + intervalDuration,
         },
       },
     });

@@ -70,14 +70,12 @@ function toPlural(count: number, noun: string, suffix = "s") {
 }
 
 function toHrsMins(duration: number) {
-  console.log(duration);
-  const hours = Math.floor(duration / 60);
-  const minutes = Math.floor(duration % 60);
+  const hours = Math.floor(duration / 3600);
+  const minutes = Math.floor(duration / 60);
 
-  return `${hours > 0 ? toPlural(hours, "hour") : ""} ${toPlural(
-    minutes,
-    "minute"
-  )}`;
+  return `${hours > 0 ? toPlural(hours, "hour") : ""} ${
+    hours > 0 && minutes < 1 ? "" : toPlural(minutes, "minute")
+  }`;
 }
 
 type Props = {

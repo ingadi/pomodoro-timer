@@ -64,7 +64,10 @@ export default function App() {
         return;
       }
 
-      onIncrementIntervalData(currentIntervalName);
+      onIncrementIntervalData(
+        currentIntervalName,
+        intervals[currentIntervalName]
+      );
       setCurrentIntervalName(nextIntervalName);
       setCurrentTimer(nextIntervalDuration);
       setIsTimerActive(isAutoNextEnabled && !goalAchieved);
