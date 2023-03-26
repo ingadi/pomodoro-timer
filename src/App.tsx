@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useInterval, useDocumentTitle, useLocalStorage } from "usehooks-ts";
 import { useIntervalData } from "@hooks/useIntervalData";
-import IntervalTracker from "@components/IntervalTracker";
+import SessionData from "@components/SessionData";
 import Settings from "@components/Settings";
 import Timers from "@components/Timers";
 import Intervals from "@components/Intervals";
@@ -121,7 +121,7 @@ export default function App() {
           onPause={handlePauseTimer}
           onEnd={handleEndTimer}
         />
-        <IntervalTracker intervals={intervalData} goal={pomodoroGoal} />
+        <SessionData intervals={intervalData} goal={pomodoroGoal} />
         <AppControls>
           <>
             <div className={styles["button-group"]}>

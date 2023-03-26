@@ -1,9 +1,9 @@
 import { AiOutlineTrophy } from "react-icons/ai";
 import { BsInfinity } from "react-icons/bs";
 import { IntervalData } from "@hooks/useIntervalData";
-import styles from "./IntervalTracker.module.css";
+import styles from "./SessionData.module.css";
 
-export default function IntervalTracker({ intervals, goal }: Props) {
+export default function SessionData({ intervals, goal }: Props) {
   const { work } = intervals;
   const shortBreak = intervals["short break"];
   const longBreak = intervals["long break"];
