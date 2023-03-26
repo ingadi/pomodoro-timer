@@ -1,7 +1,0 @@
-.controls {
-  display: flex;
-  gap: calc(8px + 1.5625vw);
-  justify-content: center;
-  align-items: center;
-  margin-block: calc(8px + 1.5625vw);
-}

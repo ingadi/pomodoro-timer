@@ -1,0 +1,36 @@
+.controls {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 1rem;
+  font-size: calc(0.5rem + 1vi);
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: 0;
+  outline: 0;
+  padding: 0;
+  margin: 0;
+  font-size: inherit;
+  cursor: pointer;
+  color: whitesmoke;
+  opacity: 0.5;
+  transition: all 0.15s ease-in-out;
+}
+
+.active {
+  opacity: 1;
+}
+
+.button:hover {
+  opacity: 1;
+}
+
+.button:focus-visible {
+  outline: none;
+}

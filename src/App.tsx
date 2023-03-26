@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useInterval, useDocumentTitle, useLocalStorage } from "usehooks-ts";
-import { IoMdSettings } from "react-icons/io";
 import { useIntervalsCount } from "@hooks/useIntervalsCount";
-import Settings from "@components/Settings";
 import IntervalTracker from "@components/IntervalTracker";
+import Settings from "@components/Settings";
 import Timers from "@components/Timers";
 import Intervals from "@components/Intervals";
-import Controls from "@components/Controls";
+import AppControls, { FullSreenControl } from "@components/AppControls";
+import { SettingsControl } from "@components/AppControls";
 import TimerControls from "@components/TimerConrols";
 import Modal from "@components/Modal";
 import Background from "@components/Background";
@@ -114,26 +114,27 @@ export default function App() {
           nextTimerDuration={nextIntervalDuration}
           isAutoNextEnabled={isAutoNextEnabled}
         />
-        <Controls>
-          <>
-            <TimerControls
-              isActive={isTimerActive}
-              onStart={handleStartTimer}
-              onPause={handlePauseTimer}
-              onEnd={handleEndTimer}
-            />
-            <button
-              className={styles.settings}
-              onClick={() => {
-                setIsTimerActive(false);
-                setIsSettingsVisible(true);
-              }}
-            >
-              <IoMdSettings />
-            </button>
-          </>
-        </Controls>
+        <TimerControls
+          isActive={isTimerActive}
+          onStart={handleStartTimer}
+          onPause={handlePauseTimer}
+          onEnd={handleEndTimer}
+        />
+
         <IntervalTracker intervals={intevalsCount} goal={pomodoroGoal} />
+        <AppControls>
+          <>
+            <div className={styles["button-group"]}>
+              <SettingsControl
+                isActive={isSettingsVisible}
+                onClick={() => {
+                  setIsTimerActive(false);
+                  setIsSettingsVisible(true);
+                }}
+              />
+            </div>
+          </>
+        </AppControls>
       </div>
       {isSettingsVisible && (
         <Modal>
@@ -178,3 +179,25 @@ const chimes = {
   "goal achievement": new Audio("./goal-achieved.ogg"),
   "start timer": new Audio("./start-timer.ogg"),
 } as const;
+
+{
+  /* <Controls>
+          <>
+            <TimerControls
+              isActive={isTimerActive}
+              onStart={handleStartTimer}
+              onPause={handlePauseTimer}
+              onEnd={handleEndTimer}
+            />
+            <button
+            className={styles.settings}
+            onClick={() => {
+              setIsTimerActive(false);
+              setIsSettingsVisible(true);
+            }}
+          >
+            <IoMdSettings />
+          </button>
+          </>
+        </Controls> */
+}

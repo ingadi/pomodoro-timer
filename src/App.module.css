@@ -1,37 +1,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Lemon&family=Sofia+Sans:wght@400&display=swap");
 
 body {
-  display: grid;
-  place-content: center;
-  font-family: "Sofia Sans", sans-serif;
-  position: relative;
   color: whitesmoke;
+  font-family: "Sofia Sans", sans-serif;
 }
 
 .wrapper {
+  position: relative;
   display: grid;
+  place-content: center;
   gap: 0.5rem;
+  block-size: 100vh;
 }
 
-.settings {
+.button-group {
   display: flex;
+  gap: 0.5rem;
   align-items: center;
-  background: none;
-  border: 0;
-  outline: 0;
-  padding: 0;
-  margin: 0;
-  font-size: calc(1rem + 1.5625vi);
-  cursor: pointer;
-  color: whitesmoke;
-  opacity: 0.8;
-  transition: all 0.15s ease-in-out;
-}
-
-.settings:hover {
-  opacity: 1;
-}
-
-.settings:focus-visible {
-  outline: none;
 }

@@ -7,13 +7,16 @@ export default function TimerControls({
   onEnd,
 }: Props) {
   return (
-    <>
+    <div className={styles.wrapper}>
       {isActive ? (
         <button className={styles.button} onClick={onPause}>
           Pause
         </button>
       ) : (
-        <button className={styles.button} onClick={onStart}>
+        <button
+          className={`${styles.button} ${!isActive ? styles.long : ""}`}
+          onClick={onStart}
+        >
           Start
         </button>
       )}
@@ -23,7 +26,7 @@ export default function TimerControls({
           End
         </button>
       )}
-    </>
+    </div>
   );
 }
 
