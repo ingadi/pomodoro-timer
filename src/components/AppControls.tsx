@@ -51,6 +51,7 @@ export function FullSreenControl() {
 
   return (
     <button
+      title="Toggle fullscreen"
       className={`${styles.button} ${isFullScreen ? styles.active : ""}`}
       onClick={toggleFullScreen}
     >
@@ -78,6 +79,7 @@ export function SettingsControl({
 
   return (
     <button
+      title="Open settings"
       className={`${styles.button} ${isActive ? styles.active : ""}`}
       onClick={onClick}
     >

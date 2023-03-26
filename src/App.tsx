@@ -5,7 +5,10 @@ import SessionData from "@components/SessionData";
 import Settings from "@components/Settings";
 import Timers from "@components/Timers";
 import Intervals from "@components/Intervals";
-import AppControls, { SettingsControl } from "@components/AppControls";
+import AppControls, {
+  SettingsControl,
+  FullSreenControl,
+} from "@components/AppControls";
 import TimerControls from "@components/TimerConrols";
 import Modal from "@components/Modal";
 import Background from "@components/Background";
@@ -125,6 +128,7 @@ export default function App() {
         <AppControls>
           <>
             <div className={styles["button-group"]}>
+              <FullSreenControl />
               <SettingsControl
                 isActive={isSettingsVisible}
                 onClick={() => {
