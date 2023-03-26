@@ -3,10 +3,10 @@ import { BiFullscreen, BiExitFullscreen } from "react-icons/bi";
 import { TfiYoutube } from "react-icons/tfi";
 import { GiThreeFriends } from "react-icons/gi";
 import { SlPicture } from "react-icons/sl";
-import {
-  RiPictureInPictureExitFill,
-  RiPictureInPicture2Line,
-} from "react-icons/ri";
+// import {
+//   RiPictureInPictureExitFill,
+//   RiPictureInPicture2Line,
+// } from "react-icons/ri";
 import styles from "./AppControls.module.css";
 import { useState } from "react";
 
