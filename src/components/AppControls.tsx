@@ -1,14 +1,10 @@
+import { useState } from "react";
 import { IoMdSettings } from "react-icons/io";
 import { BiFullscreen, BiExitFullscreen } from "react-icons/bi";
 import { TfiYoutube } from "react-icons/tfi";
 import { GiThreeFriends } from "react-icons/gi";
 import { SlPicture } from "react-icons/sl";
-// import {
-//   RiPictureInPictureExitFill,
-//   RiPictureInPicture2Line,
-// } from "react-icons/ri";
 import styles from "./AppControls.module.css";
-import { useState } from "react";
 
 export default function AppControls({ children }: { children: JSX.Element }) {
   return <section className={styles.controls}>{children}</section>;
@@ -59,14 +55,6 @@ export function FullSreenControl() {
     </button>
   );
 }
-
-// export function PicInPicControl({ element }: { element: HTMLDivElement }) {
-//   return (
-//     <button className={styles.button}>
-//       <RiPictureInPicture2Line />
-//     </button>
-//   );
-// }
 
 export function SettingsControl({
   isActive,

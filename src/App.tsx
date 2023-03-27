@@ -9,6 +9,7 @@ import AppControls, {
   SettingsControl,
   FullSreenControl,
 } from "@components/AppControls";
+import { PicInPicControl } from "@components/PicInPicControl";
 import TimerControls from "@components/TimerConrols";
 import Modal from "@components/Modal";
 import Background from "@components/Background";
@@ -131,6 +132,12 @@ export default function App() {
         <AppControls>
           <>
             <div className={styles["button-group"]}>
+              <PicInPicControl
+                lines={[
+                  `${currentIntervalName.toLocaleUpperCase()}`,
+                  `${toformattedMinsSecs(currentTimer)}`,
+                ]}
+              />
               <FullSreenControl />
             </div>
             <SettingsControl
