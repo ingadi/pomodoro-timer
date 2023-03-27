@@ -1,5 +1,5 @@
-Add focus minutes alongside pomodoros
-Move timer to a service worker
+Fix picture in picture - blurry
+Move timer to a service worker, Canvas to offline canvas
 Save data to lowdb database
 option to carry over active timer to selected interval
 sync youtube video with timer
