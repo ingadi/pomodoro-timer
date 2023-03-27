@@ -1,5 +1,4 @@
 import { useRef, useEffect, useState } from "react";
-import { createPortal } from "react-dom";
 import {
   RiPictureInPictureExitFill,
   RiPictureInPicture2Line,
@@ -38,17 +37,15 @@ export function PicInPicControl({ lines }: Props) {
 
   return (
     <>
-      {createPortal(
-        <video
-          className={styles.video}
-          ref={videoRef}
-          autoPlay={true}
-          hidden={!isActive}
-          playsInline
-          muted={true}
-        ></video>,
-        document.body
-      )}
+      <video
+        className={styles.video}
+        ref={videoRef}
+        autoPlay={true}
+        hidden={!isActive}
+        playsInline
+        muted={true}
+      ></video>
+
       <button
         title="Toggle always on top"
         className={`${styles.button} ${isActive ? styles.active : ""}`}

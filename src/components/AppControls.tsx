@@ -25,7 +25,7 @@ export function PictureBg() {
     </button>
   );
 }
-export function YouTubeBG() {
+export function YouTubeControl() {
   return (
     <button className={styles.button}>
       <TfiYoutube />
