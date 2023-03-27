@@ -144,7 +144,7 @@ export default function App() {
               isActive={isSettingsVisible}
               onClick={() => {
                 setIsTimerActive(false);
-                setIsSettingsVisible(true);
+                setIsSettingsVisible(!isSettingsVisible);
               }}
             />
           </>
