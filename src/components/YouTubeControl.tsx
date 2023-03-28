@@ -21,11 +21,13 @@ export default function YouTubeControl({
   useEffect(() => {
     if (isActive) {
       const player = YouTubePlayer(parentRef.current!, {
-        videoId: "yUpl_HQrBnM",
+        // videoId: "yUpl_HQrBnM",
       });
 
       actions["playing"] = player.playVideo;
       actions["paused"] = player.pauseVideo;
+
+      player.cuePlaylist(["yUpl_HQrBnM", "n5uz7egB9tA"]);
 
       isPlayerReady.current = true;
 
