@@ -16,6 +16,7 @@
 .intervals {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5em;
   font-size: calc(0.25rem + 1vi);
 }
