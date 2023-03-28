@@ -4,7 +4,7 @@
   justify-content: center;
   position: absolute;
   inset-inline: 0;
-  inset-block-end: 1rem;
+  inset-block-end: 5rem;
   font-size: calc(0.5rem + 1vi);
 }
 
