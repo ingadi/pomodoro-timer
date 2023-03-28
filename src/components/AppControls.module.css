@@ -2,9 +2,7 @@
   display: flex;
   gap: 1rem;
   justify-content: center;
-  position: absolute;
-  inset-inline: 0;
-  inset-block-end: 5rem;
+  margin-block-start: 3rem;
   font-size: calc(0.5rem + 1vi);
 }
 

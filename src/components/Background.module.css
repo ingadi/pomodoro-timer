@@ -4,7 +4,6 @@
   inline-size: 100vi;
   border: none;
   position: absolute;
-  /* inset: 0; */
 }
 
 .iframe::before {
@@ -17,7 +16,7 @@
 }
 
 /* Start of squares background */
-.background {
+.color-background {
   margin: 0;
   padding: 0;
   position: absolute;

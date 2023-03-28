@@ -23,5 +23,5 @@
 .active {
   font-size: calc(1rem + 1vi);
   opacity: 1;
-  cursor: help;
+  /* cursor: help; */
 }

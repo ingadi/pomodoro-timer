@@ -1,7 +1,7 @@
 import styles from "./Background.module.css";
 
 export default function Background({ name }: Props) {
-  return <div className={styles.background}>{Particles[name]}</div>;
+  return <>{Backgrounds[name]}</>;
 
   // return (
   //   <iframe
@@ -10,6 +10,10 @@ export default function Background({ name }: Props) {
   //     title="YouTube video player"
   //   ></iframe>
   // );
+}
+
+function ColorBackground({ children }: { children: JSX.Element }) {
+  return <div className={styles["color-background"]}>{children}</div>;
 }
 
 function Squares() {
@@ -40,11 +44,19 @@ function FireWorks() {
   );
 }
 
-const Particles = {
-  squares: <Squares />,
-  fireworks: <FireWorks />,
+const Backgrounds = {
+  squares: (
+    <ColorBackground>
+      <Squares />
+    </ColorBackground>
+  ),
+  fireworks: (
+    <ColorBackground>
+      <FireWorks />
+    </ColorBackground>
+  ),
 } as const;
 
 type Props = {
-  name: keyof typeof Particles;
+  name: keyof typeof Backgrounds;
 };

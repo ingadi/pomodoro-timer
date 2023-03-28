@@ -4,6 +4,8 @@
   margin: auto;
   box-shadow: #00000029 2px 2px 5px 2px;
   background-color: whitesmoke;
+  overflow-y: auto;
+  max-block-size: 90vb;
 }
 
 .modal::after {
