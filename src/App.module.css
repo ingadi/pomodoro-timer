@@ -3,14 +3,15 @@
 body {
   color: whitesmoke;
   font-family: "Sofia Sans", sans-serif;
-}
-
-.wrapper {
-  position: relative;
+  block-size: 100vh;
   display: grid;
   place-content: center;
   gap: 0.5rem;
-  block-size: 100vh;
+  position: relative;
+}
+
+.wrapper {
+  /* block-size: 100%; */
 }
 
 .button-group {
