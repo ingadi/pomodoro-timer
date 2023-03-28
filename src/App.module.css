@@ -3,15 +3,11 @@
 body {
   color: whitesmoke;
   font-family: "Sofia Sans", sans-serif;
-  block-size: 100vh;
+  block-size: 100svh;
   display: grid;
   place-content: center;
   gap: 0.5rem;
   position: relative;
-}
-
-.wrapper {
-  /* block-size: 100%; */
 }
 
 .button-group {
