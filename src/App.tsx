@@ -11,6 +11,7 @@ import AppControls, {
 } from "@components/AppControls";
 import { PicInPicControl } from "@components/PicInPicControl";
 import TimerControls from "@components/TimerConrols";
+import YouTubeControl from "@components/YouTubeControl";
 import Modal from "@components/Modal";
 import Background from "@components/Background";
 import { toformattedMinsSecs, capitalize } from "@components/Timers";
@@ -55,6 +56,8 @@ export default function App() {
   const [isTimerActive, setIsTimerActive] = useState(false);
 
   const [isSettingsVisible, setIsSettingsVisible] = useState(false);
+
+  const [isYouTubeActive, setIsYouTubeActive] = useState(false);
 
   const goalAchieved = pomodoroCount === pomodoroGoal && pomodoroGoal !== 0;
 
@@ -109,6 +112,7 @@ export default function App() {
       <Background
         name={`${goalAchieved && !isTimerActive ? "fireworks" : "squares"}`}
       />
+
       <div className={styles.wrapper}>
         <Intervals
           currentIntervalName={currentIntervalName}
@@ -131,15 +135,19 @@ export default function App() {
         <SessionData intervals={intervalData} goal={pomodoroGoal} />
         <AppControls>
           <>
-            <div className={styles["button-group"]}>
-              <PicInPicControl
-                lines={[
-                  `${currentIntervalName.toLocaleUpperCase()}`,
-                  `${toformattedMinsSecs(currentTimer)}`,
-                ]}
-              />
-              <FullSreenControl />
-            </div>
+            <YouTubeControl
+              isActive={isYouTubeActive}
+              intervalName={currentIntervalName}
+              isTimerActive={isTimerActive}
+              onClick={() => setIsYouTubeActive(!isYouTubeActive)}
+            />
+            <PicInPicControl
+              lines={[
+                `${currentIntervalName.toLocaleUpperCase()}`,
+                `${toformattedMinsSecs(currentTimer)}`,
+              ]}
+            />
+            <FullSreenControl />
             <SettingsControl
               isActive={isSettingsVisible}
               onClick={() => {

@@ -1,9 +1,11 @@
-.controls {
-  display: flex;
-  gap: 0.8rem;
-  justify-content: center;
-  margin-block-start: 3rem;
-  font-size: calc(0.5rem + 1vi);
+.iframe {
+  display: block;
+  border: none;
+  position: absolute;
+  inset-inline-start: 1rem;
+  inset-block-end: 1rem;
+  inline-size: calc(15rem + 1vi);
+  block-size: calc(8rem + 1vi);
 }
 
 .button {

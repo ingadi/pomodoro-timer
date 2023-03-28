@@ -2,18 +2,10 @@ import styles from "./Background.module.css";
 
 export default function Background({ name }: Props) {
   return <>{Backgrounds[name]}</>;
-
-  // return (
-  //   <iframe
-  //     className={styles.iframe}
-  //     src="https://www.youtube.com/embed/yUpl_HQrBnM"
-  //     title="YouTube video player"
-  //   ></iframe>
-  // );
 }
 
-function ColorBackground({ children }: { children: JSX.Element }) {
-  return <div className={styles["color-background"]}>{children}</div>;
+function FriendStream() {
+  return <></>;
 }
 
 function Squares() {
@@ -44,6 +36,10 @@ function FireWorks() {
   );
 }
 
+function ColorBackground({ children }: { children: JSX.Element }) {
+  return <div className={styles["color-background"]}>{children}</div>;
+}
+
 const Backgrounds = {
   squares: (
     <ColorBackground>
@@ -55,6 +51,7 @@ const Backgrounds = {
       <FireWorks />
     </ColorBackground>
   ),
+  friendstream: <FriendStream />,
 } as const;
 
 type Props = {

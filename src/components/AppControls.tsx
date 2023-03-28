@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { IoMdSettings } from "react-icons/io";
 import { BiFullscreen, BiExitFullscreen } from "react-icons/bi";
-import { TfiYoutube } from "react-icons/tfi";
+
 import { GiThreeFriends } from "react-icons/gi";
 import { SlPicture } from "react-icons/sl";
 import styles from "./AppControls.module.css";
@@ -22,13 +22,6 @@ export function PictureBg() {
   return (
     <button className={styles.button}>
       <SlPicture />
-    </button>
-  );
-}
-export function YouTubeControl() {
-  return (
-    <button className={styles.button}>
-      <TfiYoutube />
     </button>
   );
 }
