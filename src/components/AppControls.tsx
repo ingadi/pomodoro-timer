@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { IoMdSettings } from "react-icons/io";
 import { BiFullscreen, BiExitFullscreen } from "react-icons/bi";
-
 import { GiThreeFriends } from "react-icons/gi";
-import { SlPicture } from "react-icons/sl";
 import styles from "./AppControls.module.css";
 
 export default function AppControls({ children }: { children: JSX.Element }) {
@@ -14,14 +12,6 @@ export function StudyGroupBg() {
   return (
     <button className={styles.button}>
       <GiThreeFriends />
-    </button>
-  );
-}
-
-export function PictureBg() {
-  return (
-    <button className={styles.button}>
-      <SlPicture />
     </button>
   );
 }

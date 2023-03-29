@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useInterval, useDocumentTitle, useLocalStorage } from "usehooks-ts";
+import { IoMdSettings } from "react-icons/io";
 import { useIntervalData } from "@hooks/useIntervalData";
 import SessionData from "@components/SessionData";
 import Settings from "@components/Settings";
@@ -139,6 +140,7 @@ export default function App() {
               isActive={isYouTubeActive}
               intervalName={currentIntervalName}
               isTimerActive={isTimerActive}
+              playListId={"PLt7bG0K25iXjy1L7Wpf6jgeEvMlwpNpqF"}
               onClick={() => setIsYouTubeActive(!isYouTubeActive)}
             />
             <PicInPicControl

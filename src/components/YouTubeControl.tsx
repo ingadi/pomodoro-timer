@@ -8,6 +8,7 @@ export default function YouTubeControl({
   isActive,
   intervalName,
   isTimerActive,
+  playListId,
   onClick,
 }: Props) {
   const parentRef = useRef<HTMLDivElement>(null);
@@ -21,7 +22,10 @@ export default function YouTubeControl({
   useEffect(() => {
     if (isActive) {
       const player = YouTubePlayer(parentRef.current!, {
-        // videoId: "yUpl_HQrBnM",
+        playerVars: {
+          listType: "playlist",
+          list: playListId,
+        },
       });
 
       actions["playing"] = player.playVideo;
@@ -35,7 +39,7 @@ export default function YouTubeControl({
         isActive && player.destroy();
       };
     }
-  }, [isActive]);
+  }, [isActive, playListId]);
 
   useEffect(() => {
     if (isPlayerReady.current) {
@@ -46,8 +50,8 @@ export default function YouTubeControl({
   return (
     <>
       <div ref={parentRef} className={styles.iframe}></div>
-
       <button
+        title="Toggle YouTube player"
         className={`${styles.button} ${isActive ? styles.active : ""}`}
         onClick={onClick}
       >
@@ -66,5 +70,6 @@ type Props = {
   isActive: boolean;
   intervalName: IntervalName;
   isTimerActive: boolean;
+  playListId: string;
   onClick: () => void;
 };
