@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useInterval, useDocumentTitle, useLocalStorage } from "usehooks-ts";
 import { useIntervalData } from "@hooks/useIntervalData";
 import SessionData from "@components/SessionData";
-import Settings from "@components/Settings";
+// import Settings from "@components/Settings";
+import Tabs from "@components/Tabs";
 import Timers from "@components/Timers";
 import Intervals from "@components/Intervals";
 import AppControls, {
@@ -156,13 +157,55 @@ export default function App() {
                 setIsSettingsVisible(!isSettingsVisible);
               }}
             />
-            {/* <SettingsControl /> */}
           </>
         </AppControls>
       </div>
       {isSettingsVisible && (
         <Modal>
-          <Settings
+          <Tabs
+            data={[
+              [
+                "First tab",
+                <>
+                  <h2>First</h2>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Repellendus itaque quidem minus nostrum, voluptatem
+                    accusamus aspernatur quia harum ratione, officia laudantium
+                    inventore autem doloribus atque labore numquam non. Hic,
+                    animi.
+                  </p>
+                </>,
+              ],
+              [
+                "Second tab",
+                <>
+                  <h2>Second</h2>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Repellendus itaque quidem minus nostrum, voluptatem
+                    accusamus aspernatur quia harum ratione, officia laudantium
+                    inventore autem doloribus atque labore numquam non. Hic,
+                    animi.
+                  </p>
+                </>,
+              ],
+              [
+                "Third tab",
+                <>
+                  <h2>Third</h2>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Repellendus itaque quidem minus nostrum, voluptatem
+                    accusamus aspernatur quia harum ratione, officia laudantium
+                    inventore autem doloribus atque labore numquam non. Hic,
+                    animi.
+                  </p>
+                </>,
+              ],
+            ]}
+          />
+          {/* <Settings
             config={config}
             onUpdate={(c) => {
               setConfig(c);
@@ -170,7 +213,7 @@ export default function App() {
               setCurrentTimer(c.intervals["work"]);
             }}
             onDone={() => setIsSettingsVisible(false)}
-          />
+          /> */}
         </Modal>
       )}
     </>

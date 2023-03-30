@@ -1,0 +1,46 @@
+.header {
+  margin: 0;
+  padding: 0;
+}
+
+.labels {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.label {
+  border: 0.13rem solid lightslategray;
+  border-inline-end: none;
+  border-block-end: none;
+  padding: calc(8px + 1.5625vw);
+  background: lightgray;
+  cursor: pointer;
+}
+
+.label:last-child {
+  border-inline-end: 0.13rem solid lightslategray;
+}
+
+.active {
+  border-block-end: none;
+  position: relative;
+  z-index: 0;
+  background: transparent;
+}
+
+.active::after {
+  content: "";
+  background-color: whitesmoke;
+  position: absolute;
+  left: 0;
+  bottom: -0.13rem;
+  width: 100%;
+  height: 0.19rem;
+}
+
+.content {
+  border: 0.13rem solid lightslategray;
+  padding: 0 calc(8px + 1.5625vw) calc(8px + 1.5625vw);
+}
