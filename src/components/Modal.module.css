@@ -16,3 +16,20 @@
   background: rgba(0, 0, 0, 0.2);
   z-index: -1;
 }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-block: 0 0.5rem;
+  color: #251e62;
+}
+
+.close {
+  background: none;
+  border: 0;
+  outline: 0;
+  font-size: x-large;
+  cursor: pointer;
+  color: #2d2727;
+}

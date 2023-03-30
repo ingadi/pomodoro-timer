@@ -161,7 +161,7 @@ export default function App() {
         </AppControls>
       </div>
       {isSettingsVisible && (
-        <Modal>
+        <Modal title="Settings" onCancel={() => setIsSettingsVisible(false)}>
           <Tabs
             data={[
               [

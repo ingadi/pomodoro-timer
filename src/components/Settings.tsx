@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { useForm } from "react-hook-form";
-import { AiFillCloseCircle } from "react-icons/ai";
+
 import Form from "@components/Form";
 import { Config } from "@types";
 import { defaultConfig } from "@constants";
@@ -51,12 +51,6 @@ export default function Settings({ config, onUpdate, onDone }: Props) {
 
   return (
     <section className={styles.settings}>
-      <header className={styles.header}>
-        <h2>Settings</h2>
-        <button className={styles.close} type="button" onClick={onDone}>
-          <AiFillCloseCircle />
-        </button>
-      </header>
       <Form
         form={SettingsForm}
         schema={SettingsSchema}
