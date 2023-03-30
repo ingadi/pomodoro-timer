@@ -69,9 +69,15 @@ function toPlural(count: number, noun: string, suffix = "s") {
   return `${count} ${noun}${count !== 1 ? suffix : ""}`;
 }
 
-function toHrsMins(duration: number) {
-  const hours = Math.floor(duration / 3600);
-  const minutes = Math.floor(duration / 60);
+// function toHrsMins(duration: number) {
+//   const hours = Math.floor(duration / 3600);
+//   const minutes = Math.floor(duration / 60);
+// }
+
+// a function that returns hours and minutes from a number of seconds
+function toHrsMins(seconds: number) {
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
 
   return `${hours > 0 ? toPlural(hours, "hour") : ""} ${
     hours > 0 && minutes < 1 ? "" : toPlural(minutes, "minute")

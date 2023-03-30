@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useInterval, useDocumentTitle, useLocalStorage } from "usehooks-ts";
-import { IoMdSettings } from "react-icons/io";
 import { useIntervalData } from "@hooks/useIntervalData";
 import SessionData from "@components/SessionData";
 import Settings from "@components/Settings";
@@ -157,6 +156,7 @@ export default function App() {
                 setIsSettingsVisible(!isSettingsVisible);
               }}
             />
+            {/* <SettingsControl /> */}
           </>
         </AppControls>
       </div>

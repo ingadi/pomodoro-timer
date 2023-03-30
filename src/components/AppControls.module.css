@@ -32,3 +32,51 @@
 .button:focus-visible {
   outline: none;
 }
+
+/* tabs */
+
+.header {
+  margin: 0;
+  padding: 0;
+}
+
+.tab-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.link {
+  border: 2px solid lightslategray;
+  border-inline-end: none;
+  border-block-end: none;
+  padding: 1rem;
+  background: lightgray;
+}
+
+.link:last-child {
+  border-inline-end: 2px solid lightslategray;
+}
+
+.active {
+  border-block-end: none;
+  position: relative;
+  z-index: 0;
+  background: transparent;
+}
+
+.active::after {
+  content: "";
+  background-color: whitesmoke;
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 3px;
+}
+
+.tab-content {
+  border: 2px solid lightslategray;
+  padding: 0 1rem 1rem;
+}
