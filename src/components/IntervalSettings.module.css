@@ -1,11 +1,7 @@
-.settings {
-  padding-inline: calc(8px + 1.5625vw);
-}
-
 .controls {
   display: flex;
   flex-wrap: wrap;
-  margin-block: 1.5rem calc(8px + 1.5625vw);
+  margin-block: calc(8px + 1.5625vw) 0;
   justify-content: right;
   gap: calc(8px + 5vw);
 }

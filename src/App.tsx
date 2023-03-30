@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useInterval, useDocumentTitle, useLocalStorage } from "usehooks-ts";
 import { useIntervalData } from "@hooks/useIntervalData";
 import SessionData from "@components/SessionData";
-// import Settings from "@components/Settings";
+import IntervalSettings from "@components/IntervalSettings";
 import Tabs from "@components/Tabs";
 import Timers from "@components/Timers";
 import Intervals from "@components/Intervals";
@@ -165,16 +165,18 @@ export default function App() {
           <Tabs
             data={[
               [
-                "First tab",
+                "Intervals",
                 <>
-                  <h2>First</h2>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Repellendus itaque quidem minus nostrum, voluptatem
-                    accusamus aspernatur quia harum ratione, officia laudantium
-                    inventore autem doloribus atque labore numquam non. Hic,
-                    animi.
-                  </p>
+                  <IntervalSettings
+                    config={config}
+                    onUpdate={(c) => {
+                      setConfig(c);
+                      currentIntervalName !== "work" &&
+                        setCurrentIntervalName("work");
+                      setCurrentTimer(c.intervals["work"]);
+                    }}
+                    onDone={() => setIsSettingsVisible(false)}
+                  />
                 </>,
               ],
               [

@@ -4,9 +4,9 @@ import { useForm } from "react-hook-form";
 import Form from "@components/Form";
 import { Config } from "@types";
 import { defaultConfig } from "@constants";
-import styles from "./Settings.module.css";
+import styles from "./IntervalSettings.module.css";
 
-export default function Settings({ config, onUpdate, onDone }: Props) {
+export default function IntervalSettings({ config, onUpdate, onDone }: Props) {
   const {
     intervals,
     pomodoroGoal,
@@ -50,29 +50,27 @@ export default function Settings({ config, onUpdate, onDone }: Props) {
   );
 
   return (
-    <section className={styles.settings}>
-      <Form
-        form={SettingsForm}
-        schema={SettingsSchema}
-        onSubmit={(data: z.infer<typeof SettingsSchema>) => {
-          onUpdate(toConfig(data));
-          onDone();
-        }}
-        renderAfter={() => formControls}
-        props={{
-          "work duration": {
-            subLabel: "Mins",
-          },
-          "short break duration": {
-            subLabel: "Mins",
-          },
-          "long break duration": {
-            subLabel: "Mins",
-          },
-        }}
-        defaultValues={initialFormValues}
-      />
-    </section>
+    <Form
+      form={SettingsForm}
+      schema={SettingsSchema}
+      onSubmit={(data: z.infer<typeof SettingsSchema>) => {
+        onUpdate(toConfig(data));
+        onDone();
+      }}
+      renderAfter={() => formControls}
+      props={{
+        "work duration": {
+          subLabel: "Mins",
+        },
+        "short break duration": {
+          subLabel: "Mins",
+        },
+        "long break duration": {
+          subLabel: "Mins",
+        },
+      }}
+      defaultValues={initialFormValues}
+    />
   );
 }
 

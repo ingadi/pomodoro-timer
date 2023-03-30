@@ -14,7 +14,8 @@
   border: 0.13rem solid lightslategray;
   border-inline-end: none;
   border-block-end: none;
-  padding: calc(8px + 1.5625vw);
+  padding-inline: 1rem;
+  padding-block: 0.5rem;
   background: lightgray;
   cursor: pointer;
 }
@@ -42,5 +43,5 @@
 
 .content {
   border: 0.13rem solid lightslategray;
-  padding: 0 calc(8px + 1.5625vw) calc(8px + 1.5625vw);
+  padding: calc(8px + 1.5625vw);
 }
