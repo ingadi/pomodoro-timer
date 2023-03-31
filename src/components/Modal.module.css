@@ -5,7 +5,6 @@
   box-shadow: #00000029 2px 2px 5px 2px;
   background-color: whitesmoke;
   overflow-y: auto;
-  max-inline-size: 90vi;
   max-block-size: 90vb;
   padding: calc(8px + 1.5625vw);
 }
@@ -32,4 +31,10 @@
   font-size: x-large;
   cursor: pointer;
   color: #2d2727;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 0.2em;
 }

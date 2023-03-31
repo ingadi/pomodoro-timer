@@ -1,10 +1,9 @@
 import { z } from "zod";
 import { useForm } from "react-hook-form";
-
 import Form from "@components/Form";
 import { Config } from "@types";
 import { defaultConfig } from "@constants";
-import styles from "./IntervalSettings.module.css";
+import styles from "./Settings.module.css";
 
 export default function IntervalSettings({ config, onUpdate, onDone }: Props) {
   const {
@@ -23,8 +22,8 @@ export default function IntervalSettings({ config, onUpdate, onDone }: Props) {
     "auto next": isAutoNextEnabled,
   };
 
-  const SettingsForm = useForm<FormValues>();
-  const { reset } = SettingsForm;
+  const form = useForm<FormValues>();
+  const { reset } = form;
 
   const formControls = (
     <div className={styles.controls}>
@@ -51,9 +50,9 @@ export default function IntervalSettings({ config, onUpdate, onDone }: Props) {
 
   return (
     <Form
-      form={SettingsForm}
-      schema={SettingsSchema}
-      onSubmit={(data: z.infer<typeof SettingsSchema>) => {
+      form={form}
+      schema={FormSchema}
+      onSubmit={(data: z.infer<typeof FormSchema>) => {
         onUpdate(toConfig(data));
         onDone();
       }}
@@ -74,7 +73,7 @@ export default function IntervalSettings({ config, onUpdate, onDone }: Props) {
   );
 }
 
-function toConfig(data: z.infer<typeof SettingsSchema>): Config {
+function toConfig(data: z.infer<typeof FormSchema>): Config {
   return {
     intervals: {
       work: toSeconds(data["work duration"]),
@@ -104,7 +103,7 @@ const defaultFormValues = {
   "auto next": defaultConfig.isAutoNextEnabled,
 };
 
-const SettingsSchema = z.object({
+const FormSchema = z.object({
   "work duration": z
     .number({ invalid_type_error: "Required" })
     .describe(
@@ -144,4 +143,4 @@ type Props = {
   onDone: () => void;
 };
 
-type FormValues = z.infer<typeof SettingsSchema>;
+type FormValues = z.infer<typeof FormSchema>;

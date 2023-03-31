@@ -6,7 +6,7 @@ export default function Modal({ title, onCancel, children }: Props) {
   return createPortal(
     <dialog className={styles.modal} open>
       <header className={styles.header}>
-        <h2>{title}</h2>
+        <h2 className={styles.title}>{title}</h2>
         <button className={styles.close} type="button" onClick={onCancel}>
           <AiFillCloseCircle />
         </button>
@@ -18,7 +18,7 @@ export default function Modal({ title, onCancel, children }: Props) {
 }
 
 type Props = {
-  title: string;
+  title: JSX.Element | string;
   children: JSX.Element;
   onCancel: () => void;
 };

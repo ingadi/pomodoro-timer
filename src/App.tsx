@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useInterval, useDocumentTitle, useLocalStorage } from "usehooks-ts";
+import { IoMdSettings } from "react-icons/io";
+import { BsHourglassSplit } from "react-icons/bs";
 import { useIntervalData } from "@hooks/useIntervalData";
 import SessionData from "@components/SessionData";
 import IntervalSettings from "@components/IntervalSettings";
@@ -161,11 +163,21 @@ export default function App() {
         </AppControls>
       </div>
       {isSettingsVisible && (
-        <Modal title="Settings" onCancel={() => setIsSettingsVisible(false)}>
+        <Modal
+          title={
+            <>
+              <IoMdSettings /> Settings
+            </>
+          }
+          onCancel={() => setIsSettingsVisible(false)}
+        >
           <Tabs
             data={[
               [
-                "Intervals",
+                <>
+                  <BsHourglassSplit />
+                  Intervals
+                </>,
                 <>
                   <IntervalSettings
                     config={config}
@@ -179,43 +191,8 @@ export default function App() {
                   />
                 </>,
               ],
-              [
-                "Second tab",
-                <>
-                  <h2>Second</h2>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Repellendus itaque quidem minus nostrum, voluptatem
-                    accusamus aspernatur quia harum ratione, officia laudantium
-                    inventore autem doloribus atque labore numquam non. Hic,
-                    animi.
-                  </p>
-                </>,
-              ],
-              [
-                "Third tab",
-                <>
-                  <h2>Third</h2>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Repellendus itaque quidem minus nostrum, voluptatem
-                    accusamus aspernatur quia harum ratione, officia laudantium
-                    inventore autem doloribus atque labore numquam non. Hic,
-                    animi.
-                  </p>
-                </>,
-              ],
             ]}
           />
-          {/* <Settings
-            config={config}
-            onUpdate={(c) => {
-              setConfig(c);
-              currentIntervalName !== "work" && setCurrentIntervalName("work");
-              setCurrentTimer(c.intervals["work"]);
-            }}
-            onDone={() => setIsSettingsVisible(false)}
-          /> */}
         </Modal>
       )}
     </>

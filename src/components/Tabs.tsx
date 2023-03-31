@@ -27,5 +27,5 @@ export default function Tabs({ data }: Props) {
 }
 
 type Props = {
-  data: [string, JSX.Element][];
+  data: [JSX.Element | string, JSX.Element][];
 };
