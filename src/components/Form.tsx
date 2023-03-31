@@ -4,7 +4,7 @@ import { FiSkipForward, FiFastForward } from "react-icons/fi";
 import { createTsForm, useDescription, useTsController } from "@ts-react/form";
 import styles from "./Form.module.css";
 
-function TextField() {
+function TextField({ subLabel }: { subLabel?: string }) {
   const {
     field: { onChange, value },
     error,
@@ -23,6 +23,7 @@ function TextField() {
             value={value ?? ""}
             onChange={(e) => onChange(e.target.value)}
           />
+          {subLabel && <span>{subLabel}</span>}
         </span>
       </div>
       {error?.errorMessage && (
