@@ -5,6 +5,7 @@
   box-shadow: #00000029 2px 2px 5px 2px;
   background-color: whitesmoke;
   overflow-y: auto;
+  min-inline-size: 40vi;
   max-block-size: 90vb;
   padding: calc(8px + 1.5625vw);
 }
