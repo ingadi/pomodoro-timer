@@ -9,8 +9,6 @@ import { IntervalName } from "@types";
 import { defaultPlayListId } from "@constants";
 import styles from "./YouTubeControl.module.css";
 
-//TODO: Make draggable - https://www.w3schools.com/howto/howto_js_draggable.asp
-
 export default function YouTubeControl({
   isActive,
   intervalName,
