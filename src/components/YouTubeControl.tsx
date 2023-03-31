@@ -61,7 +61,7 @@ export default function YouTubeControl({
   }, [state]);
 
   function handleAddPlaylistId(playListId: string) {
-    setPlayListIds((playListIds) => [playListId, ...playListIds]);
+    setPlayListIds(playListId);
   }
 
   return (
@@ -93,12 +93,10 @@ export default function YouTubeControl({
               }
               onCancel={() => setShowSettings(false)}
             >
-              {
-                <YTPlayerSettings
-                  onDone={() => setShowSettings(false)}
-                  onUpdate={handleAddPlaylistId}
-                />
-              }
+              <YTPlayerSettings
+                onDone={() => setShowSettings(false)}
+                onUpdate={handleAddPlaylistId}
+              />
             </Modal>
           )}
         </>
