@@ -19,12 +19,11 @@ export default function YouTubeControl({
 }: Props) {
   const parentRef = useRef<HTMLDivElement>(null);
   const isPlayerReady = useRef(false);
-  const [playListIds, setPlayListIds] = useLocalStorage<string[]>(
-    "playlist-ids",
-    [defaultPlayListId]
+  const [playListId, setPlayListIds] = useLocalStorage<string>(
+    "playlist-id",
+    defaultPlayListId
   );
 
-  const playListId = playListIds[0] || defaultPlayListId;
   const [showSettings, setShowSettings] = useState(false);
 
   let state: keyof typeof actions = "paused";
