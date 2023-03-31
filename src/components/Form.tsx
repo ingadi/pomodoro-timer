@@ -4,6 +4,37 @@ import { FiSkipForward, FiFastForward } from "react-icons/fi";
 import { createTsForm, useDescription, useTsController } from "@ts-react/form";
 import styles from "./Form.module.css";
 
+function TextField() {
+  const {
+    field: { onChange, value },
+    error,
+  } = useTsController<string>();
+  const { label, placeholder } = useDescription();
+
+  return (
+    <div className={styles["input-group"]}>
+      <div className={styles.input}>
+        <label className={styles.label}>{label}</label>
+        <span className={styles["field-group"]}>
+          <input
+            placeholder={placeholder}
+            className={styles.field}
+            type="text"
+            value={value ?? ""}
+            onChange={(e) => onChange(e.target.value)}
+          />
+        </span>
+      </div>
+      {error?.errorMessage && (
+        <p className={styles.error}>
+          <BiErrorCircle />
+          {error?.errorMessage}
+        </p>
+      )}
+    </div>
+  );
+}
+
 function NumberField({ subLabel }: { subLabel?: string }) {
   const {
     field: { value, onChange },
@@ -72,6 +103,7 @@ function ToggleSwitchField() {
 const mapping = [
   [z.number(), NumberField],
   [z.boolean(), ToggleSwitchField],
+  [z.string(), TextField],
 ] as const;
 
 export default createTsForm(mapping);
