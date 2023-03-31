@@ -10,3 +10,5 @@ export const defaultConfig = {
   isAutoNextEnabled: false,
   pomodorosBeforeLongBreak: 4,
 } as const;
+
+export const defaultPlayListId = "PLt7bG0K25iXjy1L7Wpf6jgeEvMlwpNpqF";

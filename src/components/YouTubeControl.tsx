@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import YouTubePlayer from "youtube-player";
+import { useLocalStorage } from "usehooks-ts";
 import { TfiYoutube } from "react-icons/tfi";
 import { SiYoutubestudio } from "react-icons/si";
 import Modal from "@components/Modal";
 import YTPlayerSettings from "@components/YTPlayerSettings";
 import { IntervalName } from "@types";
+import { defaultPlayListId } from "@constants";
 import styles from "./YouTubeControl.module.css";
 
 //TODO: Make draggable - https://www.w3schools.com/howto/howto_js_draggable.asp
@@ -17,9 +19,14 @@ export default function YouTubeControl({
 }: Props) {
   const parentRef = useRef<HTMLDivElement>(null);
   const isPlayerReady = useRef(false);
-  const [playListId, setPlayListId] = useState(
-    "PLt7bG0K25iXjy1L7Wpf6jgeEvMlwpNpqF"
+  const [playListIds, setPlayListIds] = useLocalStorage<string[]>(
+    "playlist-ids",
+    [defaultPlayListId]
   );
+
+  const playListId = playListIds[0] || defaultPlayListId;
+  const [showSettings, setShowSettings] = useState(false);
+
   let state: keyof typeof actions = "paused";
 
   if (intervalName === "work" && isTimerActive) {
@@ -54,6 +61,10 @@ export default function YouTubeControl({
     }
   }, [state]);
 
+  function handleAddPlaylistId(playListId: string) {
+    setPlayListIds((playListIds) => [playListId, ...playListIds]);
+  }
+
   return (
     <>
       <div ref={parentRef} className={styles.iframe}></div>
@@ -67,20 +78,30 @@ export default function YouTubeControl({
 
       {isActive && (
         <>
-          <button className={`${styles.button}`}>
+          <button
+            className={`${styles.button} ${showSettings ? styles.active : ""}`}
+            onClick={() => setShowSettings(!showSettings)}
+          >
             <SiYoutubestudio title="Toggle YouTube player settings" />
           </button>
-          <Modal
-            title={
-              <>
-                <SiYoutubestudio />
-                Player settings
-              </>
-            }
-            onCancel={() => {}}
-          >
-            <YTPlayerSettings onDone={() => {}} onUpdate={() => {}} />
-          </Modal>
+          {showSettings && (
+            <Modal
+              title={
+                <>
+                  <SiYoutubestudio />
+                  Player settings
+                </>
+              }
+              onCancel={() => setShowSettings(false)}
+            >
+              {
+                <YTPlayerSettings
+                  onDone={() => setShowSettings(false)}
+                  onUpdate={handleAddPlaylistId}
+                />
+              }
+            </Modal>
+          )}
         </>
       )}
     </>

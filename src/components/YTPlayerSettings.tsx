@@ -1,5 +1,6 @@
 import { z } from "zod";
 import Form from "@components/Form";
+import { defaultPlayListId } from "@constants";
 import styles from "./Settings.module.css";
 
 export default function YTPlayerSettings({ onDone, onUpdate }: Props) {
@@ -23,7 +24,7 @@ export default function YTPlayerSettings({ onDone, onUpdate }: Props) {
     <Form
       schema={FormSchema}
       onSubmit={(data: z.infer<typeof FormSchema>) => {
-        onUpdate();
+        onUpdate(data["playlist id"]);
         onDone();
       }}
       renderAfter={() => formControls}
@@ -34,14 +35,11 @@ export default function YTPlayerSettings({ onDone, onUpdate }: Props) {
 const FormSchema = z.object({
   "playlist id": z
     .string()
-    .describe(`Playlist ID // ${"PLt7bG0K25iXjy1L7Wpf6jgeEvMlwpNpqF"}`)
+    .describe(`Playlist ID // ${defaultPlayListId}`)
     .regex(/^PL.{32}$/),
 });
 
 type Props = {
-  // config: Config;
-  onUpdate: () => void;
+  onUpdate: (playListId: string) => void;
   onDone: () => void;
 };
-
-// const regexPattern = /^PL.{32}$/;
