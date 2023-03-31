@@ -58,7 +58,7 @@ function NumberField({ subLabel }: { subLabel?: string }) {
               onChange(isNaN(val) ? "" : val);
             }}
           />
-          <span>{subLabel}</span>
+          {subLabel && <span>{subLabel}</span>}
         </span>
       </div>
       {error?.errorMessage && (
