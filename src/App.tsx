@@ -142,8 +142,7 @@ export default function App() {
               isActive={isYouTubeActive}
               intervalName={currentIntervalName}
               isTimerActive={isTimerActive}
-              playListId={"PLt7bG0K25iXjy1L7Wpf6jgeEvMlwpNpqF"}
-              onClick={() => setIsYouTubeActive(!isYouTubeActive)}
+              onActive={() => setIsYouTubeActive(!isYouTubeActive)}
             />
             <PicInPicControl
               lines={[

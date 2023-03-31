@@ -1,8 +1,11 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import YouTubePlayer from "youtube-player";
 import { TfiYoutube } from "react-icons/tfi";
-import styles from "./YouTubeControl.module.css";
+import { SiYoutubestudio } from "react-icons/si";
+import Modal from "@components/Modal";
+import YTPlayerSettings from "@components/YTPlayerSettings";
 import { IntervalName } from "@types";
+import styles from "./YouTubeControl.module.css";
 
 //TODO: Make draggable - https://www.w3schools.com/howto/howto_js_draggable.asp
 
@@ -10,11 +13,13 @@ export default function YouTubeControl({
   isActive,
   intervalName,
   isTimerActive,
-  playListId,
-  onClick,
+  onActive,
 }: Props) {
   const parentRef = useRef<HTMLDivElement>(null);
   const isPlayerReady = useRef(false);
+  const [playListId, setPlayListId] = useState(
+    "PLt7bG0K25iXjy1L7Wpf6jgeEvMlwpNpqF"
+  );
   let state: keyof typeof actions = "paused";
 
   if (intervalName === "work" && isTimerActive) {
@@ -55,10 +60,29 @@ export default function YouTubeControl({
       <button
         title="Toggle YouTube player"
         className={`${styles.button} ${isActive ? styles.active : ""}`}
-        onClick={onClick}
+        onClick={onActive}
       >
         <TfiYoutube />
       </button>
+
+      {isActive && (
+        <>
+          <button className={`${styles.button}`}>
+            <SiYoutubestudio title="Toggle YouTube player settings" />
+          </button>
+          <Modal
+            title={
+              <>
+                <SiYoutubestudio />
+                Player settings
+              </>
+            }
+            onCancel={() => {}}
+          >
+            <YTPlayerSettings onDone={() => {}} onUpdate={() => {}} />
+          </Modal>
+        </>
+      )}
     </>
   );
 }
@@ -72,6 +96,5 @@ type Props = {
   isActive: boolean;
   intervalName: IntervalName;
   isTimerActive: boolean;
-  playListId: string;
-  onClick: () => void;
+  onActive: () => void;
 };
