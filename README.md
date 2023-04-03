@@ -6,7 +6,27 @@ A pomodoro timer with an auto next feature.
 
 [Demo](https://ingadi.github.io/pomodoro-timer/).
 
-## Project Structure (src)
+
+## Data model
+
+The application contains the following models:
+
+- User - can:
+  - start/end intervals, solo or as part of a peer group
+  - customize interval durations
+  - join a peer group to share interval sessions
+  - edit work session goals
+
+
+- Intervals: represents the durations of 3 timers:
+  - Work: (Also called pomodoro). Focus time, default 25 minutes
+  - Short break: Comes after focus time, default 5 minutes
+  - Long break: Default 15 minutes, comes after a set number of work intervals, default 4
+
+- Analytics: represents the total number of Interval sessions a user has completed.
+
+
+## Project Structure
 
 ```
 
