@@ -10,3 +10,4 @@ Break up auto next into breaks and work sessions
 Record duration separate from pomodoros
 add shareable pomo streaks
 Add show more stats - add comparisons like you focussed 20 min more/less than yesterday
+Pomodoro timer should adapt to work length e.g. if I skipped a break, that break should be added to the next break
